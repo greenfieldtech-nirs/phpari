@@ -21,7 +21,8 @@
     "autoload": {
         "files": [
             "phpari.php",
-            "src/interfaces/*"
+            "src/interfaces/asterisk.php",
+            "src/interfaces/channels.php"
         ]
     }
 }
