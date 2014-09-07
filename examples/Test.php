@@ -8,8 +8,11 @@
 
 require_once "../vendor/autoload.php";
 require_once "../phpari.php";
+require_once "../src/interfaces/asterisk.php";
+require_once "../src/interfaces/channels.php";
 
-class BasicAriConnector
+
+class Test
 {
     public function __construct()
     {
@@ -23,6 +26,10 @@ class BasicAriConnector
         $this->stasisLoop    = $phpariObject->stasisLoop;
         $this->stasisLogger  = $phpariObject->stasisLogger;
         $this->ariEndpoint   = $phpariObject->ari_endpoint;
+
+
+
+
 
     }
 
@@ -54,23 +61,65 @@ class BasicAriConnector
         }
     }
 
+
+
 }
 
-$basicAriClient = new BasicAriConnector();
+
+$chClient = new  Test();
+$channel  = new channels($chClient->ariEndpoint);
+//
+//
+//
+//
+echo "<pre>";
+
+//$response    =  $channel->channel_originate(
+//    'SIP/7002',
+//    $data    =  array(
+//        "extension"      => "7002",
+//        "context"        =>'from-phone',
+//        "priority"       => 1,
+//        "app"            => "",
+//        "appArgs"        => "",
+//        "callerid"       => "111",
+//        "timeout"        => -1,
+//        "channelId"      => '324234',
+//        "otherChannelId" => ""
+//    ),
+//    $valiables = array("var1"=>"cool")
+//);
+//
+//
+//print_r($response);
+
+
+
+//$response = $channel->channel_list();
+
+//print_r($response);
+
+//echo "</pre>";
+
+
+//$chClient->handlers();
+//$chClient->execute();
+
+
+$response =  $channel->channel_send_dtmf('1410094738.184','sdfsdafsad',$before = 1000 , $between = 100, $duration = 100 , $after = 1000);
+
+
+print_r($response);
+
 
 /**
  * Get some basic information from ARI
  */
-$ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
-$ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
+//$ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
+//$ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
 
-$ariChannels = new channels($basicAriClient->ariEndpoint);
-$ariAsteriskChannels = $ariChannels->channel_list();
 
-print_r($ariAsteriskInformation);
-print_r($ariAsteriskChannels);
 
-$basicAriClient->handlers();
-$basicAriClient->execute();
+
 
 exit(0);

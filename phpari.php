@@ -42,13 +42,13 @@ class phpari {
             }
             */
 
-            $this->ari_endpoint = new Pest("http://" . $ariServer . ":" . $ariPort . $ariEndpoint);
+            $this->ari_endpoint = new PestJSON("http://" . $ariServer . ":" . $ariPort . $ariEndpoint);
             $this->ari_endpoint->setupAuth($ariUsername, $ariPassword, "basic");
 
-            $this->stasisLoop = \React\EventLoop\Factory::create();
+            $this->stasisLoop   = \React\EventLoop\Factory::create();
 
             $this->stasisLogger = new \Zend\Log\Logger();
-            $this->logWriter = new Zend\Log\Writer\Stream("php://output");
+            $this->logWriter    = new Zend\Log\Writer\Stream("php://output");
             $this->stasisLogger->addWriter($this->logWriter);
 
             $this->stasisClient = new \Devristo\Phpws\Client\WebSocket("ws://" . $ariServer . ":" . $ariPort . "/ari/events?api_key=" . $ariUsername . ":" . $ariPassword . "&app=" . $stasisApplication, $this->stasisLoop, $this->stasisLogger);
