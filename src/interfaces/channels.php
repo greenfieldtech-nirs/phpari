@@ -9,14 +9,18 @@
 class channels extends phpari
 {
 
-    function __construct($pestObject = null)
+    function __construct($connObject = null)
     {
         try {
 
-            if (is_null($pestObject))
+            if (is_null($connObject)  || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
 
-            $this->pestObject = $pestObject;
+
+         //   print_r($pestObject);
+
+
+            $this->pestObject = $connObject->ariEndpoint;
 
         } catch (Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
@@ -462,8 +466,12 @@ class channels extends phpari
     }
 
 
-
-
+    /**
+     * Stop music on hold on cpecified channel
+     * @param null $channel_id
+     *
+     * @return bool
+     */
     public function channel_moh_stop($channel_id = null)
     {
         try {
@@ -618,10 +626,7 @@ class channels extends phpari
 
 
     /**
-     *
      * Get the value of a channel variable or function
-     *
-     *
      * @param null $channel_id
      * @param null $variable
      * @return bool

@@ -7,7 +7,6 @@
  */
 
 require_once "../vendor/autoload.php";
-require_once "../phpari.php";
 
 class BasicAriConnector
 {
@@ -19,10 +18,11 @@ class BasicAriConnector
 
 
 
+        $this->ariEndpoint   = $phpariObject->ariEndpoint;
         $this->stasisClient  = $phpariObject->stasisClient;
         $this->stasisLoop    = $phpariObject->stasisLoop;
         $this->stasisLogger  = $phpariObject->stasisLogger;
-        $this->ariEndpoint   = $phpariObject->ari_endpoint;
+
 
     }
 
@@ -36,6 +36,14 @@ class BasicAriConnector
             $this->stasisClient->on("handshake", function () {
                 $this->stasisLogger->notice("Handshake received!");
             });
+
+            $this->stasisClient->on("message", function ($message) {
+
+                print_r($message->getData());
+
+                $this->stasisLogger->notice($message->getData());
+            });
+
         } catch (Exception $e) {
             echo $e->getMessage();
             exit(99);
@@ -63,12 +71,11 @@ $basicAriClient = new BasicAriConnector();
  */
 $ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
 $ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
-
-$ariChannels = new channels($basicAriClient->ariEndpoint);
+$ariChannels = new channels($basicAriClient);
 $ariAsteriskChannels = $ariChannels->channel_list();
 
-print_r($ariAsteriskInformation);
-print_r($ariAsteriskChannels);
+//print_r($ariAsteriskInformation);
+//print_r($ariAsteriskChannels);
 
 $basicAriClient->handlers();
 $basicAriClient->execute();
