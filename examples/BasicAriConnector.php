@@ -7,7 +7,6 @@
  */
 
 require_once "../vendor/autoload.php";
-require_once "../phpari.php";
 
 class BasicAriConnector
 {
@@ -70,11 +69,10 @@ $basicAriClient = new BasicAriConnector();
 /**
  * Get some basic information from ARI
  */
-//$ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
-//$ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
-//
-//$ariChannels = new channels($basicAriClient);
-//$ariAsteriskChannels = $ariChannels->channel_list();
+$ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
+$ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
+$ariChannels = new channels($basicAriClient);
+$ariAsteriskChannels = $ariChannels->channel_list();
 
 //print_r($ariAsteriskInformation);
 //print_r($ariAsteriskChannels);

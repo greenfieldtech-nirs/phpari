@@ -3,12 +3,8 @@
 
 require_once "../vendor/autoload.php";
 
-$conn      = new phpari("lnotik", "hwab7bk", "hello-world", "178.62.185.100", 8088, "/ari");
-$channels  = new channels($conn);
-
-
-//echo '<pre>';
-
+$conn        = new phpari("lnotik", "hwab7bk", "hello-world", "178.62.185.100", 8088, "/ari");
+$channels    = new channels($conn);
 $response    =  $channels->channel_originate(
     'SIP/7001',
     $data    =  array(
@@ -25,15 +21,8 @@ $response    =  $channels->channel_originate(
     $valiables = array("var1"=>"cool")
 );
 
-
-//print_r($response);
-
-
 header('Content-Type: application/json');
 echo json_encode($response);
-//echo '</pre>';
-
-
-
+exit(0);
 
 ?>
