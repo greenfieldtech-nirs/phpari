@@ -22,7 +22,10 @@
         "files": [
             "phpari.php",
             "src/interfaces/asterisk.php",
-            "src/interfaces/channels.php"
+            "src/interfaces/channels.php",
+            "src/interfaces/bridges.php",
+            "src/interfaces/endpoints.php",
+            "src/interfaces/recordings.php"
         ]
     }
 }
