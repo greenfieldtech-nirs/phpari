@@ -15,9 +15,6 @@ class BasicAriConnector
         //   $phpariObject = new phpari("ariuser", "4r1u53r", "hello-world", "178.62.19.221", 8088, "/ari");
         $phpariObject = new phpari("lnotik", "hwab7bk", "hello-world", "178.62.185.100", 8088, "/ari");
 
-
-
-
         $this->ariEndpoint   = $phpariObject->ariEndpoint;
         $this->stasisClient  = $phpariObject->stasisClient;
         $this->stasisLoop    = $phpariObject->stasisLoop;
