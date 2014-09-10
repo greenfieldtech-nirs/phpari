@@ -7,20 +7,14 @@
  */
 
 
-require_once "src/interfaces/bridges.php";
+
 
 class phpari
 {
 
 
-    protected  $bridges_obj;
-    protected  $connect;
-
-//    protected $ariEndpoint;
-//    protected $stasisLoop;
-//    protected $stasisLogger;
-//    protected $logWriter;
-//    protected $stasisClient;
+// public  $ariEndpoint;
+// public  $stasisLogger;
 
     /**
      * @param null $ariUsername
@@ -60,13 +54,6 @@ class phpari
 
     }
 
-//    private function  init()
-//    {
-//        $this->$bridges_obj = new bridges($this);
-//    }
-
-
-
     private function connect($ariUsername, $ariPassword, $stasisApplication, $ariServer , $ariPort , $ariEndpoint)
     {
 
@@ -94,45 +81,6 @@ class phpari
     }
 
 
-
-    public function handlers()
-    {
-        try {
-
-            if(! isset($this->stasisClient))
-                throw new Exception('Stasis client not ready or missing ...');
-
-
-            $this->stasisClient->on("request", function ($headers) {
-                $this->stasisLogger->notice("Request received! headers are : " . json_encode($headers));
-            });
-
-            $this->stasisClient->on("handshake", function ($response) {
-                $this->stasisLogger->notice("Handshake received! " . json_encode($response));
-            });
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit(99);
-        }
-    }
-
-    public function execute()
-    {
-        try {
-
-            if(! isset($this->stasisClient))
-                throw new Exception('Stasis client not ready or missing ...');
-            if(! isset($this->stasisLoop))
-                throw new Exception('Stasis loop not ready or missing ...');
-
-            $this->stasisClient->open();
-            $this->stasisLoop->run();
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit(99);
-        }
-    }
 
 
 
