@@ -23,15 +23,17 @@
      * written by Nir Simionovich and its respective list of contributors.
      */
 
-    require_once "../vendor/autoload.php";
-    require_once "examples-config.php";
+    /* Should be identical to the context, defined in /etc/asterisk/ari.conf */
+    define("ARI_USERNAME",  "lnotik");
 
-    $conn       = new phpari(ARI_USERNAME, ARI_PASSWORD, "hello-world", ARI_SERVER, ARI_PORT, ARI_ENDPOINT);
-    $cEndPoints = new endpoints($conn);
-    $response   = $cEndPoints->endpoints_list();
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit(0);
+    /* Should be identical to the password, defined in /etc/asterisk/ari.conf */
+    define("ARI_PASSWORD",  "hwab7bk");
 
+    /* Your Asterisk IP number */
+    define("ARI_SERVER",    "178.62.185.100");
 
-?>
+    /* Your Asterisk ARI port number */
+    define("ARI_PORT",      8088);
+
+    /* Your Asterisk ARI HTTP endpoint */
+    define("ARI_ENDPOINT",  "/ari");
