@@ -64,7 +64,7 @@ $basicAriClient = new BasicAriConnector();
 $ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
 $ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
 
-$ariChannels = new channels($basicAriClient->ariEndpoint);
+$ariChannels = new channels($basicAriClient);
 $ariAsteriskChannels = $ariChannels->channel_list();
 
 print_r($ariAsteriskInformation);
