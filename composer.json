@@ -29,7 +29,8 @@
             "src/interfaces/applications.php",
             "src/interfaces/devicestates.php",
             "src/interfaces/events.php",
-            "src/interfaces/mailboxes.php"
+            "src/interfaces/mailboxes.php",
+            "src/interfaces/sounds.php"
         ]
     }
 }
