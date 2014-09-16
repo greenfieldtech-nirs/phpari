@@ -26,8 +26,10 @@
             "src/interfaces/bridges.php",
             "src/interfaces/endpoints.php",
             "src/interfaces/recordings.php",
-            "src/interfaces/applications.php"
-
+            "src/interfaces/applications.php",
+            "src/interfaces/devicestates.php",
+            "src/interfaces/events.php",
+            "src/interfaces/mailboxes.php"
         ]
     }
 }

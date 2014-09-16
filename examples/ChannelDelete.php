@@ -10,7 +10,7 @@ try{
     if(! ($postData)  || empty($postData))
         throw new Exception('The post data is empty and the channel ID  is missing',503);
 
-    $postDataObject  = json_decode($this->postData,FALSE);
+    $postDataObject  = json_decode($postData,FALSE);
     $channelID       =  $postDataObject->channelID;
     $response        = $channels->channel_delete($channelID);
 

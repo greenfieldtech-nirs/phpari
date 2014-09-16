@@ -39,7 +39,7 @@ class BasicAriConnector
 
             $this->stasisClient->on("message", function ($message) {
 
-                print_r($message->getData());
+             //   print_r($message->getData());
 
                 $this->stasisLogger->notice($message->getData());
             });
@@ -69,10 +69,10 @@ $basicAriClient = new BasicAriConnector();
 /**
  * Get some basic information from ARI
  */
-$ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
-$ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
-$ariChannels = new channels($basicAriClient);
-$ariAsteriskChannels = $ariChannels->channel_list();
+//$ariAsterisk = new asterisk($basicAriClient->ariEndpoint);
+//$ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
+//$ariChannels = new channels($basicAriClient);
+//$ariAsteriskChannels = $ariChannels->channel_list();
 
 //print_r($ariAsteriskInformation);
 //print_r($ariAsteriskChannels);
