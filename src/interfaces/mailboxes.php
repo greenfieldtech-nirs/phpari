@@ -1,4 +1,5 @@
 <?php
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -28,13 +29,14 @@ class mailboxes //extends phpari
     {
         try {
 
-            if (is_null($connObject)  || is_null($connObject->ariEndpoint))
+            if (is_null($connObject) || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
             $this->pestObject = $connObject->ariEndpoint;
         } catch (Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
+
     /**
      * GET /mailboxes
      * List all mailboxes.
@@ -46,10 +48,9 @@ class mailboxes //extends phpari
             if (is_null($this->pestObject))
                 throw new Exception("Pest project is  not provided or is null", 503);
 
-            $uri    = "/mailboxes";
+            $uri = "/mailboxes";
             $result = $this->pestObject->get($uri);
             return $result;
-
 
 
         } catch (Exception $e) {
@@ -69,10 +70,9 @@ class mailboxes //extends phpari
             if (is_null($mailBoxName))
                 throw new Exception("Mail box name is  not provided or is null", 503);
 
-            $uri    = "/mailboxes/".$mailBoxName;
+            $uri = "/mailboxes/" . $mailBoxName;
             $result = $this->pestObject->get($uri);
             return $result;
-
 
 
         } catch (Exception $e) {
@@ -90,7 +90,7 @@ class mailboxes //extends phpari
      * @param  null $newMessages
      * @return bool
      */
-    public function   mailbox_change_state($mailBoxName = null,$oldMessages = null, $newMessages = null)
+    public function   mailbox_change_state($mailBoxName = null, $oldMessages = null, $newMessages = null)
     {
         try {
 
@@ -101,16 +101,15 @@ class mailboxes //extends phpari
             if (is_null($newMessages))
                 throw new Exception("New messages is  not provided or is null", 503);
 
-            $uri    = "/mailboxes/".$mailBoxName;
+            $uri = "/mailboxes/" . $mailBoxName;
 
             $putObj = array(
-                'oldMessages'=>$oldMessages,
-                'newMessages'=>$newMessages
+                'oldMessages' => $oldMessages,
+                'newMessages' => $newMessages
 
             );
-            $result = $this->pestObject->put($uri,$putObj);
+            $result = $this->pestObject->put($uri, $putObj);
             return $result;
-
 
 
         } catch (Exception $e) {
@@ -129,10 +128,9 @@ class mailboxes //extends phpari
             if (is_null($mailBoxName))
                 throw new Exception("Mail box name is  not provided or is null", 503);
 
-            $uri    = "/mailboxes/".$mailBoxName;
+            $uri = "/mailboxes/" . $mailBoxName;
             $result = $this->pestObject->delete($uri);
             return $result;
-
 
 
         } catch (Exception $e) {
