@@ -36,13 +36,12 @@ class phpari
     private $recordings;
     private $sounds;
 
-
     /**
-     * @param null   $ariUsername
-     * @param null   $ariPassword
-     * @param null   $stasisApplication
+     * @param null $ariUsername
+     * @param null $ariPassword
+     * @param null $stasisApplication
      * @param string $ariServer
-     * @param int    $ariPort
+     * @param int $ariPort
      * @param string $ariEndpoint
      *
      * Returns an array containing 4 objects: WebSocket, Pest, EventLoopFactory, Logger
@@ -95,7 +94,7 @@ class phpari
             $this->stasisLoop = \React\EventLoop\Factory::create();
 
             $this->stasisLogger = new \Zend\Log\Logger();
-            $this->logWriter    = new Zend\Log\Writer\Stream("php://output");
+            $this->logWriter = new Zend\Log\Writer\Stream("php://output");
             $this->stasisLogger->addWriter($this->logWriter);
 
 
@@ -110,57 +109,58 @@ class phpari
 
     public function  applications()
     {
-
         $this->applications = new applications($this);
         return $this->applications;
     }
 
     public function  asterisk()
     {
-
         $this->asterisk = new asterisk($this);
         return $this->asterisk;
     }
+
     public function   bridges()
     {
-
         $this->bridges = new bridges($this);
         return $this->bridges;
     }
+
     public function   channels()
     {
         $this->channels = new channels($this);
         return $this->channels;
-
     }
+
     public function   deviceStates()
     {
-
         $this->devicestates = new devicestates($this);
         return $this->devicestates;
     }
+
     public function   endPoints()
     {
-
         $this->endpoints = new endpoints($this);
         return $this->endpoints;
     }
+
     public function   events()
     {
-
         $this->events = new events($this);
         return $this->events;
     }
+
     public function   mailBoxes()
     {
         $this->mailboxes = new mailboxes($this);
         return $this->mailboxes;
     }
+
     public function  recordings()
     {
         $this->recordings = new recordings($this);
         return $this->recordings;
     }
+
     public function  sounds()
     {
         $this->sounds = new sounds($this);
