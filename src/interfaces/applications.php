@@ -23,13 +23,14 @@
      * the library `phpari' (a library for creating smart telephony applications)
      * written by Nir Simionovich and its respective list of contributors.
      */
-    class applications extends phpari
+class applications // extends phpari
     {
 
 
-        function __construct($connObject = NULL)
-        {
-            try {
+
+    function __construct($connObject = null)
+    {
+        try {
 
                 if (is_null($connObject) || is_null($connObject->ariEndpoint))
                     throw new Exception("Missing PestObject or empty string", 503);

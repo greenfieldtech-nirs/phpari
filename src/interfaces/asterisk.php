@@ -23,7 +23,7 @@
      * the library `phpari' (a library for creating smart telephony applications)
      * written by Nir Simionovich and its respective list of contributors.
      */
-    class asterisk extends phpari
+class asterisk // extends phpari
     {
 
         function __construct($pestObject = NULL)
