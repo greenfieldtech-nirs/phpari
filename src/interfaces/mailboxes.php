@@ -7,7 +7,7 @@
  * Time: 12:08 AM
  */
 
-class mailboxes extends phpari
+class mailboxes //extends phpari
 {
     function __construct($connObject = null)
     {

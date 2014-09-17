@@ -3,7 +3,7 @@
 /**
  * Class devicestates
  */
-class devicestates extends phpari
+class devicestates //extends phpari
 {
 
 

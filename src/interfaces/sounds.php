@@ -7,7 +7,7 @@
  * Time: 12:08 AM
  */
 
-class sounds extends phpari
+class sounds //extends phpari
 {
     function __construct($connObject = null)
     {

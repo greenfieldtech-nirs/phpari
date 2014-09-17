@@ -6,7 +6,7 @@
  * Date: 9/6/14
  * Time: 12:08 AM
  */
-class channels extends phpari
+class channels //extends phpari
 {
 
     function __construct($connObject = null)
@@ -15,9 +15,6 @@ class channels extends phpari
 
             if (is_null($connObject)  || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
-
-
-         //   print_r($pestObject);
 
 
             $this->pestObject = $connObject->ariEndpoint;

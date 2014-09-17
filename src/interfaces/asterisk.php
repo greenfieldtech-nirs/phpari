@@ -6,7 +6,7 @@
  * Date: 9/6/14
  * Time: 12:08 AM
  */
-class asterisk extends phpari
+class asterisk // extends phpari
 {
 
     function __construct($pestObject = null)

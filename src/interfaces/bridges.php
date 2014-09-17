@@ -7,7 +7,7 @@
  * Time: 12:08 AM
  */
 
-class bridges extends phpari
+class bridges // extends phpari
 {
     function __construct($connObject = null)
     {

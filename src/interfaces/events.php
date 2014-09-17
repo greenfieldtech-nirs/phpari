@@ -7,7 +7,7 @@
  * Time: 12:08 AM
  */
 
-class events extends phpari
+class events // extends phpari
 {
     function __construct($connObject = null)
     {

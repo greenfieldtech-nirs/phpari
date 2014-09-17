@@ -7,7 +7,7 @@
  * Time: 12:08 AM
  */
 
-class endpoints extends phpari
+class endpoints //extends phpari
 {
 
 

@@ -10,7 +10,7 @@
 
 
 
-class applications extends phpari
+class applications // extends phpari
 {
 
 
