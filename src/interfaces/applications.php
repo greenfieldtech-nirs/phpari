@@ -27,6 +27,7 @@ class applications // extends phpari
     {
 
 
+
     function __construct($connObject = null)
     {
         try {
