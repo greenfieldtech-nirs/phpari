@@ -23,7 +23,7 @@
      * the library `phpari' (a library for creating smart telephony applications)
      * written by Nir Simionovich and its respective list of contributors.
      */
-    class channels extends phpari
+class channels //extends phpari
     {
 
         function __construct($connObject = NULL)

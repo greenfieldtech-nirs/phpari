@@ -25,6 +25,21 @@
      */
     class phpari
     {
+    private $applications;
+    private $asterisk;
+    private $bridges;
+    private $channels;
+    private $devicestates;
+    private $endpoints;
+    private $events;
+    private $mailboxes;
+    private $recordings;
+    private $sounds;
+    private $ariUsername;
+    private $ariPassword;
+    private $stasisApplication;
+    private $ariServer;
+    private $ariPort;
 
         /**
          * @param null   $ariUsername
@@ -62,6 +77,20 @@
 
         }
 
+    /**
+     * This function is connecting and returning a phpari client object which
+     * transferred to any of the interfaces will assist with the connection process
+     * to the Asterisk Stasis or to the Asterisk 12 web server (Channels list , End Points list)
+     * etc.
+     *
+     * @param $ariUsername
+     * @param $ariPassword
+     * @param $stasisApplication
+     * @param $ariServer
+     * @param $ariPort
+     * @param $ariEndpoint
+     * @return array
+     */
         private function connect($ariUsername, $ariPassword, $stasisApplication, $ariServer, $ariPort, $ariEndpoint)
         {
 
@@ -84,9 +113,64 @@
             } catch (Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
             }
-
-        }
-
-
     }
 
+    public function  applications()
+    {
+
+        $this->applications = new applications($this);
+        return $this->applications;
+    }
+
+    public function  asterisk()
+    {
+
+        $this->asterisk = new asterisk($this);
+        return $this->asterisk;
+    }
+    public function   bridges()
+    {
+
+        $this->bridges = new bridges($this);
+        return $this->bridges;
+    }
+    public function   channels()
+    {
+        $this->channels = new channels($this);
+        return $this->channels;
+
+    }
+    public function   deviceStates()
+    {
+
+        $this->devicestates = new devicestates($this);
+        return $this->devicestates;
+    }
+    public function   endPoints()
+    {
+
+        $this->endpoints = new endpoints($this);
+        return $this->endpoints;
+    }
+    public function   events()
+    {
+
+        $this->events = new events($this);
+        return $this->events;
+    }
+    public function   mailBoxes()
+    {
+        $this->mailboxes = new mailboxes($this);
+        return $this->mailboxes;
+    }
+    public function  recordings()
+    {
+        $this->recordings = new recordings($this);
+        return $this->recordings;
+    }
+    public function  sounds()
+    {
+        $this->sounds = new sounds($this);
+        return $this->sounds;
+    }
+}
