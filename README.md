@@ -8,12 +8,15 @@ Dependencies
 These are the minimum requirements to have phpari installed on your server:
 
 ** PHP >= 5.3.9
+
 ** Composer
+
 ** PHP OpenSSL Module to connect using SSL (wss:// uris)
 
 Additional dependencies are installed via Composer, these include:
 
 ** Reactphp   (http://reactphp.org/)
+
 ** ZF2 Logger (http://framework.zend.com/manual/2.0/en/modules/zend.log.overview.html)
 
 Installation
@@ -47,7 +50,7 @@ echo "Ending ARI Connection\n";
 
 ```
 
-The output should resemble the followiong:
+The output should resemble the following:
 
 ```
 [root@ari agi-bin]# php test.php
@@ -56,6 +59,6 @@ Active Channels: []
 Ending ARI Connection
 ```
 
-Reporiting Issues
+Reporting Issues
 --------------------
 Please report issues directly via the Github project page.

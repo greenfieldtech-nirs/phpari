@@ -26,13 +26,13 @@
 class endpoints //extends phpari
 {
 
-
-    function __construct($connObject = NULL)
+    function __construct($connObject = null)
     {
         try {
 
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
+
             $this->pestObject = $connObject->ariEndpoint;
 
         } catch (Exception $e) {
