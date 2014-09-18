@@ -26,14 +26,14 @@
 class asterisk // extends phpari
 {
 
-    function __construct($pestObject = NULL)
+    function __construct($connObject = null)
     {
         try {
 
-            if (is_null($pestObject))
+            if (is_null($connObject) || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
 
-            $this->pestObject = $pestObject;
+            $this->pestObject = $connObject->ariEndpoint;
 
         } catch (Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
