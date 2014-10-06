@@ -61,7 +61,7 @@ class asterisk // extends phpari
             $uri = "/asterisk/info";
             $uri .= (!is_null($filter)) ? '?only=' . $filter : '';
 
-            $result = json_decode($this->pestObject->get($uri));
+            $result = $this->pestObject->get($uri);
 
             return $result;
 
@@ -83,7 +83,7 @@ class asterisk // extends phpari
 
             $uri = "/asterisk/variable?variable=" . $variable;
 
-            $jsonResult = json_decode($this->pestObject->get($uri));
+            $jsonResult = $this->pestObject->get($uri);
 
             $result = $jsonResult->value;
 

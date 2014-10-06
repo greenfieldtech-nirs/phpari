@@ -28,21 +28,44 @@
 
     class BasicAriConnector
     {
+
+        private $ariEndpoint;
+        private $stasisClient;
+        private $stasisLoop;
+        private $stasisLogger;
+        private $phpariObject;
+        private $stasisChannelID;
+
+        private $dtmfSequence = "";
+
         public function __construct()
         {
-            $phpariObject = new phpari(ARI_USERNAME, ARI_PASSWORD, "hello-world", ARI_SERVER, ARI_PORT, ARI_ENDPOINT);
+            $this->phpariObject = new phpari(ARI_USERNAME, ARI_PASSWORD, "hello-world", ARI_SERVER, ARI_PORT, ARI_ENDPOINT);
 
-            $this->ariEndpoint  = $phpariObject->ariEndpoint;
-            $this->stasisClient = $phpariObject->stasisClient;
-            $this->stasisLoop   = $phpariObject->stasisLoop;
-            $this->stasisLogger = $phpariObject->stasisLogger;
+            $this->ariEndpoint  = $this->phpariObject->ariEndpoint;
+            $this->stasisClient = $this->phpariObject->stasisClient;
+            $this->stasisLoop   = $this->phpariObject->stasisLoop;
+            $this->stasisLogger = $this->phpariObject->stasisLogger;
+        }
 
+        public function setDtmf($digit = null) {
+            try {
 
+                $this->dtmfSequence .= $digit;
+
+                return true;
+
+            } catch (Exception $e) {
+                return false;
+            }
         }
 
         public function handlers()
         {
             try {
+                $stasisClientLocal = $this->stasisClient;
+                $stasisLoggerLocal = $this->stasisLogger;
+
                 $this->stasisClient->on("request", function ($headers) {
                     $this->stasisLogger->notice("Request received!");
                 });
@@ -52,10 +75,55 @@
                 });
 
                 $this->stasisClient->on("message", function ($message) {
+                    $messageObject = json_decode($message->getData());
+                    echo $messageObject->type . " Received \n";
+                    switch ($messageObject->type) {
+                        case "StasisStart";
+                            echo "StasisStart";
+                            $this->stasisChannelID = $messageObject->channel->id;
+                            $this->phpariObject->channels()->channel_answer($this->stasisChannelID);
+                            $this->phpariObject->channels()->channel_playback($this->stasisChannelID, 'sound:demo-thanks',null,null,null,'play1');
+                            break;
+                        case "StasisEnd":
+                            echo "StasisEnd";
+                            $this->phpariObject->channels()->channel_delete($this->stasisChannelID);
+                            break;
+                        case "PlaybackStarted":
+                            echo "+++ PlaybackStarted +++ " . json_encode($messageObject->playback) . "\n";
+                            break;
+                        case "PlaybackFinished":
+                            switch ($messageObject->playback->id) {
+                                case "play1":
+                                    $this->phpariObject->channels()->channel_playback($this->stasisChannelID, 'sound:demo-congrats',null,null,null,'play2');
+                                    break;
+                                case "play2":
+                                    $this->phpariObject->channels()->channel_playback($this->stasisChannelID, 'sound:demo-echotest',null,null,null,'end');
+                                    break;
+                                case "end":
+                                    $this->phpariObject->channels()->channel_continue($this->stasisChannelID);
+                                    break;
+                            }
+                            break;
+                        case "ChannelDtmfReceived":
+                            $this->setDtmf($messageObject->digit);
+                            echo "+++ DTMF Received +++ [" . $messageObject->digit . "] [" . $this->dtmfSequence. "]\n";
+                            switch ($messageObject->digit) {
+                                case "*":
+                                    $this->dtmfSequence = "";
+                                    echo "+++ Resetting DTMF buffer\n";
+                                    break;
+                                case "#":
+                                    echo "+++ Playback ID: " . $this->phpariObject->playbacks()->get_playback();
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        default:
+                            print_r($messageObject);
+                            break;
 
-                    print_r($message->getData());
-
-                    $this->stasisLogger->notice($message->getData());
+                    }
                 });
 
             } catch (Exception $e) {
@@ -83,14 +151,6 @@
     /**
      * Get some basic information from ARI
      */
-    $ariAsterisk            = new asterisk($basicAriClient->ariEndpoint);
-    $ariAsteriskInformation = $ariAsterisk->get_asterisk_info();
-    $ariChannels            = new channels($basicAriClient);
-    $ariAsteriskChannels    = $ariChannels->channel_list();
-
-    print_r($ariAsteriskInformation);
-    print_r($ariAsteriskChannels);
-
     $basicAriClient->handlers();
     $basicAriClient->execute();
 

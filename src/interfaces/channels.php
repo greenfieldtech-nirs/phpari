@@ -202,7 +202,7 @@ class channels //extends phpari
             if (is_null($channel_id))
                 throw new Exception("Channel ID not provided or is null", 503);
 
-            $result = $this->pestObject->post("/channels/" . $channel_id . "/continue");
+            $result = $this->pestObject->post("/channels/" . $channel_id . "/continue", NULL);
 
             return $result;
 
@@ -616,16 +616,7 @@ class channels //extends phpari
      *
      * @return bool
      */
-    public function channel_record(
-        $channel_id = NULL,
-        $name = NULL,
-        $format = NULL,
-        $maxDurationSeconds = 0,
-        $maxSilenceSeconds = 0,
-        $ifExists = 'fail',
-        $beep = TRUE,
-        $terminateOn = "none"
-    )
+    public function channel_record($channel_id = NULL, $name = NULL, $format = NULL, $maxDurationSeconds = 0, $maxSilenceSeconds = 0, $ifExists = 'fail', $beep = TRUE, $terminateOn = "none")
     {
         try {
 
@@ -731,15 +722,7 @@ class channels //extends phpari
      *
      * @return bool
      */
-    public function channel_snoop_start(
-        $channel_id = NULL,
-        $spy = "none",
-        $whisper = "none",
-        $app = NULL,
-        $appArgs = NULL,
-        $snoopId = NULL
-
-    )
+    public function channel_snoop_start($channel_id = NULL, $spy = "none", $whisper = "none", $app = NULL, $appArgs = NULL, $snoopId = NULL)
     {
         try {
 
@@ -779,15 +762,7 @@ class channels //extends phpari
      *
      * @return bool
      */
-    public function channel_snoop_start_id(
-        $channel_id = NULL,
-        $spy = "none",
-        $whisper = "none",
-        $app = NULL,
-        $appArgs = NULL,
-        $snoopId = NULL
-
-    )
+    public function channel_snoop_start_id($channel_id = NULL, $spy = "none", $whisper = "none", $app = NULL, $appArgs = NULL, $snoopId = NULL)
     {
         try {
 
