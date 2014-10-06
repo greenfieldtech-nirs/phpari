@@ -23,10 +23,10 @@
  * the library `phpari' (a library for creating smart telephony applications)
  * written by Nir Simionovich and its respective list of contributors.
  */
-class asterisk // extends phpari
+class playbacks //extends phpari
 {
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -40,84 +40,91 @@ class asterisk // extends phpari
         }
     }
 
-    public function get_asterisk_info($filter = NULL)
+    /**
+     * @param null $playbackid
+     * @return array|bool
+     */
+    public function get_playback($playbackid = null)
     {
-
         try {
-
             $result = FALSE;
 
-            switch ($filter) {
-                case "build":
-                case "system":
-                case "config":
-                case "status":
-                    break;
-                default:
-                    $filter = NULL;
-                    break;
-            }
+            if (is_null($this->pestObject))
+                throw new Exception("PEST Object not provided or is null", 503);
 
-            $uri = "/asterisk/info";
-            $uri .= (!is_null($filter)) ? '?only=' . $filter : '';
+            //if (is_null($playbackid))
+            //    throw new Exception("playbackid is required for this operation", 503);
 
+            $uri = "/playbacks/" . $playbackid;
             $result = $this->pestObject->get($uri);
 
             return $result;
-
         } catch (Exception $e) {
             return FALSE;
         }
-
     }
 
-    public function get_global_variable($variable = NULL)
+    /**
+     * @param null $playbackid
+     * @return array|bool
+     */
+    public function delete_playback($playbackid = null)
     {
-
         try {
-
             $result = FALSE;
 
-            if (is_null($variable))
-                throw new Exception("Global variable name not provided or is null", 503);
+            if (is_null($this->pestObject))
+                throw new Exception("PEST Object not provided or is null", 503);
 
-            $uri = "/asterisk/variable?variable=" . $variable;
+            if (is_null($playbackid))
+                throw new Exception("playbackid is required for this operation", 503);
 
-            $jsonResult = $this->pestObject->get($uri);
-
-            $result = $jsonResult->value;
+            $uri = "/playbacks/" . $playbackid;
+            $result = $this->pestObject->delete($uri);
 
             return $result;
-
         } catch (Exception $e) {
             return FALSE;
         }
-
     }
 
-    public function set_global_variable($variable = NULL, $value = NULL)
+    /**
+     * @param null $playbackid
+     * @param null $control
+     * @return array|bool
+     */
+    public function control_playback($playbackid = null, $control = null)
     {
-
         try {
-
             $result = FALSE;
 
-            if (is_null($variable))
-                throw new Exception("Global variable name not provided or is null", 503);
+            if (is_null($this->pestObject))
+                throw new Exception("PEST Object not provided or is null", 503);
 
-            if (is_null($value))
-                throw new Exception("Global variable value not provided or is null", 503);
+            if (is_null($playbackid))
+                throw new Exception("playbackid is required for this operation", 503);
 
-            $uri = "/asterisk/variable";
-            $postData = array("variable" => $variable, "value" => $value);
+            if (is_null($control))
+                throw new Exception("control is required for this operation", 503);
 
-            $result = $this->pestObject->post($uri, $postData);
+            switch (strtoupper($control)) {
+                case "RESTART":
+                case "PAUSE":
+                case "UNPAUSE":
+                case "REVERSE":
+                case "FORWARD":
+                    break;
+                default:
+                    throw new Exception("control property is unknown", 503);
+                    break;
+            }
+
+            $uri = "/playbacks/" . $playbackid . "/control";
+            $result = $this->pestObject->post($uri, array('operation' => $control));
 
             return $result;
-
         } catch (Exception $e) {
             return FALSE;
         }
-
     }
 }

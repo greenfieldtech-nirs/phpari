@@ -35,6 +35,7 @@ class phpari
     private $mailboxes;
     private $recordings;
     private $sounds;
+    private $playbacks;
 
     /**
      * @param null $ariUsername
@@ -107,63 +108,70 @@ class phpari
         }
     }
 
-    public function  applications()
+    public function applications()
     {
         $this->applications = new applications($this);
         return $this->applications;
     }
 
-    public function  asterisk()
+    public function asterisk()
     {
         $this->asterisk = new asterisk($this);
         return $this->asterisk;
     }
 
-    public function   bridges()
+    public function bridges()
     {
         $this->bridges = new bridges($this);
         return $this->bridges;
     }
 
-    public function   channels()
+    public function channels()
     {
         $this->channels = new channels($this);
         return $this->channels;
     }
 
-    public function   deviceStates()
+    public function deviceStates()
     {
         $this->devicestates = new devicestates($this);
         return $this->devicestates;
     }
 
-    public function   endPoints()
+    public function endPoints()
     {
         $this->endpoints = new endpoints($this);
         return $this->endpoints;
     }
 
-    public function   events()
+    public function events()
     {
         $this->events = new events($this);
         return $this->events;
     }
 
-    public function   mailBoxes()
+    public function mailBoxes()
     {
         $this->mailboxes = new mailboxes($this);
         return $this->mailboxes;
     }
 
-    public function  recordings()
+    public function recordings()
     {
         $this->recordings = new recordings($this);
         return $this->recordings;
     }
 
-    public function  sounds()
+    public function sounds()
     {
         $this->sounds = new sounds($this);
         return $this->sounds;
     }
+
+    public function playbacks()
+    {
+        $this->playbacks = new playbacks($this);
+        return $this->playbacks;
+    }
+
 }

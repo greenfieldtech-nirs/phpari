@@ -24,13 +24,13 @@
  */
 
 /* Should be identical to the context, defined in /etc/asterisk/ari.conf */
-define("ARI_USERNAME", "lnotik");
+define("ARI_USERNAME", "testuser");
 
 /* Should be identical to the password, defined in /etc/asterisk/ari.conf */
-define("ARI_PASSWORD", "hwab7bk");
+define("ARI_PASSWORD", "testing");
 
 /* Your Asterisk IP number */
-define("ARI_SERVER", "178.62.185.100");
+define("ARI_SERVER", "178.62.19.221");
 
 /* Your Asterisk ARI port number */
 define("ARI_PORT", 8088);
