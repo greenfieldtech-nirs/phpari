@@ -114,6 +114,7 @@
                                     break;
                                 case "#":
                                     echo "+++ Playback ID: " . $this->phpariObject->playbacks()->get_playback();
+                                    $this->phpariObject->channels()->channel_continue($this->stasisChannelID,"demo","s",1);
                                     break;
                                 default:
                                     break;

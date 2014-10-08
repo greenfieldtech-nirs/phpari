@@ -183,13 +183,14 @@ class channels //extends phpari
 
 
     /**
-     * continue  an  active channel
+     * @param null $channel_id
+     * @param null $context
+     * @param null $extension
+     * @param null $priority
      *
-     * @param null (string) $channel_id - channel identifier to query
-     *
-     * @return bool - false on success, Integer or True on failure
+     * @return bool
      */
-    public function channel_continue($channel_id = NULL)
+    public function channel_continue($channel_id = NULL, $context = NULL, $extension = NULL, $priority = NULL)
     {
         try {
 
@@ -197,8 +198,16 @@ class channels //extends phpari
 
             if (is_null($channel_id))
                 throw new Exception("Channel ID not provided or is null", 503);
+            if (is_null($context))
+                throw new Exception("Content not provided or is null", 503);
+            if (is_null($extension))
+                throw new Exception("Extension not provided or is null", 503);
+            if (is_null($priority))
+                throw new Exception("Priority not provided or is null", 503);
 
-            $result = $this->pestObject->post("/channels/" . $channel_id . "/continue", NULL);
+            $postArray = array('context'=>$context, 'extension'=>$extension, 'priority'=>(int)$priority);
+
+            $result = $this->pestObject->post("/channels/" . $channel_id . "/continue", $postArray);
 
             return $result;
 
