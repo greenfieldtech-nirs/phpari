@@ -1,4 +1,5 @@
 <?php
+    
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich

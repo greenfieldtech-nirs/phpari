@@ -1,4 +1,5 @@
 <?php
+    
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -37,7 +38,7 @@
 
         public $stasisLogger;
 
-        public function __construct($appname=null)
+        public function __construct($appname = NULL)
         {
             try {
                 if (is_null($appname))
@@ -105,7 +106,7 @@
 
             $this->stasisEvents->on('ChannelDtmfReceived', function ($event) {
                 $this->setDtmf($event->digit);
-                $this->stasisLogger->notice("+++ DTMF Received +++ [" . $event->digit . "] [" . $this->dtmfSequence. "]\n");
+                $this->stasisLogger->notice("+++ DTMF Received +++ [" . $event->digit . "] [" . $this->dtmfSequence . "]\n");
                 switch ($event->digit) {
                     case "*":
                         $this->dtmfSequence = "";
@@ -113,7 +114,7 @@
                         break;
                     case "#":
                         $this->stasisLogger->notice("+++ Playback ID: " . $this->phpariObject->playbacks()->get_playback());
-                        $this->phpariObject->channels()->channel_continue($this->stasisChannelID,"demo","s",1);
+                        $this->phpariObject->channels()->channel_continue($this->stasisChannelID, "demo", "s", 1);
                         break;
                     default:
                         break;

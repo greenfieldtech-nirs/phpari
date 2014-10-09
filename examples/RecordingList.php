@@ -1,4 +1,5 @@
 <?php
+
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -25,10 +26,9 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn        = new phpari(ARI_USERNAME, ARI_PASSWORD, "hello-world", ARI_SERVER, ARI_PORT, ARI_ENDPOINT);
+    $conn        = new phpari("hello-world"); //create new object
     $cRecordings = new recordings($conn);
 
-    header('Content-Type: application/json');
     echo json_encode($cRecordings->recording_list());
     exit(0);
 ?>
