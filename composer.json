@@ -31,7 +31,8 @@
             "src/interfaces/events.php",
             "src/interfaces/mailboxes.php",
             "src/interfaces/sounds.php",
-            "src/interfaces/playbacks.php"
+            "src/interfaces/playbacks.php",
+            "src/helper/logger.php"
         ]
     }
 }
