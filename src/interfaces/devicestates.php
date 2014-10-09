@@ -56,9 +56,9 @@ class devicestates //extends phpari
             $result = $this->pestObject->get($uri);
             return $result;
 
-
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -82,9 +82,9 @@ class devicestates //extends phpari
 
             return $result;
 
-
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -120,6 +120,8 @@ class devicestates //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -145,14 +147,11 @@ class devicestates //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
-
-
-
-
-
 }
 
 

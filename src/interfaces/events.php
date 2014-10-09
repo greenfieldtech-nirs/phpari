@@ -58,6 +58,8 @@ class events // extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -109,13 +111,10 @@ class events // extends phpari
             $result = $this->pestObject->post($uri, $postObj);
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
-
-
     }
-
-
 }

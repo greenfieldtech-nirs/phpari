@@ -60,6 +60,8 @@ class endpoints //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -102,6 +104,8 @@ class endpoints //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -127,6 +131,8 @@ class endpoints //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -158,8 +164,9 @@ class endpoints //extends phpari
 
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -205,12 +212,12 @@ class endpoints //extends phpari
 
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
-
 }
 
 

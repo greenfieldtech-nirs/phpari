@@ -36,12 +36,14 @@
         private $recordings;
         private $sounds;
         private $playbacks;
+        private $configuration;
 
         public $stasisEvents;
         public $stasisLogger;
-        private $configuration;
         public $debug;
         public $logfile;
+        public $lasterror;
+        public $lasttrace;
 
         /**
          * @param null   $stasisApplication
@@ -50,7 +52,6 @@
          * Returns an array containing 5 objects: WebSocket, Pest, EventLoopFactory, Logger, StasisEventHandler
          *
          */
-        //public function __construct($ariUsername = NULL, $ariPassword = NULL, $stasisApplication = NULL, $ariServer = "127.0.0.1", $ariPort = 8080, $ariEndpoint = "/ari")
         public function __construct($stasisApplication = NULL, $configFile = "phpari.ini")
         {
             try {
@@ -132,6 +133,9 @@
             }
         }
 
+        /**
+         * @return applications|bool - An applications object, or FALSE on failure
+         */
         public function applications()
         {
             try {
@@ -139,12 +143,15 @@
                 if ($this->debug) $this->stasisLogger->debug("applications class had been initiated");
                 return $this->applications;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("applications has failed initialization");
-                return TRUE;
+                $this->lasterror = "applications class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return asterisk|bool - An asterisk object, or FALSE on failure
+         */
         public function asterisk()
         {
             try {
@@ -152,12 +159,15 @@
                 if ($this->debug) $this->stasisLogger->debug("asterisk class had been initiated");
                 return $this->asterisk;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("asterisk has failed initialization");
-                return TRUE;
+                $this->lasterror = "asterisk class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return bridges|bool - An bridges object, or FALSE on failure
+         */
         public function bridges()
         {
             try {
@@ -165,12 +175,15 @@
                 if ($this->debug) $this->stasisLogger->debug("bridges class had been initiated");
                 return $this->bridges;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("bridges has failed initialization");
-                return TRUE;
+                $this->lasterror = "bridges class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return channels|bool - An channels object, or FALSE on failure
+         */
         public function channels()
         {
             try {
@@ -178,12 +191,15 @@
                 if ($this->debug) $this->stasisLogger->debug("channels class had been initiated");
                 return $this->channels;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("channels has failed initialization");
-                return TRUE;
+                $this->lasterror = "channels class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return devicestates|bool - An devicestates object, or FALSE on failure
+         */
         public function devicestates()
         {
             try {
@@ -191,12 +207,15 @@
                 if ($this->debug) $this->stasisLogger->debug("devicestates class had been initiated");
                 return $this->devicestates;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("devicestates has failed initialization");
-                return TRUE;
+                $this->lasterror = "devicestates class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return endpoints|bool - An endpoints object, or FALSE on failure
+         */
         public function endpoints()
         {
             try {
@@ -204,12 +223,15 @@
                 if ($this->debug) $this->stasisLogger->debug("endpoints class had been initiated");
                 return $this->endpoints;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("endpoints has failed initialization");
-                return TRUE;
+                $this->lasterror = "endpoints class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return events|bool - An events object, or FALSE on failure
+         */
         public function events()
         {
             try {
@@ -217,12 +239,15 @@
                 if ($this->debug) $this->stasisLogger->debug("events class had been initiated");
                 return $this->events;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("events has failed initialization");
-                return TRUE;
+                $this->lasterror = "events class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return mailboxes|bool - An mailboxes object, or FALSE on failure
+         */
         public function mailboxes()
         {
             try {
@@ -230,12 +255,15 @@
                 if ($this->debug) $this->stasisLogger->debug("mailboxes class had been initiated");
                 return $this->mailboxes;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("mailboxes has failed initialization");
-                return TRUE;
+                $this->lasterror = "mailboxes class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return recordings|bool - An recordings object, or FALSE on failure
+         */
         public function recordings()
         {
             try {
@@ -243,12 +271,15 @@
                 if ($this->debug) $this->stasisLogger->debug("recordings class had been initiated");
                 return $this->recordings;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("recordings has failed initialization");
-                return TRUE;
+                $this->lasterror = "recordings class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return sounds|bool - An sounds object, or FALSE on failure
+         */
         public function sounds()
         {
             try {
@@ -256,12 +287,15 @@
                 if ($this->debug) $this->stasisLogger->debug("sounds class had been initiated");
                 return $this->sounds;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("sounds has failed initialization");
-                return TRUE;
+                $this->lasterror = "sounds class failed to initialize properly";
+                return FALSE;
             }
         }
 
+        /**
+         * @return playbacks|bool - An playbacks object, or FALSE on failure
+         */
         public function playbacks()
         {
             try {
@@ -269,9 +303,9 @@
                 if ($this->debug) $this->stasisLogger->debug("playbacks class had been initiated");
                 return $this->playbacks;
             } catch (Exception $e) {
-
                 if ($this->debug) $this->stasisLogger->debug("playbacks has failed initialization");
-                return TRUE;
+                $this->lasterror = "playbacks class failed to initialize properly";
+                return FALSE;
             }
         }
 

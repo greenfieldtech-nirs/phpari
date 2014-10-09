@@ -66,6 +66,8 @@ class sounds //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -89,6 +91,8 @@ class sounds //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -124,8 +128,9 @@ class sounds //extends phpari
             $result = $this->pestObject->put($uri, $putObj);
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -147,6 +152,8 @@ class sounds //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
