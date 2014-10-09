@@ -60,6 +60,8 @@ class playbacks //extends phpari
 
             return $result;
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -84,6 +86,8 @@ class playbacks //extends phpari
 
             return $result;
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -124,6 +128,8 @@ class playbacks //extends phpari
 
             return $result;
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }

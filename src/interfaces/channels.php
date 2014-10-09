@@ -61,6 +61,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -125,6 +127,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
 
@@ -151,6 +155,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -177,6 +183,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -213,6 +221,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -239,6 +249,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -267,6 +279,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -287,6 +301,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -341,6 +357,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -373,6 +391,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -404,6 +424,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -432,6 +454,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -460,6 +484,8 @@ class channels //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -493,6 +519,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -519,6 +547,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -546,6 +576,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -570,6 +602,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -600,6 +634,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -648,6 +684,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
 
@@ -678,6 +716,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -709,6 +749,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -749,6 +791,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -789,6 +833,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
@@ -814,6 +860,8 @@ class channels //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
     }
