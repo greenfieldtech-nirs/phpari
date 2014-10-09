@@ -58,12 +58,12 @@ class recordings //extends phpari
             $result = $this->pestObject->get($uri);
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
-
 
     /**
      * GET /recordings/stored/{recordingName}
@@ -83,6 +83,8 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
 
@@ -101,6 +103,8 @@ class recordings //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -133,11 +137,11 @@ class recordings //extends phpari
             $result = $this->pestObject->post($uri, $postOBJ);
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
-
     }
 
     /**
@@ -150,17 +154,16 @@ class recordings //extends phpari
     {
         try {
 
-
             if (is_null($recordingName))
                 throw new Exception("Recording name is not provided or is null", 503);
-
 
             $uri = "/recordings/live/" . $recordingName;
             $result = $this->pestObject->get($uri);
             return $result;
 
-
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
 
@@ -185,9 +188,10 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
-
     }
 
 
@@ -211,6 +215,8 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -227,7 +233,6 @@ class recordings //extends phpari
      */
     public function  recordings_live_pause($recordingName = null)
     {
-
         try {
             if (is_null($recordingName))
                 throw new Exception("Recording name is not provided or is null", 503);
@@ -237,6 +242,8 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -261,6 +268,8 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -284,10 +293,11 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
-
 
     /**
      *  DELETE /recordings/live/{recordingName}/mute
@@ -308,6 +318,8 @@ class recordings //extends phpari
             return $result;
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }

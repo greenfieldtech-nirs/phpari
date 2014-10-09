@@ -1,4 +1,5 @@
 <?php
+
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -24,10 +25,10 @@
      */
 
     require_once "../vendor/autoload.php";
-    require_once "examples-config.php";
 
     try {
-        $conn     = new phpari(ARI_USERNAME, ARI_PASSWORD, "hello-world", ARI_SERVER, ARI_PORT, ARI_ENDPOINT);
+
+        $conn     = new phpari("hello-world"); //create new object
         $channels = new channels($conn);
         $postData = file_get_contents("php://input");
 
@@ -38,13 +39,11 @@
         $channelID      = $postDataObject->channelID;
         $response       = $channels->channel_delete($channelID);
 
-        header('Content-Type: application/json');
         echo json_encode($response);
         exit(0);
 
 
     } catch (Exception $e) {
-        header('Content-Type: application/json');
         echo json_encode(array('status' => $e->getCode(), 'message' => $e->getMessage()));
     }
 

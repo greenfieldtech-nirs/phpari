@@ -56,6 +56,8 @@ class mailboxes //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -78,6 +80,8 @@ class mailboxes //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -115,6 +119,8 @@ class mailboxes //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
@@ -136,6 +142,8 @@ class mailboxes //extends phpari
 
 
         } catch (Exception $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
     }
