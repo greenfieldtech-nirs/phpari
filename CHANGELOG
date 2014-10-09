@@ -1,0 +1,291 @@
+commit a2e1bf122743b4ef04acb74e367bb4c4f5c5bda7 (HEAD, origin/develop, develop)
+Merge: 3dd26e8 6a9b165
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 14:07:19 2014 +0300
+
+    Merge branch 'feature/Proper-Error-Reporting' into develop
+
+commit 6a9b1653e526bbef4ae66d9a5ba3f8782ec9163f (origin/feature/Proper-Error-Reporting)
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 14:07:02 2014 +0300
+
+    Add additional information to the README, reflecting the latest changes and some more information about how to write a Stasis application using PHPARI.
+
+commit d2abdebad8b67a66d75f7b49411c47feb22d5f1b
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 13:58:21 2014 +0300
+
+    We now populate "lasterror" and "lasttrace" object variables, to enable better visibility of errors that may occur while working with the class.
+    Spring cleaning was performed on some of the files, so that the code is more readable.
+
+commit 3dd26e8587d65ef56f596a9be43ad40338ccbf01
+Merge: 0f99e52 0551c90
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Oct 9 12:59:56 2014 +0300
+
+    Merge pull request #18 from greenfieldtech-nirs/Proper-Event-Handling
+    
+    Pull #5 - Proper event handling
+
+commit 0551c901f8c12cf0ee483671496946180e49b69f (origin/Proper-Event-Handling, Proper-Event-Handling)
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 12:59:01 2014 +0300
+
+    Modified all example application to work with the class invocation and configuration method.
+
+commit 9bb9dc23c15290d0152f04bbad99f6d03a8d2cdd
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 12:40:51 2014 +0300
+
+    Oops, previous commit didn't come in fully - silly SourceTree
+
+commit a04d65aa5dedee85a828a19e7095b5fe3d1f6edf
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 12:31:33 2014 +0300
+
+    Configuration is important - we've migrated the configuration of the class from the constructor over to an external
+    configuration file, default is phpari.ini. The current file also has future reference for an AGI and AMI connector,
+    but these will come later on. Debug logging is performed via the Zend Logger class, which is part of PHPARI.
+    - TODO: Modify the examples
+    - TODO: Add better visibility of errors during PEST requests
+
+commit 0f99e523d3357a7b690b23d7d4bd06d9b3691097
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Oct 8 16:38:07 2014 +0300
+
+    Commit additional channels API handling
+
+commit b589f54bc64f3ce879ca70d8816c85e3a740137a
+Merge: afe8dc4 a5f1573
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Mon Oct 6 10:50:24 2014 +0300
+
+    Merge branch 'develop' of https://github.com/greenfieldtech-nirs/phpari into develop
+
+commit a5f15731266be99cab025f0ecfa8a15c7f4fa4e3
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Mon Oct 6 08:29:25 2014 +0300
+
+    Commit the playbacks class - modify the basic Stasis example to something a bit more meaningful.
+
+commit afe8dc495cd62e9067bf93372610527b33378404
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Sep 18 11:06:56 2014 +0300
+
+    Some of our interfaces were mis-implementing the __construct function. This is now updated to reflect a unified constructor for all extension classes.
+
+commit 93e847a5f705ba183dfb88e6e7f16c9b0a6bfc46
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Sep 18 09:28:41 2014 +0300
+
+    Commit a slightly more detailed README.md file, so that people can actually start doing something with phpari :-)
+
+commit 04b7e5b3354fbe49e5fb0120ddafc56f33b7c343
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Sep 18 09:02:42 2014 +0300
+
+    phpStorm can so picky at times :-(
+
+commit bdb53a148e022ef5ea0f6447a31ce593bc636d4f
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Sep 18 08:59:52 2014 +0300
+
+    looks like the .idea folder got committed for some reason - that is just not supposed to be there.
+
+commit 0e8982f75d1358cd4668ba05d0ea98f3e209c06b
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 17 21:06:54 2014 +0300
+
+    Slight formatting fix - is was simply looking really bad previously
+
+commit fe82457ecdc4936297e034c850171248c803a447
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 17 14:02:37 2014 +0300
+
+    oops, we should also ignore composer.lock
+
+commit c17066393b83f3329c1b5bd76299c63f45a0532b
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 17 14:02:00 2014 +0300
+
+    .gitignore got trashed slightly, fixing and recommitting
+
+commit 3f3bc38a06313a0d200a47c694291a5fb8037e4c
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 17 13:58:59 2014 +0300
+
+    Oops, somebody committed and pushed the vendor directory
+
+commit c8edbd2e8f6ec7455dab30412ceb53ab1f55393e
+Merge: b8de977 5282fc9
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Wed Sep 17 13:55:31 2014 +0300
+
+    Merge pull request #10 from greenfieldtech-nirs/master
+    
+    Merging back from Master to Develop - Completed
+
+commit 5282fc99c26356e9d97af85e9e9459f470c551fc
+Merge: 38756dc 8f04273
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Wed Sep 17 13:53:14 2014 +0300
+
+    Merge pull request #9 from leonidies/master
+    
+    Changed ARI/Stasis functional access methodology within the code, better class manipulation and an easier interface
+
+commit 8f04273316e4f2d0cdf104078db22b7c454b1b7e
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 17 13:42:44 2014 +0300
+
+    A liitle more completed code for the ARI (the php ari became cleaner)
+
+commit de4d5a7c865e203490e6c8da0d659c29fb5d5b89
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 17 12:31:50 2014 +0300
+
+    Merged call from greenfieldtech phpari repository
+
+commit 8566cea8f7b4030224e43d00dd7579e407bd34dd
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 17 12:11:57 2014 +0300
+
+    no message
+
+commit afffe6638b1dbd0a9081c804bcba21536664bd23
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 17 12:11:36 2014 +0300
+
+    no message
+
+commit 70ade542fa3a58a69989fc66d28f2b8560c454f0
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 17 12:06:44 2014 +0300
+
+    The first version after the fork from Nir's repository
+
+commit 38756dc0a3a4a00a306b299b7ccdd1ed76c243c4
+Merge: edae18e b8de977
+Author: greenfieldtech-nirs <nir.simionovich@greenfieldtech.net>
+Date:   Wed Sep 10 20:25:43 2014 +0300
+
+    Merge pull request #7 from greenfieldtech-nirs/develop
+    
+    Merging back to Master from Development branch - clean ups mainly
+
+commit b8de977cf4db9958fdc1615fe230334adb60fb44
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 10 20:21:37 2014 +0300
+
+    Minor Cleanups
+
+commit a021156057112a3b2fc29d69b4cbbf4c2e1a4d57
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 10 20:08:15 2014 +0300
+
+    Ok, so we did a little mistake in the LICENSE file, and we modified it to LGPL 2.1 instead of GPL 2.
+    Copyright and License notices had been added to the core library files.
+
+commit 2d1d4a258e0d71d3fcd9e1256912aee2831e2f28
+Merge: f757f1c edae18e
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Wed Sep 10 16:12:08 2014 +0300
+
+    Merge branch 'master' into develop
+
+commit edae18e28cc88b4b37a98a6a5e5bb279285fa191
+Merge: a7e0457 e73fb29
+Author: greenfieldtech-nirs <nir.simionovich@greenfieldtech.net>
+Date:   Wed Sep 10 16:05:08 2014 +0300
+
+    Merge pull request #6 from leonidies/master
+    
+    Merging current development version back into primary repository.
+    - Added additional code examples
+    - composer.json updated to support packagist
+    - Improved class design
+
+commit e73fb297629762bc400b560f442b0929b1779eb9
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 10 14:51:55 2014 +0300
+
+    The cancel call was added
+
+commit 9fca91d91ffc849dfda9ffa83f0a28d9ea4bf154
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 10 13:29:48 2014 +0300
+
+    This is emproved version of the phpari with new interfaces
+
+commit 04392d0fd30f5c371b87c38c643bd546a0aad101
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 10 13:10:14 2014 +0300
+
+    This is  basics and examples
+
+commit 3542ab094378b8df26fb00c15789bb34d14152d0
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Wed Sep 10 11:24:56 2014 +0300
+
+    Interfaces has been added
+
+commit f757f1cbee2895972b8c6dc61fbf9b5fcf5aca50
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Sep 7 18:41:00 2014 +0300
+
+    Minor commit to verify push - disregard this one
+
+commit a7e0457a2c50706428294d3bf354ae238b8e50f9
+Merge: 9c18e4b d9d94be
+Author: greenfieldtech-nirs <nir.simionovich@greenfieldtech.net>
+Date:   Sun Sep 7 18:28:30 2014 +0300
+
+    Merge pull request #3 from leonidies/master
+    
+    The channels interface ready , need to be tested
+
+commit d9d94be9e08e42bc8fbce9b5a4ed0e8962aa84c7
+Author: leonid <leonid.notik@greenfieldtech.net>
+Date:   Sun Sep 7 18:26:21 2014 +0300
+
+    The channels interface ready , need to be tested .
+
+commit 9c18e4bf276e4f0bee27fa7e7255fcb9bca3818f
+Merge: e66d983 af58020
+Author: greenfieldtech-nirs <nir.simionovich@greenfieldtech.net>
+Date:   Sat Sep 6 02:35:29 2014 +0300
+
+    Merge pull request #2 from greenfieldtech-nirs/develop
+    
+    small change to composer json
+
+commit af58020b3c7efa1ca470fdc2a0b4cdd995b47593
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sat Sep 6 02:34:39 2014 +0300
+
+    small change to composer json
+
+commit e66d98386d82fdc63651c0bd68c785b3d2557840
+Merge: 2b2a6a9 50316bc
+Author: greenfieldtech-nirs <nir.simionovich@greenfieldtech.net>
+Date:   Sat Sep 6 02:24:14 2014 +0300
+
+    Merge pull request #1 from greenfieldtech-nirs/develop
+    
+    Basic ARI Class defined with proper boot strapping.
+
+commit 50316bc6df28570eceabb5f346358b60072a4b55
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sat Sep 6 02:21:41 2014 +0300
+
+    Basic ARI Class defined with proper boot strapping.
+    
+    Basic usage example included.
+    
+    TODO: Build all ARI interfaces
+
+commit 2b2a6a9cef47e71ac75e06b788edb33be585b46c
+Author: greenfieldtech-nirs <nir.simionovich@greenfieldtech.net>
+Date:   Thu Sep 4 08:26:53 2014 +0300
+
+    Initial commit
