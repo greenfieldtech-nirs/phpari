@@ -1,0 +1,8 @@
+TODO
+----
+Here is a list of things that we need to for part of the package:
+
+- Init scripts for various distributions
+- Icinga/Nagios plugins for monitoring the operation of a Stasis application
+- Ideas?
+
