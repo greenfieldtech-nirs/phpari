@@ -72,7 +72,7 @@ The simplest way to verify that phpari is installed correctly is by using it. He
 require_once("vendor/autoload.php");
 
 echo "Starting ARI Connection\n";
-$ariConnector = new phpari(ARI_USERNAME, ARI_PASSWORD, "hello-world", ARI_SERVER, ARI_PORT, ARI_ENDPOINT);
+$ariConnector = new phpari();
 echo "Active Channels: " . json_encode($ariConnector->channels()->channel_list()) . "\n";
 echo "Ending ARI Connection\n";
 
