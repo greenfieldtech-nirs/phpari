@@ -72,8 +72,8 @@ class channels //extends phpari
      * Originate a call on a channel
      *
      * @param null (string) $endpoint - endpoint to originate the call to, eg: SIP/alice
-     * @param null (JSON Object) $data - originate data
-     * @param null (JSON Object) $variables - originate assigned variables
+     * @param null (JSON_STRING|JSON_OBJECT|ASSOC_ARRAY) $data - originate data
+     * @param null (JSON_STRING|JSON_OBJECT|ASSOC_ARRAY) $variables - originate assigned variables
      *
      * @return bool - false on success, Integer or True on failure
      *
@@ -109,17 +109,19 @@ class channels //extends phpari
     {
         try {
 
+            $inputParser = new parsing();
+
+
             if (is_null($endpoint))
                 throw new Exception("End point not provided or is null", 503);
 
             if (is_null($data))
                 throw new Exception("End point not provided or is null", 503);
-
+            
             $originateData = array();
             $originateData['endpoint'] = $endpoint;
-            $originateData = array_merge($originateData, $data);
-            $originateData['variables'] = $variables;
-
+            $originateData = array_merge($originateData, $inputParser->parseRequestData($data));
+            $originateData['variables'] = $inputParser->parseRequestData($variables);
 
             $uri = "/channels";
             $result = $this->pestObject->post($uri, $originateData);
