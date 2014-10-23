@@ -516,7 +516,7 @@ class channels //extends phpari
 
 
             $postMoh = array('mohClass' => $mohClass);
-            $result = $this->pestObject->post("/channels/" . $mohClass . "/moh", $postMoh);
+            $result = $this->pestObject->post("/channels/" . $channel_id . "/moh", $postMoh);
 
             return $result;
 
