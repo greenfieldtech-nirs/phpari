@@ -81,8 +81,12 @@
             });
 
             $this->stasisEvents->on('StasisEnd', function ($event) {
+                /*
+                 * The following section will produce an error, as the channel no longer exists in this state - this is intentional
+                 */
                 $this->stasisLogger->notice("Event received: StasisEnd");
-                $this->phpariObject->channels()->channel_delete($this->stasisChannelID);
+                if (!$this->phpariObject->channels()->channel_delete($this->stasisChannelID))
+                    $this->stasisLogger->notice("Error occurred: " . $this->phpariObject->lasterror);
             });
 
 
