@@ -118,7 +118,7 @@
 
                 if ($this->debug) $this->stasisLogger->debug("Initializing WebSocket Information");
 
-                $this->stasisClient = new \Devristo\Phpws\Client\WebSocket($ariTransport . "://" . $ariServer . ":" . $ariPort . "/ari/events?api_key=" . $ariUsername . ":" . $ariPassword . "&app=" . $stasisApplication, $this->stasisLoop, $this->stasisLogger);
+                $this->stasisClient = new \Devristo\Phpws\Client\WebSocket($ariTransport . "://" . $ariServer . ":" . $ariPort . $ariEndpoint . "/events?api_key=" . $ariUsername . ":" . $ariPassword . "&app=" . $stasisApplication, $this->stasisLoop, $this->stasisLogger);
 
                 if ($this->debug) $this->stasisLogger->debug("Initializing Stasis Event Emitter");
 
