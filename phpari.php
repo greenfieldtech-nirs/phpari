@@ -38,11 +38,14 @@
         private $playbacks;
         private $configuration;
 
+	   /** @var \Evenement\EventEmitter */
         public $stasisEvents;
-	   /* @var Zend\Log\Logger */
+	   /** @var Zend\Log\Logger */
 	   public $stasisLogger;
-	   /* @var React\EventLoop\LoopInterface */
+	   /** @var React\EventLoop\LoopInterface */
 	   public $stasisLoop;
+	   /** @var Devristo\Phpws\Client\WebSocket */
+	   public $stasisClient;
         public $debug;
         public $logfile;
         public $lasterror;
