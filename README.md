@@ -228,3 +228,12 @@ That's it - this is your most basic Stasis application. We suggest that you now 
 Reporting Issues
 --------------------
 Please report issues directly via the Github project page.
+
+Team Members and Contributors:
+------------------------------
+The following list includes names and aliases for people who had something to do with the creation/maintenance of this library. It takes alot of resources to maintain an Open Source project, thus, we will always do our best to make sure contributions and tested and merged as fast as possible.
+
+    Nir Simionovich, https://github.com/greenfieldtech-nirs
+    Leonid Notik, https://github.com/lnotik
+    Scott Griepentrog, https://github.com/stgnet
+    Matak, https://github.com/matak
