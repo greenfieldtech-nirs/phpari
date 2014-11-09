@@ -39,7 +39,10 @@
         private $configuration;
 
         public $stasisEvents;
-        public $stasisLogger;
+	   /* @var Zend\Log\Logger */
+	   public $stasisLogger;
+	   /* @var React\EventLoop\LoopInterface */
+	   public $stasisLoop;
         public $debug;
         public $logfile;
         public $lasterror;
@@ -108,12 +111,14 @@
 
                 $this->stasisLogger = new \Zend\Log\Logger();
 
-                if ($this->configuration->general['logfile'] == "console")
-                    $this->logWriter    = new Zend\Log\Writer\Stream("php://output");
-                else
-                    $this->logWriter    = new Zend\Log\Writer\Stream($this->configuration->general['logfile']);
+                if ($this->configuration->general['logfile'] == "console") {
+                    $logWriter    = new Zend\Log\Writer\Stream("php://output");
+			 }
+                else {
+                    $logWriter    = new Zend\Log\Writer\Stream($this->configuration->general['logfile']);
+			 }
 
-                $this->stasisLogger->addWriter($this->logWriter);
+                $this->stasisLogger->addWriter($logWriter);
 
 
                 if ($this->debug) $this->stasisLogger->debug("Initializing WebSocket Information");
