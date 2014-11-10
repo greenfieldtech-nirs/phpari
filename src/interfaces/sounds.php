@@ -54,10 +54,10 @@ class sounds //extends phpari
     {
         try {
 
-            if (is_null($lang))
+            /*if (is_null($lang))
                 throw new Exception("Language  is  not provided or is null", 503);
             if (is_null($format))
-                throw new Exception("Language  is  not provided or is null", 503);
+                throw new Exception("Language  is  not provided or is null", 503);*/
 
             $uri = "/sounds";
             $getOBJ = array(
