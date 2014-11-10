@@ -23,49 +23,31 @@
      * written by Nir Simionovich and its respective list of contributors.
      */
 
-class parsing {
-
-    /**
-     *
-     */
-    function __construct()
+    class config_helper
     {
-        try {
-            return false;
-        } catch (Exception $e) {
-            die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
+
+        /**
+         *
+         */
+        function __construct()
+        {
+            try {
+                return FALSE;
+            } catch (Exception $e) {
+                die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
+            }
         }
-    }
 
-    /**
-     * Ascertain if the input provided by $rawInput is one of the following: JSON_STRING, JSON_OBJECT, ASSOC_ARRAY.
-     * The return value shall always be an ASSOC_ARRAY, represting $rawInput in a unified manner
-     *
-     * @param null $rawInput
-     */
-    function parseRequestData($rawInput = null)
-    {
-        try {
+        function getconfig($stasisObject = null, $configitem = null)
+        {
+            try {
+                if ($stasisObject == null)
+                    throw new Exception("stasisObject not provided", 503);
 
-            if ($rawInput == null)
-                throw new Exception ("Input must be defined", 503);
-
-            $result = array();
-
-            if (is_string($rawInput))
-                $result = json_decode($rawInput, TRUE);
-
-            if (is_array($rawInput))
-                $result = $rawInput;
-
-            if (is_object($rawInput))
-                $result = json_decode(json_encode($rawInput), TRUE);
-
-            return $result;
-
-        } catch (Exception $e) {
-            die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
+                return FALSE;
+            } catch (Exception $e) {
+                return false;
+            }
         }
-    }
 
-} 
+    }

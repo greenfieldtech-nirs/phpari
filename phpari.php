@@ -44,6 +44,7 @@
         public $logfile;
         public $lasterror;
         public $lasttrace;
+        public $lasterrorinfo;
 
         /**
          * @param null   $stasisApplication

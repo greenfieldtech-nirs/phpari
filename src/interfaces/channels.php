@@ -109,7 +109,7 @@ class channels //extends phpari
     {
         try {
 
-            $inputParser = new parsing();
+            $inputParser = new parsing_helper();
 
 
             if (is_null($endpoint))
