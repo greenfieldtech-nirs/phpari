@@ -26,6 +26,8 @@
 class channels //extends phpari
 {
 
+    private $phpariObject;
+
     function __construct($connObject = null)
     {
         try {
@@ -33,7 +35,9 @@ class channels //extends phpari
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
 
+            $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
+
 
         } catch (Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
@@ -184,6 +188,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();

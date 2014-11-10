@@ -25,21 +25,38 @@
      */
     class phpari
     {
+        /** @var applications */
         private $applications;
+        /** @var asterisk */
         private $asterisk;
+        /** @var bridges */
         private $bridges;
+        /** @var channels */
         private $channels;
+        /** @var devicestates */
         private $devicestates;
+        /** @var endpoints */
         private $endpoints;
+        /** @var events */
         private $events;
+        /** @var mailboxes */
         private $mailboxes;
+        /** @var recordings */
         private $recordings;
+        /** @var sounds */
         private $sounds;
+        /** @var playbacks */
         private $playbacks;
         private $configuration;
 
+        /** @var \Evenement\EventEmitter */
         public $stasisEvents;
+        /** @var Zend\Log\Logger */
         public $stasisLogger;
+        /** @var React\EventLoop\LoopInterface */
+        public $stasisLoop;
+        /** @var Devristo\Phpws\Client\WebSocket */
+        public $stasisClient;
         public $debug;
         public $logfile;
         public $lasterror;
@@ -61,17 +78,17 @@
                 $this->configuration = (object)parse_ini_file($configFile, TRUE);
 
                 /* Some general information */
-                $this->debug = $this->configuration->general['debug'];
+                $this->debug   = $this->configuration->general['debug'];
                 $this->logfile = $this->configuration->general['logfile'];
 
                 /* Connect to ARI server */
                 $result = $this->connect($this->configuration->asterisk_ari['username'],
-                                        $this->configuration->asterisk_ari['password'],
-                                        $stasisApplication,
-                                        $this->configuration->asterisk_ari['host'],
-                                        $this->configuration->asterisk_ari['port'],
-                                        $this->configuration->asterisk_ari['endpoint'],
-                                        $this->configuration->asterisk_ari['transport']);
+                    $this->configuration->asterisk_ari['password'],
+                    $stasisApplication,
+                    $this->configuration->asterisk_ari['host'],
+                    $this->configuration->asterisk_ari['port'],
+                    $this->configuration->asterisk_ari['endpoint'],
+                    $this->configuration->asterisk_ari['transport']);
 
                 return $result;
 
@@ -109,24 +126,25 @@
 
                 $this->stasisLogger = new \Zend\Log\Logger();
 
-                if ($this->configuration->general['logfile'] == "console")
-                    $this->logWriter    = new Zend\Log\Writer\Stream("php://output");
-                else
-                    $this->logWriter    = new Zend\Log\Writer\Stream($this->configuration->general['logfile']);
+                if ($this->configuration->general['logfile'] == "console") {
+                    $logWriter = new Zend\Log\Writer\Stream("php://output");
+                } else {
+                    $logWriter = new Zend\Log\Writer\Stream($this->configuration->general['logfile']);
+                }
 
-                $this->stasisLogger->addWriter($this->logWriter);
+                $this->stasisLogger->addWriter($logWriter);
 
 
                 if ($this->debug) $this->stasisLogger->debug("Initializing WebSocket Information");
 
-                $this->stasisClient = new \Devristo\Phpws\Client\WebSocket($ariTransport . "://" . $ariServer . ":" . $ariPort . "/ari/events?api_key=" . $ariUsername . ":" . $ariPassword . "&app=" . $stasisApplication, $this->stasisLoop, $this->stasisLogger);
+                $this->stasisClient = new \Devristo\Phpws\Client\WebSocket($ariTransport . "://" . $ariServer . ":" . $ariPort . $ariEndpoint . "/events?api_key=" . $ariUsername . ":" . $ariPassword . "&app=" . $stasisApplication, $this->stasisLoop, $this->stasisLogger);
 
                 if ($this->debug) $this->stasisLogger->debug("Initializing Stasis Event Emitter");
 
                 $this->stasisEvents = new Evenement\EventEmitter();
 
 
-                return true;
+                return TRUE;
                 //return array("stasisClient" => $this->stasisClient, "stasisLoop" => $this->stasisLoop, "stasisLogger" => $this->stasisLogger, "ariEndpoint" => $this->ariEndpoint);
 
             } catch (Exception $e) {
@@ -140,12 +158,16 @@
         public function applications()
         {
             try {
-                $this->applications = new applications($this);
-                if ($this->debug) $this->stasisLogger->debug("applications class had been initiated");
+                if (!isset($this->applications)) {
+                    $this->applications = new applications($this);
+                    if ($this->debug) $this->stasisLogger->debug("applications class had been initiated");
+                }
+
                 return $this->applications;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("applications has failed initialization");
                 $this->lasterror = "applications class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -156,12 +178,16 @@
         public function asterisk()
         {
             try {
-                $this->asterisk = new asterisk($this);
-                if ($this->debug) $this->stasisLogger->debug("asterisk class had been initiated");
+                if (!isset($this->asterisk)) {
+                    $this->asterisk = new asterisk($this);
+                    if ($this->debug) $this->stasisLogger->debug("asterisk class had been initiated");
+                }
+
                 return $this->asterisk;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("asterisk has failed initialization");
                 $this->lasterror = "asterisk class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -172,12 +198,16 @@
         public function bridges()
         {
             try {
-                $this->bridges = new bridges($this);
-                if ($this->debug) $this->stasisLogger->debug("bridges class had been initiated");
+                if (!isset($this->bridges)) {
+                    $this->bridges = new bridges($this);
+                    if ($this->debug) $this->stasisLogger->debug("bridges class had been initiated");
+                }
+
                 return $this->bridges;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("bridges has failed initialization");
                 $this->lasterror = "bridges class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -188,12 +218,16 @@
         public function channels()
         {
             try {
-                $this->channels = new channels($this);
-                if ($this->debug) $this->stasisLogger->debug("channels class had been initiated");
+                if (!isset($this->channels)) {
+                    $this->channels = new channels($this);
+                    if ($this->debug) $this->stasisLogger->debug("channels class had been initiated");
+                }
+
                 return $this->channels;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("channels has failed initialization");
                 $this->lasterror = "channels class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -204,12 +238,16 @@
         public function devicestates()
         {
             try {
-                $this->devicestates = new devicestates($this);
-                if ($this->debug) $this->stasisLogger->debug("devicestates class had been initiated");
+                if (!isset($this->devicestates)) {
+                    $this->devicestates = new devicestates($this);
+                    if ($this->debug) $this->stasisLogger->debug("devicestates class had been initiated");
+                }
+
                 return $this->devicestates;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("devicestates has failed initialization");
                 $this->lasterror = "devicestates class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -220,12 +258,16 @@
         public function endpoints()
         {
             try {
-                $this->endpoints = new endpoints($this);
-                if ($this->debug) $this->stasisLogger->debug("endpoints class had been initiated");
+                if (!isset($this->endpoints)) {
+                    $this->endpoints = new endpoints($this);
+                    if ($this->debug) $this->stasisLogger->debug("endpoints class had been initiated");
+                }
+
                 return $this->endpoints;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("endpoints has failed initialization");
                 $this->lasterror = "endpoints class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -236,12 +278,16 @@
         public function events()
         {
             try {
-                $this->events = new events($this);
-                if ($this->debug) $this->stasisLogger->debug("events class had been initiated");
+                if (!isset($this->events)) {
+                    $this->events = new events($this);
+                    if ($this->debug) $this->stasisLogger->debug("events class had been initiated");
+                }
+
                 return $this->events;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("events has failed initialization");
                 $this->lasterror = "events class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -252,12 +298,16 @@
         public function mailboxes()
         {
             try {
-                $this->mailboxes = new mailboxes($this);
-                if ($this->debug) $this->stasisLogger->debug("mailboxes class had been initiated");
+                if (!isset($this->mailboxes)) {
+                    $this->mailboxes = new mailboxes($this);
+                    if ($this->debug) $this->stasisLogger->debug("mailboxes class had been initiated");
+                }
+
                 return $this->mailboxes;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("mailboxes has failed initialization");
                 $this->lasterror = "mailboxes class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -268,12 +318,16 @@
         public function recordings()
         {
             try {
-                $this->recordings = new recordings($this);
-                if ($this->debug) $this->stasisLogger->debug("recordings class had been initiated");
+                if (!isset($this->recordings)) {
+                    $this->recordings = new recordings($this);
+                    if ($this->debug) $this->stasisLogger->debug("recordings class had been initiated");
+                }
+
                 return $this->recordings;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("recordings has failed initialization");
                 $this->lasterror = "recordings class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -284,12 +338,16 @@
         public function sounds()
         {
             try {
-                $this->sounds = new sounds($this);
-                if ($this->debug) $this->stasisLogger->debug("sounds class had been initiated");
+                if (!isset($this->sounds)) {
+                    $this->sounds = new sounds($this);
+                    if ($this->debug) $this->stasisLogger->debug("sounds class had been initiated");
+                }
+
                 return $this->sounds;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("sounds has failed initialization");
                 $this->lasterror = "sounds class failed to initialize properly";
+
                 return FALSE;
             }
         }
@@ -300,12 +358,16 @@
         public function playbacks()
         {
             try {
-                $this->playbacks = new playbacks($this);
-                if ($this->debug) $this->stasisLogger->debug("playbacks class had been initiated");
+                if (!isset($this->playbacks)) {
+                    $this->playbacks = new playbacks($this);
+                    if ($this->debug) $this->stasisLogger->debug("playbacks class had been initiated");
+                }
+
                 return $this->playbacks;
             } catch (Exception $e) {
                 if ($this->debug) $this->stasisLogger->debug("playbacks has failed initialization");
                 $this->lasterror = "playbacks class failed to initialize properly";
+
                 return FALSE;
             }
         }

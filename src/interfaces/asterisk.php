@@ -26,6 +26,8 @@
 class asterisk // extends phpari
 {
 
+    private $phpariObject;
+
     function __construct($connObject = null)
     {
         try {
@@ -33,6 +35,7 @@ class asterisk // extends phpari
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
 
+            $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
         } catch (Exception $e) {

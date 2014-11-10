@@ -25,6 +25,8 @@
  */
 class sounds //extends phpari
 {
+    private $phpariObject;
+
     function __construct($connObject = null)
     {
         try {
@@ -32,6 +34,7 @@ class sounds //extends phpari
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
                 throw new Exception("Missing PestObject or empty string", 503);
 
+            $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
         } catch (Exception $e) {
@@ -51,10 +54,10 @@ class sounds //extends phpari
     {
         try {
 
-            if (is_null($lang))
+            /*if (is_null($lang))
                 throw new Exception("Language  is  not provided or is null", 503);
             if (is_null($format))
-                throw new Exception("Language  is  not provided or is null", 503);
+                throw new Exception("Language  is  not provided or is null", 503);*/
 
             $uri = "/sounds";
             $getOBJ = array(
