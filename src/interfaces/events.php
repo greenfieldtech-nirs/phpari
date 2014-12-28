@@ -46,12 +46,12 @@ class events // extends phpari
      * GET /events
      * WebSocket connection for events.
      */
-    public function  events($app)
+    public function events($app = NULL)
     {
         try {
 
             if (is_null($app))
-                throw new Exception("App name is  not provided or is null", 503);
+                throw new Exception("App name is not provided or is null", 503);
 
             $uri = "/events";
             $getObj = array('app' => $app);

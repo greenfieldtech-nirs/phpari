@@ -43,10 +43,14 @@ class playbacks //extends phpari
     }
 
     /**
+     * GET /playbacks/{playbackid}
+     * 
+     * GET details for a specific playback ID
+     * 
      * @param null $playbackid
      * @return array|bool
      */
-    public function get_playback($playbackid = null)
+    public function show($playbackid = NULL)
     {
         try {
             $result = FALSE;
@@ -54,8 +58,8 @@ class playbacks //extends phpari
             if (is_null($this->pestObject))
                 throw new Exception("PEST Object not provided or is null", 503);
 
-            //if (is_null($playbackid))
-            //    throw new Exception("playbackid is required for this operation", 503);
+            if (is_null($playbackid))
+                throw new Exception("playbackid is required for this operation", 503);
 
             $uri = "/playbacks/" . $playbackid;
             $result = $this->pestObject->get($uri);
@@ -69,10 +73,20 @@ class playbacks //extends phpari
     }
 
     /**
+     * This function is an alias to 'show' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function get_playback($playbackid = NULL)
+    {
+        $this->show($playbackid);
+    }
+
+    /**
      * @param null $playbackid
      * @return array|bool
      */
-    public function delete_playback($playbackid = null)
+    public function remove($playbackid = NULL)
     {
         try {
             $result = FALSE;
@@ -95,11 +109,21 @@ class playbacks //extends phpari
     }
 
     /**
+     * This function is an alias to 'remove' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function delete_playback($playbackid = NULL)
+    {
+        return $this->remove($playbackid);
+    }
+
+    /**
      * @param null $playbackid
      * @param null $control
      * @return array|bool
      */
-    public function control_playback($playbackid = null, $control = null)
+    public function control($playbackid = NULL, $control = NULL)
     {
         try {
             $result = FALSE;
@@ -134,5 +158,15 @@ class playbacks //extends phpari
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
         }
+    }
+
+    /**
+     * This function is an alias to 'control' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function control_playback($playbackid = NULL, $control = NULL)
+    {
+        return $this->control($playbackid, $control);
     }
 }

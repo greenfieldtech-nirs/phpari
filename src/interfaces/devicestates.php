@@ -43,18 +43,19 @@ class devicestates //extends phpari
 
 
     /**
-     *
+     * GET /deviceStates
+     * Get a list of current device states, or the device state for a specific device name
      *
      * @return bool
      */
-    public function devicestates_list()
+    public function show($deviceName = NULL)
     {
         try {
 
             if (is_null($this->pestObject))
                 throw new Exception("PEST Object not provided or is null", 503);
 
-            $uri = "/deviceStates";
+            $uri = (is_null($deviceName))?"/deviceStates":"/deviceStates/" . $deviceName;
             $result = $this->pestObject->get($uri);
             return $result;
 
@@ -65,30 +66,24 @@ class devicestates //extends phpari
         }
     }
 
+    /**
+     * This function is an alias to 'show' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function devicestates_list()
+    {
+        return $this->show();
+    }
 
     /**
+     * This function is an alias to 'show' - will be deprecated in phpari 2.0
      *
-     * GET /deviceStates/{deviceName}
-     * Retrieve the current state of a device.
+     * @return mixed
      */
     public function devicestate_currentstate($deviceName = null)
     {
-        try {
-
-            if (is_null($this->pestObject))
-                throw new Exception("PEST Object not provided or is null", 503);
-
-
-            $uri = "/deviceStates/".$deviceName;
-            $result = $this->pestObject->get($uri);
-
-            return $result;
-
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
+        return $this->show($deviceName);
     }
 
     /**
@@ -102,7 +97,7 @@ class devicestates //extends phpari
      * @param null $deviceState
      * @return bool
      */
-    public function devicestate_changestate($deviceName = null, $deviceState = null)
+    public function set($deviceName = null, $deviceState = null)
     {
         try {
 
@@ -110,7 +105,6 @@ class devicestates //extends phpari
                 throw new Exception("Device name is not provided or is null", 503);
             if (is_null($deviceState))
                 throw new Exception("Device state name is  not provided or is null", 503);
-
 
             $putObj = array(
                 'deviceState' =>$deviceState
@@ -128,6 +122,16 @@ class devicestates //extends phpari
         }
     }
 
+    /**
+     * This function is an alias to 'set' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function devicestate_changestate($deviceName = null, $deviceState = null)
+    {
+        return $this->set($deviceName, $deviceState);
+    }
+
 
     /**
      *  DELETE /deviceStates/{deviceName}
@@ -136,7 +140,7 @@ class devicestates //extends phpari
      * @param null $deviceName
      * @return bool
      */
-    public function devicestate_deletestate($deviceName = null)
+    public function remove($deviceName = NULL)
     {
         try {
 
@@ -153,6 +157,16 @@ class devicestates //extends phpari
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
         }
+    }
+
+    /**
+     * This function is an alias to 'remove' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function devicestate_deletestate($deviceName = null)
+    {
+        return $this->remove($deviceName);
     }
 }
 
