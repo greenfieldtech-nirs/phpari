@@ -43,11 +43,11 @@ class parsing_helper {
      *
      * @param null $rawInput
      */
-    function parseRequestData($rawInput = null)
+    function parseRequestData($rawInput = NULL)
     {
         try {
 
-            if ($rawInput == null)
+            if ($rawInput == NULL)
                 throw new Exception ("Input must be defined", 503);
 
             $result = array();

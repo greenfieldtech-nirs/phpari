@@ -28,7 +28,7 @@ class channels //extends phpari
 
     private $phpariObject;
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -64,6 +64,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -76,6 +84,7 @@ class channels //extends phpari
      * Originate a call on a channel
      *
      * @param null (string) $endpoint - endpoint to originate the call to, eg: SIP/alice
+     * @param null (string) $channel_id - Assign a channel ID for the newly created channel
      * @param null (JSON_STRING|JSON_OBJECT|ASSOC_ARRAY) $data - originate data
      * @param null (JSON_STRING|JSON_OBJECT|ASSOC_ARRAY) $variables - originate assigned variables
      *
@@ -109,7 +118,7 @@ class channels //extends phpari
      *
      */
 
-    public function channel_originate($endpoint = NULL, $data = NULL, $variables = NULL)
+    public function channel_originate($endpoint = NULL, $channel_id = NULL, $data = NULL, $variables = NULL)
     {
         try {
 
@@ -119,19 +128,28 @@ class channels //extends phpari
             if (is_null($endpoint))
                 throw new Exception("End point not provided or is null", 503);
 
-            if (is_null($data))
-                throw new Exception("End point not provided or is null", 503);
-            
             $originateData = array();
             $originateData['endpoint'] = $endpoint;
-            $originateData = array_merge($originateData, $inputParser->parseRequestData($data));
-            $originateData['variables'] = $inputParser->parseRequestData($variables);
 
-            $uri = "/channels";
+            if (!is_null($data))
+                $originateData = array_merge($originateData, $inputParser->parseRequestData($data));
+
+            if (!is_null($variables))
+                $originateData['variables'] = $inputParser->parseRequestData($variables);
+
+            $uri = (is_null($channel_id))?"/channels":"/channels/" . $channel_id;
             $result = $this->pestObject->post($uri, $originateData);
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -152,7 +170,6 @@ class channels //extends phpari
     {
         try {
 
-
             if (is_null($channel_id))
                 throw new Exception("PEST Object not provided or is null", 503);
 
@@ -160,6 +177,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -234,6 +259,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -262,6 +295,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -292,6 +333,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -314,6 +363,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -353,8 +410,6 @@ class channels //extends phpari
 
             if (is_null($dtmf))
                 throw new Exception("The dtmfObject not provided or is null", 503);
-            //TODO: Fill in the gaps!
-
 
             $dtmfObject = array(
                 'dtmf' => $dtmf,
@@ -370,6 +425,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -403,7 +466,14 @@ class channels //extends phpari
 
             return $result;
 
-
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -437,6 +507,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -467,6 +545,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -497,6 +583,14 @@ class channels //extends phpari
             return $result;
 
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -532,6 +626,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -560,6 +662,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -589,6 +699,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -615,6 +733,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -647,6 +773,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -697,6 +831,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -729,6 +871,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -762,6 +912,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -804,6 +962,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -846,6 +1012,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -873,6 +1047,14 @@ class channels //extends phpari
 
             return $result;
 
+        } catch (Pest_NotFound $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
+        } catch (Pest_BadRequest $e) {
+            $this->phpariObject->lasterror = $e->getMessage();
+            $this->phpariObject->lasttrace = $e->getTraceAsString();
+            return FALSE;
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();

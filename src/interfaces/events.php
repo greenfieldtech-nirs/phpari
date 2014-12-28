@@ -27,7 +27,7 @@ class events // extends phpari
 {
     private $phpariObject;
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -82,12 +82,12 @@ class events // extends phpari
      * @param array $variables - Ex. array("key1" => "value1" ,  "key2" => "value2")
      * @return bool
      */
-    public function event_generate($eventName = null,
-                                   $application = null,
-                                   $channelID = null,
-                                   $bridge = null,
-                                   $endpoint = null,
-                                   $deviceName = null,
+    public function event_generate($eventName = NULL,
+                                   $application = NULL,
+                                   $channelID = NULL,
+                                   $bridge = NULL,
+                                   $endpoint = NULL,
+                                   $deviceName = NULL,
                                    $variables = array())
     {
 

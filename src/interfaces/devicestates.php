@@ -26,7 +26,7 @@ class devicestates //extends phpari
 {
     private $phpariObject;
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -81,7 +81,7 @@ class devicestates //extends phpari
      *
      * @return mixed
      */
-    public function devicestate_currentstate($deviceName = null)
+    public function devicestate_currentstate($deviceName = NULL)
     {
         return $this->show($deviceName);
     }
@@ -97,7 +97,7 @@ class devicestates //extends phpari
      * @param null $deviceState
      * @return bool
      */
-    public function set($deviceName = null, $deviceState = null)
+    public function set($deviceName = NULL, $deviceState = NULL)
     {
         try {
 
@@ -127,7 +127,7 @@ class devicestates //extends phpari
      *
      * @return mixed
      */
-    public function devicestate_changestate($deviceName = null, $deviceState = null)
+    public function devicestate_changestate($deviceName = NULL, $deviceState = NULL)
     {
         return $this->set($deviceName, $deviceState);
     }
@@ -164,7 +164,7 @@ class devicestates //extends phpari
      *
      * @return mixed
      */
-    public function devicestate_deletestate($deviceName = null)
+    public function devicestate_deletestate($deviceName = NULL)
     {
         return $this->remove($deviceName);
     }

@@ -28,7 +28,7 @@ class recordings //extends phpari
 
     private $phpariObject;
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -49,7 +49,7 @@ class recordings //extends phpari
      *
      * @return bool
      */
-    public function   recording_list()
+    public function recording_list()
     {
         try {
 
@@ -73,7 +73,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function recording_detail($recordingName = null)
+    public function recording_detail($recordingName = NULL)
     {
         try {
 
@@ -92,7 +92,7 @@ class recordings //extends phpari
 
     }
 
-    public function delete_recording($recordingName = null)
+    public function delete_recording($recordingName = NULL)
     {
         try {
 
@@ -120,7 +120,7 @@ class recordings //extends phpari
      * @param null $destinationRecordingName
      * @return bool
      */
-    public function recording_stored_copy($recordingName = null, $destinationRecordingName = null)
+    public function recording_stored_copy($recordingName = NULL, $destinationRecordingName = NULL)
     {
         try {
 
@@ -152,7 +152,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function recordings_live_list($recordingName = null)
+    public function recordings_live_list($recordingName = NULL)
     {
         try {
 
@@ -178,7 +178,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function recordings_live_stop_n_discard($recordingName = null)
+    public function recordings_live_stop_n_discard($recordingName = NULL)
     {
 
         try {
@@ -205,7 +205,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function  recordings_live_stop_n_store($recordingName = null)
+    public function  recordings_live_stop_n_store($recordingName = NULL)
     {
 
         try {
@@ -233,7 +233,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function  recordings_live_pause($recordingName = null)
+    public function  recordings_live_pause($recordingName = NULL)
     {
         try {
             if (is_null($recordingName))
@@ -258,7 +258,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function  recordings_live_unpause($recordingName = null)
+    public function  recordings_live_unpause($recordingName = NULL)
     {
 
         try {
@@ -283,7 +283,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function  recordings_live_mute($recordingName = null)
+    public function  recordings_live_mute($recordingName = NULL)
     {
 
         try {
@@ -308,7 +308,7 @@ class recordings //extends phpari
      * @param null $recordingName
      * @return bool
      */
-    public function  recordings_live_unmute($recordingName = null)
+    public function  recordings_live_unmute($recordingName = NULL)
     {
 
         try {
