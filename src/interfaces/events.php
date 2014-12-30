@@ -45,6 +45,10 @@ class events // extends phpari
     /**
      * GET /events
      * WebSocket connection for events.
+     *
+     * @param null $app
+     *
+     * @return mixed
      */
     public function events($app = NULL)
     {

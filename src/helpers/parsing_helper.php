@@ -42,6 +42,8 @@ class parsing_helper {
      * The return value shall always be an ASSOC_ARRAY, represting $rawInput in a unified manner
      *
      * @param null $rawInput
+     *
+     * return mixed
      */
     function parseRequestData($rawInput = NULL)
     {

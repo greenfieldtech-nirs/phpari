@@ -43,11 +43,23 @@
             }
         }
 
+        /**
+         * This function is an alias to 'info' - will be deprecated in phpari 2.0
+         *
+         * @param null $filter
+         *
+         * @return mixed
+         */
         public function get_asterisk_info($filter = NULL)
         {
             return info($filter);
         }
 
+        /**
+         * @param null $filter
+         *
+         * @return mixed
+         */
         public function info($filter = NULL)
         {
 
@@ -82,6 +94,11 @@
 
         }
 
+        /**
+         * @param null $variable
+         *
+         * @return mixed
+         */
         public function get_global_variable($variable = NULL)
         {
 
@@ -109,6 +126,12 @@
 
         }
 
+        /**
+         * @param null $variable
+         * @param null $value
+         *
+         * @return mixed
+         */
         public function set_global_variable($variable = NULL, $value = NULL)
         {
 

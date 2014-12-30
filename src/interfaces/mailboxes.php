@@ -45,6 +45,10 @@
         /**
          * GET /mailboxes
          * List all mailboxes.
+         *
+         * @param null $mailbox
+         *
+         * @return mixed
          */
         public function show($mailbox = NULL)
         {

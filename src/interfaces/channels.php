@@ -47,7 +47,7 @@ class channels //extends phpari
     /**
      * Get the current list of active channels
      *
-     * @return JSON|bool - false for a failure, JSON object for all other results
+     * @return object|bool - false for a failure, JSON object for all other results
      */
     public function channel_list()
     {
