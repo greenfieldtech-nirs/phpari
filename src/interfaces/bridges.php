@@ -292,7 +292,7 @@
                 );
 
                 $uri    = "/bridges/" . $bridgeId . "/removeChannel";
-                $result = $this->pestObject->delete($uri, $delObj);
+                $result = $this->pestObject->post($uri, $delObj);
 
                 return $result;
 
