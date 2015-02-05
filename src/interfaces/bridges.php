@@ -36,7 +36,7 @@
                     throw new Exception("Missing PestObject or empty string", 503);
 
                 $this->phpariObject = $connObject;
-                $this->pestObject = $connObject->ariEndpoint;
+                $this->pestObject   = $connObject->ariEndpoint;
 
             } catch (Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
@@ -49,7 +49,7 @@
          *
          * @return bool
          */
-        public function   bridges_list()
+        public function show()
         {
             try {
 
@@ -70,12 +70,22 @@
             }
         }
 
+        /**
+         * This function is an alias to 'show' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridges_list()
+        {
+            return $this->show();
+        }
 
         /**
          * POST /bridges
-         * Create a new bridge.
-         * This bridge persists until it has been shut down,
-         * or Asterisk has been shut down.
+         * Create or Update a new or existing ARI bridge.
+         * This bridge persists until it has been shut down, or Asterisk has been shut down.
+         *
+         * Please note, ARI bridges have nothing to do with ConfBridge or native Asterisk bridging
          *
          * @param null $type     - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media).
          * @param null $bridgeId - Unique ID to give to the bridge being created.
@@ -83,33 +93,23 @@
          *
          * @return bool
          */
-        public function bridge_create($type = NULL, $bridgeId = NULL, $name = NULL)
+        public function create($type = NULL, $bridgeId = NULL, $name = NULL)
         {
-
             try {
 
-                if (is_null($type))
-                    throw new Exception("Type not provided or is null", 503);
+                $postOBJ = array();
 
-                if (is_null($bridgeId))
-                    throw new Exception("BridgeID not provided or is null", 503);
-                if (is_null($name))
-                    throw new Exception("Name not provided or is null", 503);
+                if (!is_null($type))
+                    $postOBJ['type'] = $type;
 
+                if (!is_null($name))
+                    $postOBJ['name'] = $name;
 
-                $uri = "/bridges";
-
-                $postOBJ = array(
-                    'type'     => $type,
-                    'bridgeId' => $bridgeId,
-                    'name'     => $name
-                );
-
+                $uri = (is_null($bridgeId)) ? "/bridges" : "/bridges/" . $bridgeId;
 
                 $result = $this->pestObject->post($uri, $postOBJ);
 
                 return $result;
-
 
             } catch (Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
@@ -117,56 +117,27 @@
 
                 return FALSE;
             }
+        }
 
+        /**
+         * This function is an alias to 'create' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_create($type = NULL, $bridgeId = NULL, $name = NULL)
+        {
+            return $this->create($type, $bridgeId, $name);
         }
 
 
         /**
-         * POST /bridges
-         * Create a new bridge or updates an existing one.
-         * This bridge persists until it has been shut down,
-         * or Asterisk has been shut down.
+         * This function is an alias to 'create' - will be deprecated in phpari 2.0
          *
-         * @param null $type     - Comma separated list of bridge type attributes (mixing, holding, dtmf_events, proxy_media).
-         * @param null $bridgeId - Unique ID to give to the bridge being created.
-         * @param null $name     - Name to give to the bridge being created.
-         *
-         * @return bool
+         * @return mixed
          */
         public function bridge_create_update($type = NULL, $bridgeId = NULL, $name = NULL)
         {
-
-            try {
-
-                if (is_null($type))
-                    throw new Exception("Type not provided or is null", 503);
-
-                if (is_null($bridgeId))
-                    throw new Exception("BridgeID not provided or is null", 503);
-                if (is_null($name))
-                    throw new Exception("Name not provided or is null", 503);
-
-
-                $uri = "/bridges/" . $bridgeId;
-
-                $postOBJ = array(
-                    'type' => $type,
-                    'name' => $name
-                );
-
-
-                $result = $this->pestObject->post($uri, $postOBJ);
-
-                return $result;
-
-
-            } catch (Exception $e) {
-                $this->phpariObject->lasterror = $e->getMessage();
-                $this->phpariObject->lasttrace = $e->getTraceAsString();
-
-                return FALSE;
-            }
-
+            return $this->create($type, $bridgeId, $name);
         }
 
         /**
@@ -177,7 +148,7 @@
          *
          * @return bool
          */
-        public function bridge_details($bridgeId = NULL)
+        public function details($bridgeId = NULL)
         {
 
             try {
@@ -196,6 +167,15 @@
 
         }
 
+        /**
+         * This function is an alias to 'details' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_details($bridgeId = NULL)
+        {
+            $this->bridge_details($bridgeId);
+        }
 
         /**
          * DELETE /bridges/{bridgeId}
@@ -207,9 +187,8 @@
          *
          * @return bool
          */
-        public function bridge_delete($bridgeId = NULL)
+        public function terminate($bridgeId = NULL)
         {
-
             try {
 
                 if (is_null($bridgeId))
@@ -226,9 +205,17 @@
 
                 return FALSE;
             }
-
         }
 
+        /**
+         * This function is an alias to 'terminate' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_delete($bridgeId = NULL)
+        {
+            return $this->terminate($bridgeId);
+        }
 
         /**
          *
@@ -241,9 +228,8 @@
          *
          * @return bool
          */
-        public function bridge_addchannel($bridgeId = NULL, $channel = NULL, $role = NULL)
+        public function addchannel($bridgeId = NULL, $channel = NULL, $role = NULL)
         {
-
             try {
 
                 if (is_null($bridgeId))
@@ -251,15 +237,12 @@
 
                 if (is_null($channel))
                     throw new Exception("Channel is not provided or is null", 503);
-                if (is_null($role))
-                    throw new Exception("Role is  not provided or is null", 503);
 
+                $postObj            = array();
+                $postObj['channel'] = $channel;
 
-                $postObj = array(
-                    'channel' => $channel,
-                    'role'    => $role
-                );
-
+                if (!is_null($role))
+                    $postObj['role'] = $role;
 
                 $uri    = "/bridges/" . $bridgeId . "/addChannel";
                 $result = $this->pestObject->post($uri, $postObj);
@@ -272,7 +255,16 @@
 
                 return FALSE;
             }
+        }
 
+        /**
+         * This function is an alias to 'addchannel' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_addchannel($bridgeId = NULL, $channel = NULL, $role = NULL)
+        {
+            return $this->addchannel($bridgeId, $channel, $role);
         }
 
         /**
@@ -285,58 +277,21 @@
          *
          * @return bool
          */
-        public function bridge_remove_channel($bridgeId = NULL, $channel = NULL)
+        public function delchannel($bridgeId = NULL, $channel = NULL)
         {
-
             try {
 
                 if (is_null($bridgeId))
                     throw new Exception("BridgeID is not provided or is null", 503);
+
                 if (is_null($channel))
                     throw new Exception("Channel is not provided or is null", 503);
+
                 $delObj = array(
                     'channel' => $channel,
                 );
 
                 $uri    = "/bridges/" . $bridgeId . "/removeChannel";
-                $result = $this->pestObject->delete($uri, $delObj);
-
-                return $result;
-
-            } catch (Exception $e) {
-                $this->phpariObject->lasterror = $e->getMessage();
-                $this->phpariObject->lasttrace = $e->getTraceAsString();
-
-                return FALSE;
-            }
-        }
-
-        /**
-         *
-         * POST /bridges/{bridgeId}/moh
-         * Play music on hold to a bridge or change the MOH class that is playing.
-         *
-         * @param null $bridgeId
-         * @param null $mohClass
-         *
-         * @return bool
-         */
-        public function bridge_play_moh($bridgeId = NULL, $mohClass = NULL)
-        {
-
-            try {
-
-                if (is_null($bridgeId))
-                    throw new Exception("BridgeID is not provided or is null", 503);
-                if (is_null($mohClass))
-                    throw new Exception("Channel is not provided or is null", 503);
-
-
-                $postObj = array(
-                    'mohClass' => $mohClass
-                );
-
-                $uri    = '/bridges/' . $bridgeId . '/moh';
                 $result = $this->pestObject->post($uri, $delObj);
 
                 return $result;
@@ -350,6 +305,60 @@
         }
 
         /**
+         * This function is an alias to 'delchannel' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_remove_channel($bridgeId = NULL, $channel = NULL)
+        {
+            return $this->delchannel($bridgeId, $channel);
+        }
+
+        /**
+         *
+         * POST /bridges/{bridgeId}/moh
+         * Play music on hold to a bridge or change the MOH class that is playing.
+         *
+         * @param null $bridgeId
+         * @param null $mohClass
+         *
+         * @return bool
+         */
+        public function mohStart($bridgeId = NULL, $mohClass = NULL)
+        {
+            try {
+
+                if (is_null($bridgeId))
+                    throw new Exception("BridgeID is not provided or is null", 503);
+
+                $postObj = array();
+                if (!is_null($mohClass))
+                    $postObj['mohClass'] = $mohClass;
+
+                $uri    = '/bridges/' . $bridgeId . '/moh';
+                $result = $this->pestObject->post($uri, $postObj);
+
+                return $result;
+
+            } catch (Exception $e) {
+                $this->phpariObject->lasterror = $e->getMessage();
+                $this->phpariObject->lasttrace = $e->getTraceAsString();
+
+                return FALSE;
+            }
+        }
+
+        /**
+         * This function is an alias to 'moh_start' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_play_moh($bridgeId = NULL, $mohClass = NULL)
+        {
+            return $this->moh_start($bridgeId, $mohClass);
+        }
+
+        /**
          *
          * DELETE /bridges/{bridgeId}/moh
          * Stop playing music on hold to a bridge.
@@ -359,9 +368,8 @@
          *
          * @return bool
          */
-        public function bridge_stop_moh($bridgeId = NULL)
+        public function mohStop($bridgeId = NULL)
         {
-
             try {
 
                 if (is_null($bridgeId))
@@ -380,6 +388,15 @@
             }
         }
 
+        /**
+         * This function is an alias to 'moh_stop' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_stop_moh($bridgeId = NULL)
+        {
+            return $this->moh_stop($bridgeId);
+        }
 
         /**
          * POST /bridges/{bridgeId}/play
@@ -397,35 +414,31 @@
          *
          * @return bool
          */
-        public function bridge_start_playback($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = 3000, $playbackId = NULL)
+        public function playbackStart($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
         {
-
             try {
 
                 if (is_null($bridgeId))
                     throw new Exception("BridgeID is not provided or is null", 503);
                 if (is_null($media))
                     throw new Exception("Media representation is not provided or is null", 503);
-                if (is_null($lang))
-                    throw new Exception("lang is not provided or is null", 503);
-                if (is_null($offsetms))
-                    throw new Exception("Offsetms is not provided or is null", 503);
-                if (is_null($skipms))
-                    throw new Exception("Skimps is not provided or is null", 503);
-                if (is_null($playbackId))
-                    throw new Exception("PlaybackId is not provided or is null", 503);
 
+                $postObj          = array();
+                $postObj['media'] = $media;
 
-                $postObj = array(
-                    'media'      => $media,
-                    'lang'       => $lang,
-                    'offsetms'   => $offsetms,
-                    'skimps'     => $skipms,
-                    'playbackId' => $playbackId
+                if (!is_null($lang))
+                    $postObj['lang'] = $lang;
 
-                );
+                if (!is_null($offsetms))
+                    $postObj['offsetms'] = $offsetms;
 
-                $uri    = '/bridges/' . $bridgeId . '/play';
+                if (!is_null($skipms))
+                    $postObj['skipms'] = $skipms;
+
+                if (!is_null($playbackId))
+                    $postObj['playbkackId'] = $playbackId;
+
+                $uri    = (is_null($playbackId)) ? '/bridges/' . $bridgeId . '/play' : '/bridges/' . $bridgeId . '/play/' . $playbackId;
                 $result = $this->pestObject->post($uri, $postObj);
 
                 return $result;
@@ -438,66 +451,25 @@
             }
         }
 
+        /**
+         * This function is an alias to 'playback_start' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_start_playback($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
+        {
+            return $this->playback_start($bridgeId, $media, $lang, $offsetms, $skipms, $playbackId);
+        }
+
 
         /**
+         * This function is an alias to 'playback_start' - will be deprecated in phpari 2.0
          *
-         * POST /bridges/{bridgeId}/play/{playbackId}
-         *
-         * Start playback of media on a bridge.
-         * The media URI may be any of a number of URI's.
-         * Currently sound: and recording: URI's are supported.
-         * This operation creates a playback resource that can be used
-         * to control the playback of media (pause, rewind, fast forward, etc.)
-         *
-         * @param null   $bridgeId   - Bridge's id
-         * @param string $media      - (required) Media's URI to play.
-         * @param string $lang       - For sounds, selects language for sound.
-         * @param int    $offsetms   - Number of media to skip before playing.
-         * @param int    $skipms     - Number of milliseconds to skip for forward/reverse operations.
-         * @param null   $playbackId - Playback Id.
-         *
-         * @return bool
+         * @return mixed
          */
-        public function bridge_start_playback_id($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = 3000, $playbackId = NULL)
+        public function bridge_start_playback_id($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
         {
-
-            try {
-
-                if (is_null($bridgeId))
-                    throw new Exception("BridgeID is not provided or is null", 503);
-                if (is_null($media))
-                    throw new Exception("Media representation is not provided or is null", 503);
-                if (is_null($lang))
-                    throw new Exception("lang is not provided or is null", 503);
-                if (is_null($offsetms))
-                    throw new Exception("Offsetms is not provided or is null", 503);
-                if (is_null($skipms))
-                    throw new Exception("Skimps is not provided or is null", 503);
-                if (is_null($playbackId))
-                    throw new Exception("PlaybackId is not provided or is null", 503);
-
-
-                $postObj = array(
-                    'media'    => $media,
-                    'lang'     => $lang,
-                    'offsetms' => $offsetms,
-                    'skimps'   => $skipms,
-
-                );
-
-                $uri    = '/bridges/' . $bridgeId . '/play/' . $playbackId;
-                $result = $this->pestObject->post($uri, $postObj);
-
-                return $result;
-
-            } catch (Exception $e) {
-                $this->phpariObject->lasterror = $e->getMessage();
-                $this->phpariObject->lasttrace = $e->getTraceAsString();
-
-                return FALSE;
-            }
-
-
+            return $this->playback_start($bridgeId, $media, $lang, $offsetms, $skipms, $playbackId);
         }
 
 
@@ -518,7 +490,7 @@
          *
          * @return bool
          */
-        public function bridge_start_recording(
+        public function record(
             $bridgeId = NULL,
             $name = NULL,
             $format = NULL,
@@ -526,11 +498,8 @@
             $maxSilenceSeconds = 0,
             $ifExists = "fail",
             $beep = FALSE,
-            $terminateOn = "none"
-
-        )
+            $terminateOn = "none")
         {
-
             try {
 
                 if (is_null($bridgeId))
@@ -562,6 +531,26 @@
 
                 return FALSE;
             }
+        }
+
+        /**
+         * This function is an alias to 'record' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function bridge_start_recording(
+            $bridgeId = NULL,
+            $name = NULL,
+            $format = NULL,
+            $maxDurationSeconds = 0,
+            $maxSilenceSeconds = 0,
+            $ifExists = "fail",
+            $beep = FALSE,
+            $terminateOn = "none"
+
+        )
+        {
+            return $this->record($bridgeId, $name, $format, $maxDurationSeconds, $maxSilenceSeconds, $ifExists, $beep, $terminateOn);
         }
 
     }

@@ -27,7 +27,7 @@ class events // extends phpari
 {
     private $phpariObject;
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -45,13 +45,17 @@ class events // extends phpari
     /**
      * GET /events
      * WebSocket connection for events.
+     *
+     * @param null $app
+     *
+     * @return mixed
      */
-    public function  events($app)
+    public function events($app = NULL)
     {
         try {
 
             if (is_null($app))
-                throw new Exception("App name is  not provided or is null", 503);
+                throw new Exception("App name is not provided or is null", 503);
 
             $uri = "/events";
             $getObj = array('app' => $app);
@@ -82,12 +86,12 @@ class events // extends phpari
      * @param array $variables - Ex. array("key1" => "value1" ,  "key2" => "value2")
      * @return bool
      */
-    public function event_generate($eventName = null,
-                                   $application = null,
-                                   $channelID = null,
-                                   $bridge = null,
-                                   $endpoint = null,
-                                   $deviceName = null,
+    public function event_generate($eventName = NULL,
+                                   $application = NULL,
+                                   $channelID = NULL,
+                                   $bridge = NULL,
+                                   $endpoint = NULL,
+                                   $deviceName = NULL,
                                    $variables = array())
     {
 

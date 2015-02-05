@@ -1,11 +1,269 @@
-commit a2e1bf122743b4ef04acb74e367bb4c4f5c5bda7 (HEAD, origin/develop, develop)
+commit 50086e82a65242e48b75a68490a1e0460f7818e5
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Feb 5 16:20:01 2015 +0200
+
+    PHPARI based app_dial replacement wireframe - just an example
+
+commit 891d073374fc7abad9c27033d0c1ed917a179ec1
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Feb 5 16:16:26 2015 +0200
+
+    https://github.com/greenfieldtech-nirs/phpari/issues/34 - Fixed
+
+commit 016b899763da3226f1d47c459509c1463b7e0f5b
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Feb 5 15:28:21 2015 +0200
+
+    Commit fixes for the channels and other interfaces - camel casing is now properly used
+
+commit dba90c17c556e58e6418addea4c4453aa91a2055
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Feb 1 09:25:10 2015 +0200
+
+    Final changelog
+
+commit bd774bc3bf845c27cd70957efd92f44d52bc9687
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Feb 1 09:22:38 2015 +0200
+
+    Experiment with new changelog format
+
+commit a92e0c2360453d056255e3b2d5260f4cac06cfaf
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Feb 1 09:17:49 2015 +0200
+
+    CHANGELOG format now changed to something more readable
+
+commit fb0128dc2d94c6e35671ea322ba5206063c44be4
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Feb 1 09:16:56 2015 +0200
+
+    Change method from DELETE to POST for channel removal from bridge function (bridges->delchannel) - Reported by Mark Ingles
+    
+    Mark Ingles <notifications@github.com>
+    7:45 PM (13 hours ago)
+    
+    to greenfieldtech.
+    Hi,
+    in release-3/src/interfaces/bridges.php line 280, inside the function delchannel, this line:
+    $result = $this->pestObject->delete($uri, $delObj);
+    
+    should be
+    $result = $this->pestObject->post($uri, $delObj);
+    
+    The HTTP method should be post, not delete. Or else ARI will return "Invalid method"
+    This error is in the prior versions too.
+    
+    Reference: https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+Bridges+REST+API#Asterisk13BridgesRESTAPI-removeChannel
+    
+    Thanks - Mark Ingles
+
+commit 85e7e4805037a5be879a07a803737c0f1ae95632
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Tue Dec 30 09:09:21 2014 +0200
+
+    More styling clean ups and corrections to several of the class libraries. Code compacting in progress, stop copying things around and make things tighter and nicer.
+
+commit afb3dfc92f91cf23802a38781ceb651be6e0b65a
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Dec 28 12:07:57 2014 +0200
+
+    More API clean ups and some styling fixes :-)
+
+commit eb3a17d6a2ed5a815aaf0145c2639e3acef3d774
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Dec 28 11:37:51 2014 +0200
+
+    More API clean ups - devicestates, endpoints, events, mailboxes and playbacks
+
+commit b6315568975f245a8d6a378bb092260970031edc
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Dec 28 08:25:31 2014 +0200
+
+    Asterisk REST API changes, Bridges REST API changes:
+    
+    Resolve API definition differences between the ARI specification and PHPARI implementation - we now follow the original API definition, as defined in
+    https://wiki.asterisk.org/wiki/display/AST/Asterisk+12+Bridges+REST+API
+    
+    In addition, API function had changed, with creation of function aliasing for previous version - these will go away in version 2.0
+
+commit 6cdf6d23c2c429b3e82f374ddf1a9f399197bbf6
+Merge: 8cca54e 56bf23a
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Mon Nov 10 13:49:45 2014 +0200
+
+    Merge pull request #29 from greenfieldtech-nirs/master
+    
+    Merging back from Master changes over Develop branch
+
+commit 56bf23aded08c75a4e2bbd1b2d6523ec4e334715
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Mon Nov 10 12:43:27 2014 +0200
+
+    Commit a small styling fix - NetBeans can be tricky some times
+
+commit 8cca54e08cfd6be3ef78b2910bd1ae9d32e82574
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Mon Nov 10 12:41:18 2014 +0200
+
+    This is a partial commit - the code is most probably broken right now :-(
+
+commit 5ed40e2e7957cd196c80e230ba38c53449356d9f
+Merge: ac794cc 00971cc
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Mon Nov 10 12:07:51 2014 +0200
+
+    Merge pull request #28 from matak/master
+    
+    Accepting merge #28:
+    1. Additional Class Documentations for IDE readability - @matak
+    2. Class initiation sanity checking and verification - @matak
+
+commit 00971ccdfff111d1c00a302f5d992ed5d7208afb
+Author: Roman Matěna <info@romanmatena.cz>
+Date:   Mon Nov 10 11:00:35 2014 +0100
+
+    comments for IDE, variable check if declare
+    
+    instance of interfaces is instanciated only once, added comments to
+    variables for IDE
+
+commit ac794cc84cba5ac339d59d04e3b15970c374d797
+Merge: ebe0f6c e5a5cfb
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Mon Nov 10 09:37:41 2014 +0200
+
+    Merge pull request #26 from matak/master
+    
+    Some fields were set as mandatory while they were optional (@matak)
+    Some additional comments to make some of the variables in the class more readable (@matak)
+
+commit e5a5cfb74576fe624ac718d2a456da7cf8285503
+Author: Roman Matěna <info@romanmatena.cz>
+Date:   Sun Nov 9 12:03:19 2014 +0100
+
+    added comments, type of variables in phpari
+
+commit a4317d090c116a1d7c14f94cc53639021f561849
+Author: Roman Matěna <info@romanmatena.cz>
+Date:   Sun Nov 9 11:52:56 2014 +0100
+
+    comments improved, type of variables
+    
+    added variable type logger and loopinterface, logwriter is not attached
+    and stored to object, why to store logwriter to phpari object?
+
+commit d2d5d89273871f33f2e15b8d00708140b061da3a
+Author: Roman Matěna <info@romanmatena.cz>
+Date:   Sun Nov 9 09:43:50 2014 +0100
+
+    lang and format is not mandatory parameters
+    
+    for good working you dont have to set these parameters
+
+commit ebe0f6c423a98b7393fa9d02968fadb8ee59fb92
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Sun Nov 9 09:04:29 2014 +0200
+
+    Update README.md
+
+commit 41996a80c47401f2a955fb073a4b4d7abbf04922
+Merge: e349ba3 11f8f59
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Sun Nov 9 08:58:20 2014 +0200
+
+    Merge pull request #25 from matak/master
+    
+    Resolve a small regression issue - class init wasn't using the proper Endpoint configuration
+
+commit 11f8f598b46fc553442d4a3043b5023b77664efe
+Author: Roman Matěna <info@romanmatena.cz>
+Date:   Fri Nov 7 17:56:56 2014 +0100
+
+    Fixes #24
+
+commit e349ba3bea1cc77e5ed6076cad3bae760b8ba72a
+Merge: fa52565 c67803e
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Oct 23 17:21:05 2014 +0300
+
+    Merge pull request #23 from greenfieldtech-nirs/develop
+    
+    Bug fix from community contribution Tonils@GitHub
+
+commit fa525654c5e97111808dc0550a397fe011e0bf3f
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 23 17:20:03 2014 +0300
+
+    Regression fixes - we had a minor issues with improper handling of REST errors across the board.
+    This has now been resolved and reflected into the BasisStasisApplication example.
+
+commit c67803e5656ae45110ec38bab696cd395081ed64
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 23 03:56:52 2014 +0300
+
+    Bug fix from community contribution Tonils@GitHub
+
+commit 546f806f43632f5625f790620638ca84cd363a66
+Merge: 2f94087 c01d0eb
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Oct 23 03:54:24 2014 +0300
+
+    Merge pull request #22 from MattRiddell/master
+    
+    Parameters are now specified in the config file
+
+commit c01d0ebe87a0f36f13ab0f21eef73c006f46a60f
+Author: Matt <Matt@MacBook-Pro.local>
+Date:   Wed Oct 22 14:32:18 2014 -0700
+
+    Parameters are now specified in the config file
+
+commit 2f9408719a824d631d80fb7145b75f9f50a43f1c
+Merge: 2273af5 997fe5b
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Wed Oct 22 19:45:34 2014 +0300
+
+    Merge pull request #20 from greenfieldtech-nirs/develop
+    
+    Develop
+
+commit 997fe5be9c9880fc1582c3b93ec624b44e5336e8
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Tue Oct 21 20:00:21 2014 +0300
+
+    remove the old logger which is no longer required. Added a new parsing class, to enable the unifying of input into channels and other APIs.
+    Channel API data input had changed, we are now able to accept free form input.
+
+commit a24dd720b2fbc64c9ac70c4e3ad4816baba60f53
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sat Oct 11 22:49:28 2014 +0300
+
+    Added contrib directory for init scripts and other contributions, not directly related to the PHPARI code.
+
+commit 5493ca0e2484ace5b8338b92e83cce060896706c
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Oct 9 14:40:03 2014 +0300
+
+    We now have a proper CHANGELOG in here
+
+commit 2273af5bc6a0f652813f20db5f7cbc1c976ca0da
+Merge: 988b128 a2e1bf1
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Oct 9 14:09:15 2014 +0300
+
+    Merge pull request #19 from greenfieldtech-nirs/develop
+    
+    Merging back from development
+
+commit a2e1bf122743b4ef04acb74e367bb4c4f5c5bda7
 Merge: 3dd26e8 6a9b165
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Thu Oct 9 14:07:19 2014 +0300
 
     Merge branch 'feature/Proper-Error-Reporting' into develop
 
-commit 6a9b1653e526bbef4ae66d9a5ba3f8782ec9163f (origin/feature/Proper-Error-Reporting)
+commit 6a9b1653e526bbef4ae66d9a5ba3f8782ec9163f
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Thu Oct 9 14:07:02 2014 +0300
 
@@ -27,7 +285,7 @@ Date:   Thu Oct 9 12:59:56 2014 +0300
     
     Pull #5 - Proper event handling
 
-commit 0551c901f8c12cf0ee483671496946180e49b69f (origin/Proper-Event-Handling, Proper-Event-Handling)
+commit 0551c901f8c12cf0ee483671496946180e49b69f
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Thu Oct 9 12:59:01 2014 +0300
 
@@ -68,11 +326,29 @@ Date:   Mon Oct 6 08:29:25 2014 +0300
 
     Commit the playbacks class - modify the basic Stasis example to something a bit more meaningful.
 
+commit 988b1284cb3d30c779acd1b69fc82a0a328bf920
+Merge: 0568521 afe8dc4
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Sep 18 11:08:13 2014 +0300
+
+    Merge pull request #16 from greenfieldtech-nirs/develop
+    
+    Fix constructor interfaces to extended classes
+
 commit afe8dc495cd62e9067bf93372610527b33378404
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Thu Sep 18 11:06:56 2014 +0300
 
     Some of our interfaces were mis-implementing the __construct function. This is now updated to reflect a unified constructor for all extension classes.
+
+commit 0568521b63ea5f3130b58317c87ff4b3de47c04a
+Merge: b5f4069 93e847a
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Sep 18 09:28:48 2014 +0300
+
+    Merge pull request #15 from greenfieldtech-nirs/develop
+    
+    Commit a slightly more detailed README.md file, so that people can actua...
 
 commit 93e847a5f705ba183dfb88e6e7f16c9b0a6bfc46
 Author: Nir Simionovich <nirs@greenfieldtech.net>
@@ -80,11 +356,29 @@ Date:   Thu Sep 18 09:28:41 2014 +0300
 
     Commit a slightly more detailed README.md file, so that people can actually start doing something with phpari :-)
 
+commit b5f40690497666715fb39e47f20702029c0f032b
+Merge: bafdefb 04b7e5b
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Sep 18 09:02:46 2014 +0300
+
+    Merge pull request #14 from greenfieldtech-nirs/develop
+    
+    phpStorm can so picky at times :-(
+
 commit 04b7e5b3354fbe49e5fb0120ddafc56f33b7c343
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Thu Sep 18 09:02:42 2014 +0300
 
     phpStorm can so picky at times :-(
+
+commit bafdefb3f2879a9a9e5a50918af85408b7bf0f4c
+Merge: 40c8615 bdb53a1
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Thu Sep 18 09:01:06 2014 +0300
+
+    Merge pull request #13 from greenfieldtech-nirs/develop
+    
+    looks like the .idea folder got committed for some reason - that is just...
 
 commit bdb53a148e022ef5ea0f6447a31ce593bc636d4f
 Author: Nir Simionovich <nirs@greenfieldtech.net>
@@ -92,11 +386,29 @@ Date:   Thu Sep 18 08:59:52 2014 +0300
 
     looks like the .idea folder got committed for some reason - that is just not supposed to be there.
 
+commit 40c86150665f2d8d1195deea0d49f9a06ef13653
+Merge: 3608465 0e8982f
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Wed Sep 17 21:08:10 2014 +0300
+
+    Merge pull request #12 from greenfieldtech-nirs/develop
+    
+    Slight formatting fix - is was simply looking really bad previously
+
 commit 0e8982f75d1358cd4668ba05d0ea98f3e209c06b
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Wed Sep 17 21:06:54 2014 +0300
 
     Slight formatting fix - is was simply looking really bad previously
+
+commit 36084658f47279a125a58de69038ba4400a5afa5
+Merge: 5282fc9 fe82457
+Author: Nir Simionovich <nir.simionovich@greenfieldtech.net>
+Date:   Wed Sep 17 14:04:15 2014 +0300
+
+    Merge pull request #11 from greenfieldtech-nirs/develop
+    
+    Merging back from development fixed branch to master
 
 commit fe82457ecdc4936297e034c850171248c803a447
 Author: Nir Simionovich <nirs@greenfieldtech.net>

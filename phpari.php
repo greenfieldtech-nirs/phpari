@@ -61,6 +61,7 @@
         public $logfile;
         public $lasterror;
         public $lasttrace;
+        public $lasterrorinfo;
 
         /**
          * @param null   $stasisApplication
@@ -110,6 +111,7 @@
          * @param $ariServer
          * @param $ariPort
          * @param $ariEndpoint
+         * @param $ariTransport
          *
          * @return array
          */

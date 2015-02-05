@@ -24,8 +24,13 @@
      * written by Nir Simionovich and its respective list of contributors.
      */
 
-    require_once "../vendor/autoload.php";
+    /* DO NOT MODIFY THIS PART, YOU WILL BREAK THIS! */
+    $pathinfo = pathinfo($_SERVER['PHP_SELF']);
+    $dir = $pathinfo['dirname'] . "/";
+    require_once $dir . "../../vendor/autoload.php";
 
+
+    /* START YOUR MODIFICATIONS HERE */
     class BasicStasisApplication
     {
 

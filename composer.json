@@ -32,7 +32,8 @@
             "src/interfaces/mailboxes.php",
             "src/interfaces/sounds.php",
             "src/interfaces/playbacks.php",
-            "src/helpers/parsing.php"
+            "src/helpers/parsing_helper.php",
+            "src/helpers/config_helper.php"
         ]
     }
 }
