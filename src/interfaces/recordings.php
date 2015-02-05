@@ -270,7 +270,7 @@
          *
          * @return mixed
          */
-        public function  recordings_live_mute($recordingName = NULL)
+        public function recordings_live_mute($recordingName = NULL)
         {
             return $this->live("mute", $recordingName);
         }

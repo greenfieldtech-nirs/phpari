@@ -36,7 +36,7 @@
                     throw new Exception("Missing PestObject or empty string", 503);
 
                 $this->phpariObject = $connObject;
-                $this->pestObject   = $connObject->ariEndpoint;
+                $this->pestObject = $connObject->ariEndpoint;
 
             } catch (Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
@@ -97,11 +97,10 @@
         /**
          * @param null $variable
          *
-         * @return mixed
+         * @return bool
          */
-        public function get_global_variable($variable = NULL)
+        public function getGlobalVariable($variable = NULL)
         {
-
             try {
 
                 $result = FALSE;
@@ -123,7 +122,14 @@
 
                 return FALSE;
             }
+        }
 
+        /*
+         * This is an alias to setGlobalVariable
+         */
+        public function get_global_variable($variable = NULL)
+        {
+            $this->setGlobalVariable($variable);
         }
 
         /**
@@ -132,9 +138,8 @@
          *
          * @return mixed
          */
-        public function set_global_variable($variable = NULL, $value = NULL)
+        public function setGlobalVariable($variable = NULL, $value = NULL)
         {
-
             try {
 
                 $result = FALSE;
@@ -158,6 +163,13 @@
 
                 return FALSE;
             }
+        }
 
+        /*
+         * This is an alias to setGlobalVariable
+         */
+        public function set_global_variable($variable = NULL, $value = NULL)
+        {
+            $this->setGlobalVariable($variable, $value);
         }
     }

@@ -324,7 +324,7 @@
          *
          * @return bool
          */
-        public function moh_start($bridgeId = NULL, $mohClass = NULL)
+        public function mohStart($bridgeId = NULL, $mohClass = NULL)
         {
             try {
 
@@ -368,7 +368,7 @@
          *
          * @return bool
          */
-        public function moh_stop($bridgeId = NULL)
+        public function mohStop($bridgeId = NULL)
         {
             try {
 
@@ -414,7 +414,7 @@
          *
          * @return bool
          */
-        public function playback_start($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
+        public function playbackStart($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
         {
             try {
 
