@@ -196,7 +196,7 @@
                                 break;
                             case "unmute":
                                 $uri .= "/mute";
-                                $result = $this->pestObject->post($uri);
+                                $result = $this->pestObject->delete($uri);
                                 break;
                             default:
                                 throw new Exception("unknown action specified", 503);
