@@ -43,18 +43,22 @@
             }
         }
 
-
         /**
-         * @return bool
+         * GET List of all applications or information regarding a specific application name
+         *
+         * @param null $applicationName
+         *
+         * @return mixed
          */
-        public function applications_list()
+        public function show($applicationName = NULL)
         {
             try {
 
                 if (is_null($this->pestObject))
                     throw new Exception("PEST Object not provided or is null", 503);
 
-                $uri    = "/applications";
+                $uri = "/applications";
+                $uri .= (!is_null($applicationName)) ? "/" . $applicationName : "";
                 $result = $this->pestObject->get($uri);
 
                 return $result;
@@ -62,136 +66,145 @@
             } catch (Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
+
                 return FALSE;
             }
         }
 
         /**
-         * @param null $applicationName
+         * This function is an alias to 'show' - will be deprecated in phpari 2.0
+         *
+         * @return mixed
+         */
+        public function applications_list()
+        {
+            return $this->show();
+        }
+
+        /**
+         * This function is an alias to 'show' - will be deprecated in phpari 2.0
          *
          * @return mixed
          */
         public function  application_details($applicationName = NULL)
         {
-            try {
-
-                if (is_null($applicationName))
-                    throw new Exception("Application name not provided or is null", 503);
-
-                $uri    = "/applications";
-                $result = $this->pestObject->get($uri);
-
-                return $result;
-
-            } catch (Exception $e) {
-                $this->phpariObject->lasterror = $e->getMessage();
-                $this->phpariObject->lasttrace = $e->getTraceAsString();
-                return FALSE;
-            }
+            return $this->show($applicationName);
         }
 
         /**
-         * @param null $applicationName
-         * @param null $bridge
-         * @param null $channelId
-         * @param null $endpoint
-         * @param null $deviceState
+         * Subscribe an application to a event source. Returns the state of the application after the subscriptions have changed
          *
-         * @return bool
+         * @param string $applicationName
+         * @param string $eventSources
+         *
+         * @return mixed
          */
-        public function application_subscribe($applicationName = NULL, $bridge = NULL, $channelId = NULL, $endpoint = NULL, $deviceState = NULL)
+        public function subscribe($applicationName = NULL, $eventSources = NULL)
         {
             try {
 
                 if (is_null($applicationName))
                     throw new Exception("Application name not provided or is null", 503);
-                if (is_null($bridge))
-                    throw new Exception("Bridge id not provided or is null", 503);
-                if (is_null($channelId))
-                    throw new Exception("Channel id not provided or is null", 503);
+                if (is_null($eventSources))
+                    throw new Exception("eventSources not provided or is null", 503);
 
-                if (is_null($endpoint))
-                    throw new Exception("End point  not provided or is null", 503);
+                $eventsList = explode(",", $eventSources);
 
-                if (is_null($deviceState))
-                    throw new Exception("Device state name is not provided or is null", 503);
+                foreach ($eventsList as $eventURI) {
+                    $eventSourceType = strtok($eventURI, ":");
 
+                    switch ($eventSourceType) {
+                        case "channel":
+                        case "bridge":
+                        case "endpoint":
+                        case "deviceState":
+                            break;
+                        default:
+                            throw new Exception("Unknown event type for URI " . $eventURI, 503);
+                            break;
+                    }
+                }
 
                 $postObjParams = array(
-                    'channel'     => $channelId,
-                    'bridge'      => $bridge,
-                    'endpoint'    => $endpoint,
-                    'deviceState' => $deviceState
+                    'eventSource' => $eventSources
                 );
 
-
-                $postObj['eventSource'] = $postObjParams;
-
-
                 $uri    = "/applications/" . $applicationName . "/subscription";
-                $result = $this->pestObject->post($uri, $postObj);
+                $result = $this->pestObject->post($uri, $postObjParams);
 
                 return $result;
 
             } catch (Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
+
                 return FALSE;
             }
 
         }
 
+        public function application_subscribe($applicationName = NULL, $eventSourceURI = NULL)
+        {
+            return $this->subscribe($applicationName, $eventSourceURI);
+        }
 
         /**
-         * @param null $applicationName
-         * @param null $bridge
-         * @param null $channelId
-         * @param null $endpoint
-         * @param null $deviceState
+         * DELETE Unsubscribe an application from an event source. Returns the state of the application after the subscriptions have changed
          *
-         * @return bool
+         * @param string $applicationName
+         * @param string $eventSources
+         *
+         * @return mixed
          */
-        public function application_unsubscribe($applicationName = NULL, $bridge = NULL, $channelId = NULL, $endpoint = NULL, $deviceState = NULL)
+        public function unsubscribe($applicationName = NULL, $eventSources = NULL)
         {
             try {
 
                 if (is_null($applicationName))
                     throw new Exception("Application name not provided or is null", 503);
-                if (is_null($bridge))
-                    throw new Exception("Bridge id not provided or is null", 503);
-                if (is_null($channelId))
-                    throw new Exception("Channel id not provided or is null", 503);
+                if (is_null($eventSources))
+                    throw new Exception("eventSources not provided or is null", 503);
 
-                if (is_null($endpoint))
-                    throw new Exception("End point  not provided or is null", 503);
+                $eventsList = explode(",", $eventSources);
 
-                if (is_null($deviceState))
-                    throw new Exception("Device state name is not provided or is null", 503);
+                foreach ($eventsList as $eventURI) {
+                    $eventSourceType = strtok($eventURI, ":");
 
+                    switch ($eventSourceType) {
+                        case "channel":
+                        case "bridge":
+                        case "endpoint":
+                        case "deviceState":
+                            break;
+                        default:
+                            throw new Exception("Unknown event type for URI " . $eventURI, 503);
+                            break;
+                    }
+                }
 
                 $postObjParams = array(
-                    'channel'     => $channelId,
-                    'bridge'      => $bridge,
-                    'endpoint'    => $endpoint,
-                    'deviceState' => $deviceState
+                    'eventSource' => $eventSources
                 );
 
-
-                $postObj['eventSource'] = $postObjParams;
-
-
                 $uri    = "/applications/" . $applicationName . "/subscription";
-                $result = $this->pestObject->delete($uri, $postObj);
+                $result = $this->pestObject->delete($uri, $postObjParams);
 
                 return $result;
 
             } catch (Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
+
                 return FALSE;
             }
 
         }
+
+        public function application_unsubscribe($applicationName = NULL, $eventSources = NULL)
+        {
+            return $this->unsubscribe($applicationName, $eventSources);
+        }
+
     }
 
 

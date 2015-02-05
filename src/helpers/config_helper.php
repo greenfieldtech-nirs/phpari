@@ -38,10 +38,10 @@
             }
         }
 
-        function getconfig($stasisObject = null, $configitem = null)
+        function getconfig($stasisObject = NULL, $configitem = NULL)
         {
             try {
-                if ($stasisObject == null)
+                if ($stasisObject == NULL)
                     throw new Exception("stasisObject not provided", 503);
 
                 return FALSE;

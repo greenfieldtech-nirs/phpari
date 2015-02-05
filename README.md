@@ -229,7 +229,45 @@ Reporting Issues
 --------------------
 Please report issues directly via the Github project page.
 
-Team Members and Contributors:
+Contibuting Code
+----------------
+We are very open when it comes to people contributing code to this project. In order to make life easier, here is the preferred method to contribute code:
+
+For bug fixes and security updates in Master branch:
+
+  1. Fork the Master Branch into your own personal Github account 
+  2. Update your local fork
+  3. Generate a pull request from your own fork over to our Master Branch
+
+For new features and improvement:
+
+  1. Fork the Development Branch into your own personal Github account
+  2. Update your local fork
+  3. Generate a pull request from your own fork over to our development branch
+
+We will do our best to go over the various contributions as fast as possible. Bug fixes and security updates will be handled faster - feature improvements will be added to the next major release.
+
+Our IDE of choice is phpStorm from JetBrains (http://www.jetbrains.com/phpstorm/) - we use the default styling, so no need to change that. If you use a different IDE, please make sure you update your IDE to support the internal styling of the project, so that you don't break the general code styling. 
+
+Make sure to document your code - once it's merged in, we will need to keep working on your code, so please make sure your documentation will be clear and concise, so we can continue your work (as required). 
+
+Our objective is to involve the community as much as possible, so feel free to jump in and assist. Contibutions to the project will automatically put your name into the README.md file, so that everybody will see your coolness and greatness supporting the Open Source movement and the continuation of this project.
+
+Release Policy
+--------------
+Releasing code into the Open Source is always a challange, it can be both confusing and dawnting at the same time. In order to make life simple with version numbers, here is our projected release policy (it may change in the future).
+
+Every version will be marked with a Major.Minor.Patch version numbering scheme. 
+
+A major release will be released once the code of the library is stable and battle tested. How long does that take? good question, we don't know. Currently, our major release version is 0 - we are still in active development.
+
+A minor release will be released once the code of the library is stable and had been introduced with a significant number of fixes and modifications, and been regressed by several members of the community. 
+
+A patch release will be released once the code of the library is stable and had been introduced with minor modifications. These modifications will normally include bug fixes and security updates.
+
+Feature enhancements will only be merged into minor releases, not into patch releases.
+
+Team Members and Contributors
 ------------------------------
 The following list includes names and aliases for people who had something to do with the creation/maintenance of this library. It takes alot of resources to maintain an Open Source project, thus, we will always do our best to make sure contributions and tested and merged as fast as possible.
 

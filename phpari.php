@@ -111,6 +111,7 @@
          * @param $ariServer
          * @param $ariPort
          * @param $ariEndpoint
+         * @param $ariTransport
          *
          * @return array
          */

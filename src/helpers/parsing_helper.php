@@ -42,12 +42,14 @@ class parsing_helper {
      * The return value shall always be an ASSOC_ARRAY, represting $rawInput in a unified manner
      *
      * @param null $rawInput
+     *
+     * return mixed
      */
-    function parseRequestData($rawInput = null)
+    function parseRequestData($rawInput = NULL)
     {
         try {
 
-            if ($rawInput == null)
+            if ($rawInput == NULL)
                 throw new Exception ("Input must be defined", 503);
 
             $result = array();

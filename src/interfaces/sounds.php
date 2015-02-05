@@ -27,7 +27,7 @@ class sounds //extends phpari
 {
     private $phpariObject;
 
-    function __construct($connObject = null)
+    function __construct($connObject = NULL)
     {
         try {
 
@@ -48,22 +48,23 @@ class sounds //extends phpari
      *
      * @param string $lang - Lookup sound for a specific language.
      * @param string $format - Lookup sound in a specific format.
+     * @param string $soundID - The specific sound ID you would like to get details for
      * @return bool
      */
-    public function   sounds_list($lang = null, $format = null)
+    public function show($lang = NULL, $format = NULL, $soundID = NULL)
     {
         try {
 
-            /*if (is_null($lang))
-                throw new Exception("Language  is  not provided or is null", 503);
-            if (is_null($format))
-                throw new Exception("Language  is  not provided or is null", 503);*/
-
             $uri = "/sounds";
-            $getOBJ = array(
-                'lang' => $lang,
-                'format' => $format
-            );
+            $uri .= (!is_null($soundID))?"/" . $soundID:"";
+
+            $getOBJ = array();
+
+            if (!is_null($lang))
+                $getOBJ['lang'] = $lang;
+
+            if (!is_null($format))
+                $getOBJ['format'] = $format;
 
             $result = $this->pestObject->get($uri, $getOBJ);
             return $result;
@@ -76,6 +77,16 @@ class sounds //extends phpari
     }
 
     /**
+     * This function is an alias to 'show' - will be deprecated in phpari 2.0
+     *
+     * @return mixed
+     */
+    public function sounds_list($lang = NULL, $format = NULL)
+    {
+        return $this->show($lang, $format);
+    }
+
+    /**
      *
      * GET /sounds/{soundId}
      * Get a sound's details.
@@ -83,15 +94,14 @@ class sounds //extends phpari
      * @param null $soundID
      * @return bool
      */
-    public function   sound_detail($soundID = null)
+    public function details($soundID = NULL)
     {
         try {
+
             if (is_null($soundID))
-                throw new Exception("Sound id is  not provided or is null", 503);
+                throw new Exception("Sound ID not provided or is null", 503);
 
-            $uri = "/sounds/" . $soundID;
-            $result = $this->pestObject->get($uri);
-            return $result;
+            return $this->show(NULL, NULL, $soundID);
 
         } catch (Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
@@ -102,64 +112,12 @@ class sounds //extends phpari
 
 
     /**
-     * PUT /mailboxes/{mailboxName}
-     * Change the state of a mailbox. (Note - implicitly creates the mailbox).
+     * This function is an alias to 'details' - will be deprecated in phpari 2.0
      *
-     * @param  int - (required) Count of old messages in the mailbox
-     * @param  int - (required) Count of new messages in the mailbox
-     * @param  null $newMessages
-     * @return bool
+     * @return mixed
      */
-    public function   mailbox_change_state($mailBoxName = null, $oldMessages = null, $newMessages = null)
+    public function sound_detail($soundID = NULL)
     {
-        try {
-
-            if (is_null($mailBoxName))
-                throw new Exception("Mail box name is  not provided or is null", 503);
-            if (is_null($oldMessages))
-                throw new Exception("Old messages is  not provided or is null", 503);
-            if (is_null($newMessages))
-                throw new Exception("New messages is  not provided or is null", 503);
-
-            $uri = "/mailboxes/" . $mailBoxName;
-
-            $putObj = array(
-                'oldMessages' => $oldMessages,
-                'newMessages' => $newMessages
-
-            );
-            $result = $this->pestObject->put($uri, $putObj);
-            return $result;
-
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
+        return $this->details($soundID);
     }
-
-    /**
-     * DELETE /mailboxes/{mailboxName}
-     * Destroy a mailbox.
-     */
-    public function   mailbox_destroy($mailBoxName = null)
-    {
-        try {
-
-            if (is_null($mailBoxName))
-                throw new Exception("Mail box name is  not provided or is null", 503);
-
-            $uri = "/mailboxes/" . $mailBoxName;
-            $result = $this->pestObject->delete($uri);
-            return $result;
-
-
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
-    }
-
-
 }
