@@ -1,3 +1,27 @@
+commit 50086e82a65242e48b75a68490a1e0460f7818e5
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Feb 5 16:20:01 2015 +0200
+
+    PHPARI based app_dial replacement wireframe - just an example
+
+commit 891d073374fc7abad9c27033d0c1ed917a179ec1
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Feb 5 16:16:26 2015 +0200
+
+    https://github.com/greenfieldtech-nirs/phpari/issues/34 - Fixed
+
+commit 016b899763da3226f1d47c459509c1463b7e0f5b
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Thu Feb 5 15:28:21 2015 +0200
+
+    Commit fixes for the channels and other interfaces - camel casing is now properly used
+
+commit dba90c17c556e58e6418addea4c4453aa91a2055
+Author: Nir Simionovich <nirs@greenfieldtech.net>
+Date:   Sun Feb 1 09:25:10 2015 +0200
+
+    Final changelog
+
 commit bd774bc3bf845c27cd70957efd92f44d52bc9687
 Author: Nir Simionovich <nirs@greenfieldtech.net>
 Date:   Sun Feb 1 09:22:38 2015 +0200
