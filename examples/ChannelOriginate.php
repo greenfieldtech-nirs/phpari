@@ -30,6 +30,7 @@
     $channels = new channels($conn);
     $response = $channels->channel_originate(
         'SIP/7001',
+        NULL,
         array(
             "extension"      => "7001",
             "context"        => 'from-phone',
