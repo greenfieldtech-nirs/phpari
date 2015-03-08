@@ -70,4 +70,17 @@ class parsing_helper {
         }
     }
 
+    /**
+     * Ascertain if the input is an associative array or not.
+     * This test is far from being perfect - still needs sanity checks and better resolution
+     *
+     * @param $arr
+     *
+     * @return bool
+     */
+    function isAssoc($arr)
+    {
+        return array_keys($arr) !== range(0, count($arr) - 1);
+    }
+
 } 

@@ -117,10 +117,11 @@
          * @param null $to
          * @param null $from
          * @param null $body
+         * @param null $variables - MUST BE ASSOCIATIVE ARRAY
          *
          * @return bool
          */
-        public function sendmessage($to = NULL, $from = NULL, $body = NULL)
+        public function sendmessage($to = NULL, $from = NULL, $body = NULL, $variables = NULL)
         {
             try {
 
@@ -160,6 +161,8 @@
                     'from' => $from,
                     'body' => $body
                 );
+
+                $message = (isAssoc($variables))?array_merge($message, $variables):$message;
 
                 $result = $this->pestObject->put($uri, $message);
 
