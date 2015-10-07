@@ -255,7 +255,7 @@ Our objective is to involve the community as much as possible, so feel free to j
 
 Release Policy
 --------------
-Releasing code into the Open Source is always a challange, it can be both confusing and dawnting at the same time. In order to make life simple with version numbers, here is our projected release policy (it may change in the future).
+Releasing code into the Open Source is always a challenge, it can be both confusing and dawnting at the same time. In order to make life simple with version numbers, here is our projected release policy (it may change in the future).
 
 Every version will be marked with a Major.Minor.Patch version numbering scheme. 
 
