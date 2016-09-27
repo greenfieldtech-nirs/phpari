@@ -172,4 +172,386 @@
         {
             $this->setGlobalVariable($variable, $value);
         }
+
+		/**
+		 * @param null $configClass
+		 * @param null $objectType
+		 * @param null $id
+		 * @return bool
+		 */
+        public function getDynamicConfigurationObject($configClass = NULL, $objectType = NULL, $id = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				if (is_null($configClass))
+					throw new Exception("configClass variable name not provided or is null", 503);
+
+				if (is_null($objectType))
+					throw new Exception("objectType variable value not provided or is null", 503);
+
+				if (is_null($id))
+					throw new Exception("id variable value not provided or is null", 503);
+
+				$uri      = "/asterisk/config/dynamic/" . $configClass . "/" . $objectType . "/" . $id;
+
+				$result = $this->pestObject->get($uri);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		/**
+		 * @param null $configClass
+		 * @param null $objectType
+		 * @param null $id
+		 * @return bool
+		 */
+		public function get_dynamic_configuration_object($configClass = NULL, $objectType = NULL, $id = NULL)
+		{
+			return $this->getDynamicConfigurationObject($configClass, $objectType, $id);
+		}
+
+		/**
+		 * @param null $configClass
+		 * @param null $objectType
+		 * @param null $id
+		 * @param null $fields
+		 * @return bool
+		 */
+		public function putDynamicConfigurationObject($configClass = NULL, $objectType = NULL, $id = NULL, $fields = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				if (is_null($configClass))
+					throw new Exception("configClass variable name not provided or is null", 503);
+
+				if (is_null($objectType))
+					throw new Exception("objectType variable value not provided or is null", 503);
+
+				if (is_null($id))
+					throw new Exception("id variable value not provided or is null", 503);
+
+				if (is_null($fields))
+					throw new Exception("id variable value not provided or is null", 503);
+
+				$uri      = "/asterisk/config/dynamic/" . $configClass . "/" . $objectType . "/" . $id;
+
+				$result = $this->pestObject->put($uri, $fields);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		/**
+		 * @param null $configClass
+		 * @param null $objectType
+		 * @param null $id
+		 * @param null $fields
+		 * @return bool
+		 */
+		public function put_dynamic_configuration_object($configClass = NULL, $objectType = NULL, $id = NULL, $fields = NULL)
+		{
+			return $this->putDynamicConfigurationObject($configClass, $objectType, $id);
+		}
+
+		/**
+		 * @param null $configClass
+		 * @param null $objectType
+		 * @param null $id
+		 * @return bool
+		 */
+		public function deleteDynamicConfigurationObject($configClass = NULL, $objectType = NULL, $id = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				if (is_null($configClass))
+					throw new Exception("configClass variable name not provided or is null", 503);
+
+				if (is_null($objectType))
+					throw new Exception("objectType variable value not provided or is null", 503);
+
+				if (is_null($id))
+					throw new Exception("id variable value not provided or is null", 503);
+
+
+				$uri      = "/asterisk/config/dynamic/" . $configClass . "/" . $objectType . "/" . $id;
+
+				$result = $this->pestObject->delete($uri);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		/**
+		 * @param null $configClass
+		 * @param null $objectType
+		 * @param null $id
+		 * @return bool
+		 */
+		public function delete_dynamic_configuration_object($configClass = NULL, $objectType = NULL, $id = NULL)
+		{
+			return $this->deleteDynamicConfigurationObject($configClass, $objectType, $id);
+		}
+
+		/**
+		 * @param string $action
+		 * @param null $module_name
+		 * @return bool
+		 */
+		private function ari_module_handler($action = "get", $module_name = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				$uri      = "/asterisk/modules" . $module_name;
+
+				switch ($action) {
+					case "get":
+						$result = $this->pestObject->get($uri);
+						break;
+					case "load":
+
+						if (is_null($module_name))
+							throw new Exception("module_name variable name not provided or is null", 503);
+
+						$result = $this->pestObject->post($uri);
+						break;
+					case "unload":
+
+						if (is_null($module_name))
+							throw new Exception("module_name variable name not provided or is null", 503);
+
+						$result = $this->pestObject->delete($uri);
+						break;
+					case "reload":
+
+						if (is_null($module_name))
+							throw new Exception("module_name variable name not provided or is null", 503);
+
+						$result = $this->pestObject->put($uri);
+						break;
+				}
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function getModule($module_name = NULL)
+		{
+			return $this->ari_module_handler("get", $module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function get_module($module_name = NULL)
+		{
+			return $this->getModule($module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function loadModule($module_name = NULL)
+		{
+			return $this->ari_module_handler("load", $module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function load_module($module_name = NULL)
+		{
+			return $this->loadModule($module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function unloadModule($module_name = NULL)
+		{
+			return $this->ari_module_handler("unload", $module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function unload_module($module_name = NULL)
+		{
+			return $this->unloadModule($module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function reloadModule($module_name = NULL)
+		{
+			return $this->ari_module_handler("reload", $module_name);
+		}
+
+		/**
+		 * @param null $module_name
+		 * @return bool
+		 */
+		public function reload_module($module_name = NULL)
+		{
+			return $this->reloadModule($module_name);
+		}
+
+		public function getLogChannels()
+		{
+			try {
+
+				$result = FALSE;
+
+				$uri      = "/asterisk/logging";
+
+				$result = $this->pestObject->get($uri);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		public function get_log_channels()
+		{
+			return $this->getLogChannels();
+		}
+
+
+		public function addLogChannel($log_channel_name = NULL, $configuration = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				if (is_null($log_channel_name))
+					throw new Exception("log_channel_name variable name not provided or is null", 503);
+
+				if (is_null($configuration))
+					throw new Exception("configuration variable name not provided or is null", 503);
+
+				$uri      = "/asterisk/logging/" . $log_channel_name;
+
+				$result = $this->pestObject->post($uri, $configuration);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		public function add_log_channel($log_channel_name = NULL, $configuration = NULL)
+		{
+			return $this->addLogChannel($log_channel_name, $configuration);
+		}
+
+		public function rotateLogChannel($log_channel_name = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				if (is_null($log_channel_name))
+					throw new Exception("log_channel_name variable name not provided or is null", 503);
+
+
+				$uri      = "/asterisk/logging/" . $log_channel_name . "/rotate";
+
+				$result = $this->pestObject->put($uri);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		public function rotate_log_channel($log_channel_name = NULL)
+		{
+			return $this->rotateLogChannel($log_channel_name);
+
+		}
+
+		public function deleteLogChannel($log_channel_name = NULL)
+		{
+			try {
+
+				$result = FALSE;
+
+				if (is_null($log_channel_name))
+					throw new Exception("log_channel_name variable name not provided or is null", 503);
+
+				$uri      = "/asterisk/logging/" . $log_channel_name;
+
+				$result = $this->pestObject->delete($uri);
+
+				return $result;
+
+			} catch (Exception $e) {
+				$this->phpariObject->lasterror = $e->getMessage();
+				$this->phpariObject->lasttrace = $e->getTraceAsString();
+
+				return FALSE;
+			}
+		}
+
+		public function delete_log_channel($log_channel_name = NULL)
+		{
+			return $this->deleteLogChannel($log_channel_name);
+		}
+
     }
