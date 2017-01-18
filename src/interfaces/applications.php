@@ -117,7 +117,7 @@ class applications // extends phpari
 
 			$response = $this->ariEndpointClient->get($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents();
 
-			return $response;
+			return json_decode($response);
 
 		} catch (Exception $e) {
 

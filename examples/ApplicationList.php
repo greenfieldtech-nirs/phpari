@@ -37,7 +37,7 @@
         if ((!$result) && (count($result)))
             throw new Exception("phpari error occured", 503);
 
-        print_r (json_decode($result));
+        print_r ($result);
         exit(0);
 
     } catch (Exception $e) {
