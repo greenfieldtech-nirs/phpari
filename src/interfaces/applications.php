@@ -43,6 +43,29 @@
             }
         }
 
+        private function validate_event_sources($eventSources = null) {
+
+			$eventsList = explode(",", $eventSources);
+
+			foreach ($eventsList as $eventURI) {
+				$eventSourceType = strtok($eventURI, ":");
+
+				switch ($eventSourceType) {
+					case "channel":
+					case "bridge":
+					case "endpoint":
+					case "deviceState":
+						break;
+					default:
+						throw new Exception("Unknown event type for URI " . $eventURI, 503);
+						break;
+				}
+			}
+
+			return 0;
+
+		}
+
         /**
          * GET List of all applications or information regarding a specific application name
          *
@@ -71,20 +94,20 @@
             }
         }
 
-        /**
-         * This function is an alias to 'show' - will be deprecated in phpari 2.0
-         *
-         * @return mixed
-         */
+		/**
+		 * @return mixed
+		 *
+		 * This is just an alias - if you are using this, please stop - it will be deprecated!
+		 */
         public function applications_list()
         {
             return $this->show();
         }
 
         /**
-         * This function is an alias to 'show' - will be deprecated in phpari 2.0
-         *
          * @return mixed
+		 *
+		 * This is just an alias - if you are using this, please stop - it will be deprecated!
          */
         public function  application_details($applicationName = NULL)
         {
@@ -108,22 +131,7 @@
                 if (is_null($eventSources))
                     throw new Exception("eventSources not provided or is null", 503);
 
-                $eventsList = explode(",", $eventSources);
-
-                foreach ($eventsList as $eventURI) {
-                    $eventSourceType = strtok($eventURI, ":");
-
-                    switch ($eventSourceType) {
-                        case "channel":
-                        case "bridge":
-                        case "endpoint":
-                        case "deviceState":
-                            break;
-                        default:
-                            throw new Exception("Unknown event type for URI " . $eventURI, 503);
-                            break;
-                    }
-                }
+				$this->validate_event_sources($eventSources);
 
                 $postObjParams = array(
                     'eventSource' => $eventSources
@@ -143,6 +151,13 @@
 
         }
 
+		/**
+		 * @param null $applicationName
+		 * @param null $eventSourceURI
+		 * @return mixed
+		 *
+		 * This is just an alias - if you are using this, please stop - it will be deprecated!
+		 */
         public function application_subscribe($applicationName = NULL, $eventSourceURI = NULL)
         {
             return $this->subscribe($applicationName, $eventSourceURI);
@@ -165,22 +180,7 @@
                 if (is_null($eventSources))
                     throw new Exception("eventSources not provided or is null", 503);
 
-                $eventsList = explode(",", $eventSources);
-
-                foreach ($eventsList as $eventURI) {
-                    $eventSourceType = strtok($eventURI, ":");
-
-                    switch ($eventSourceType) {
-                        case "channel":
-                        case "bridge":
-                        case "endpoint":
-                        case "deviceState":
-                            break;
-                        default:
-                            throw new Exception("Unknown event type for URI " . $eventURI, 503);
-                            break;
-                    }
-                }
+				$this->validate_event_sources($eventSources);
 
                 $postObjParams = array(
                     'eventSource' => $eventSources
@@ -200,6 +200,13 @@
 
         }
 
+		/**
+		 * @param null $applicationName
+		 * @param null $eventSources
+		 * @return mixed
+		 *
+		 * This is just an alias - if you are using this, please stop - it will be deprecated!
+		 */
         public function application_unsubscribe($applicationName = NULL, $eventSources = NULL)
         {
             return $this->unsubscribe($applicationName, $eventSources);
