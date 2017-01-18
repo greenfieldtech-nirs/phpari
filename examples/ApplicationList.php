@@ -27,7 +27,9 @@
     require_once "../vendor/autoload.php";
 
     try {
+
         $conn = new phpari("hello-world"); //create new object
+
         $app  = new applications($conn);
 
         $result=$app->applications_list();
@@ -35,7 +37,7 @@
         if ((!$result) && (count($result)))
             throw new Exception("phpari error occured", 503);
 
-        echo json_encode($result);
+        print_r (json_decode($result));
         exit(0);
 
     } catch (Exception $e) {

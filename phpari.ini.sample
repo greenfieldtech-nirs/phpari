@@ -3,10 +3,11 @@ debug=0
 logfile=console ; console for direct console output, filename for file based logging
 
 [asterisk_ari]
-username=testuser
-password=testing
-host=178.62.19.221
+username=asterisk
+password=asterisk
+host=127.0.0.1
 port=8088
+protocol=http
 endpoint=/ari
 transport=ws ; ws for none encrypted, wss for encrypted (currently, only ws is supported)
 
