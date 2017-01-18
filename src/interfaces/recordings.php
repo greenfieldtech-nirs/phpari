@@ -170,6 +170,7 @@
                             throw new Exception("recording name not specified or is null", 503);
 
                         $uri = "/recordings/live/" . $recordingName;
+						$postData = array();
 
                         switch ($action) {
                             case "start":
@@ -177,14 +178,14 @@
                                 break;
                             case "stop":
                                 $uri .= "/stop";
-                                $result = $this->pestObject->post($uri);
+                                $result = $this->pestObject->post($uri, $postData);
                                 break;
                             case "discard":
                                 $result = $this->pestObject->delete($uri);
                                 break;
                             case "pause":
                                 $uri .= "/pause";
-                                $result = $this->pestObject->post($uri);
+                                $result = $this->pestObject->post($uri, $postData);
                                 break;
                             case "unpause":
                                 $uri .= "/pause";
@@ -192,7 +193,7 @@
                                 break;
                             case "mute":
                                 $uri .= "/mute";
-                                $result = $this->pestObject->post($uri);
+                                $result = $this->pestObject->post($uri, $postData);
                                 break;
                             case "unmute":
                                 $uri .= "/mute";

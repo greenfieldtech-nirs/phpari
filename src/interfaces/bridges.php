@@ -227,8 +227,10 @@
          * @param null $role     - Channel's role in the bridge
          *
          * @return bool
+		 *
+		 * NOTE: Change in API occured here, old addchannel function is now deprecated
          */
-        public function addchannel($bridgeId = NULL, $channel = NULL, $role = NULL)
+        public function addChannel($bridgeId = NULL, $channel = NULL, $role = NULL)
         {
             try {
 
@@ -258,18 +260,18 @@
         }
 
         /**
-         * This function is an alias to 'addchannel' - will be deprecated in phpari 2.0
+         * This function is an alias to 'addChannel' - will be deprecated in phpari 2.0
          *
          * @return mixed
          */
         public function bridge_addchannel($bridgeId = NULL, $channel = NULL, $role = NULL)
         {
-            return $this->addchannel($bridgeId, $channel, $role);
+            return $this->addChannel($bridgeId, $channel, $role);
         }
 
-        /**
+		/**
          *
-         * POST /bridges/{bridgeId}/addChannel
+         * POST /bridges/{bridgeId}/removeChannel
          * Remove a channel to a bridge.
          *
          * @param null $bridgeId - Bridge's id
@@ -277,7 +279,7 @@
          *
          * @return bool
          */
-        public function delchannel($bridgeId = NULL, $channel = NULL)
+        public function removeChannel($bridgeId = NULL, $channel = NULL)
         {
             try {
 
@@ -305,16 +307,26 @@
         }
 
         /**
-         * This function is an alias to 'delchannel' - will be deprecated in phpari 2.0
+         * This function is an alias to 'removechannel' - will be deprecated in phpari 2.0
          *
          * @return mixed
          */
         public function bridge_remove_channel($bridgeId = NULL, $channel = NULL)
         {
-            return $this->delchannel($bridgeId, $channel);
+            return $this->removeChannel($bridgeId, $channel);
         }
 
-        /**
+		/**
+		 * This function is an alias to 'removeChannel' - it's here for backward compatibility only
+		 *
+		 * @return mixed
+		 */
+		public function delchannel($bridgeId = NULL, $channel = NULL)
+		{
+			return $this->removeChannel($bridgeId, $channel);
+		}
+
+		/**
          *
          * POST /bridges/{bridgeId}/moh
          * Play music on hold to a bridge or change the MOH class that is playing.
