@@ -330,7 +330,7 @@
                 if (is_null($channel_id))
                     throw new Exception("Channel ID not provided or is null", 503);
 
-                $result = $this->pestObject->post("/channels/" . $channel_id . "/answer", NULL);
+                $result = $this->pestObject->post("/channels/" . $channel_id . "/answer", array());
 
                 return $result;
 
@@ -375,7 +375,7 @@
                 if (is_null($channel_id))
                     throw new Exception("Channel ID not provided or is null", 503);
 
-                $result = $this->pestObject->post("/channels/" . $channel_id . "/ring", NULL);
+                $result = $this->pestObject->post("/channels/" . $channel_id . "/ring", array());
 
                 return $result;
 
@@ -628,7 +628,7 @@
                         break;
                     case "start":
                     default:
-                        $result = $this->pestObject->post("/channels/" . $channel_id . "/hold", NULL);
+                        $result = $this->pestObject->post("/channels/" . $channel_id . "/hold", array());
                         break;
                 }
 
@@ -777,7 +777,7 @@
                         break;
                     case "start":
                     default:
-                        $result = $this->pestObject->post("/channels/" . $channel_id . "/silence", NULL);
+                        $result = $this->pestObject->post("/channels/" . $channel_id . "/silence", array());
                         break;
                 }
 
