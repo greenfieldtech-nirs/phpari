@@ -16,7 +16,8 @@
     "require": {
         "php": ">=5.3.9",
         "educoder/pest": "1.0.0",
-        "devristo/phpws": "dev-master"
+        "devristo/phpws": "dev-master",
+        "wyrihaximus/react-guzzle": "1.0.0"
     },
     "autoload": {
         "files": [
