@@ -24,11 +24,7 @@
  * written by Nir Simionovich and its respective list of contributors.
  */
 
-use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Exception\RequestException;
-use React\EventLoop\Factory;
 
 class applications // extends phpari
 {
@@ -41,16 +37,10 @@ class applications // extends phpari
 	{
 		try {
 
-			/*
-			if (is_null($connObject) || is_null($connObject->ariEndpoint))
-				throw new Exception("Missing PestObject or empty string", 503);
-			*/
-
 			if (is_null($connObject) || is_null($connObject->ariEndpointURL))
 				throw new Exception("Missing endpoint or empty string", 503);
 
 			$this->phpariObject = $connObject;
-			/*$this->pestObject = $connObject->ariEndpoint;*/
 
 			$this->ariEndpointURL = $connObject->ariEndpointURL;
 
@@ -107,11 +97,6 @@ class applications // extends phpari
 	{
 		try {
 
-			/*
-			if (is_null($this->pestObject))
-				throw new Exception("PEST Object not provided or is null", 503);
-			*/
-
 			$uri = "/applications";
 			$uri .= (!is_null($applicationName)) ? "/" . $applicationName : "";
 
@@ -119,6 +104,18 @@ class applications // extends phpari
 
 			return json_decode($response);
 
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
 		} catch (Exception $e) {
 
 			$this->phpariObject->lasterror = $e->getMessage();
@@ -172,14 +169,27 @@ class applications // extends phpari
 			);
 
 			$uri = "/applications/" . $applicationName . "/subscription";
-			$result = $this->pestObject->post($uri, $postObjParams);
+			$this->ariEndpointOptions['json'] = $postObjParams;
+
+			$result = json_decode($this->ariEndpointClient->post($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents());
 
 			return $result;
 
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
 		} catch (Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
-
 			return FALSE;
 		}
 
@@ -221,10 +231,26 @@ class applications // extends phpari
 			);
 
 			$uri = "/applications/" . $applicationName . "/subscription";
-			$result = $this->pestObject->delete($uri, $postObjParams);
+
+			$this->ariEndpointOptions['json'] = $postObjParams;
+
+			$result = json_decode($this->ariEndpointClient->delete($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents());
+
 
 			return $result;
 
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
 		} catch (Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
