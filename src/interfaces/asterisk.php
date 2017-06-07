@@ -23,6 +23,9 @@
  * the library `phpari' (a library for creating smart telephony applications)
  * written by Nir Simionovich and its respective list of contributors.
  */
+
+use GuzzleHttp\Client;
+
 class asterisk // extends phpari
 {
 
@@ -36,6 +39,21 @@ class asterisk // extends phpari
 				throw new Exception("Missing PestObject or empty string", 503);
 
 			$this->phpariObject = $connObject;
+
+			$this->ariEndpointURL = $connObject->ariEndpointURL;
+
+			$this->ariEndpointClient = new Client([
+				'base_uri' => $this->ariEndpointURL,
+				'timeout' => 2.0
+			]);
+
+			$this->ariEndpointOptions = [
+				'debug' => false,
+				'auth' => [
+					$connObject->ariUsername,
+					$connObject->ariPassword
+				]
+			];
 
 		} catch (Exception $e) {
 			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
@@ -51,7 +69,7 @@ class asterisk // extends phpari
 	 */
 	public function get_asterisk_info($filter = NULL)
 	{
-		return info($filter);
+		return $this->info($filter);
 	}
 
 	/**
