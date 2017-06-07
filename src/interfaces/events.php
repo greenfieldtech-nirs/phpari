@@ -23,105 +23,147 @@
  * the library `phpari' (a library for creating smart telephony applications)
  * written by Nir Simionovich and its respective list of contributors.
  */
+
+use GuzzleHttp\Client;
+
 class events // extends phpari
 {
-    private $phpariObject;
+	private $phpariObject;
 
-    function __construct($connObject = NULL)
-    {
-        try {
+	function __construct($connObject = NULL)
+	{
+		try {
 
-            if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                throw new Exception("Missing PestObject or empty string", 503);
+			if (is_null($connObject) || is_null($connObject->ariEndpoint))
+				throw new Exception("Missing PestObject or empty string", 503);
 
-            $this->phpariObject = $connObject;
-            $this->pestObject = $connObject->ariEndpoint;
+			$this->phpariObject = $connObject;
+			$this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
-            die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
-        }
-    }
+			$this->ariEndpointURL = $connObject->ariEndpointURL;
 
-    /**
-     * GET /events
-     * WebSocket connection for events.
-     *
-     * @param null $app
-     *
-     * @return mixed
-     */
-    public function events($app = NULL)
-    {
-        try {
+			$this->ariEndpointClient = new Client([
+				'base_uri' => $this->ariEndpointURL,
+				'timeout' => 2.0
+			]);
 
-            if (is_null($app))
-                throw new Exception("App name is not provided or is null", 503);
+			$this->ariEndpointOptions = [
+				'debug' => false,
+				'auth' => [
+					$connObject->ariUsername,
+					$connObject->ariPassword
+				]
+			];
 
-            $uri = "/events";
-            $getObj = array('app' => $app);
+		} catch (Exception $e) {
+			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
+		}
+	}
 
-            $result = $this->pestObject->get($uri, $getObj);
-            return $result;
+	/**
+	 * GET /events
+	 * WebSocket connection for events.
+	 *
+	 * @param null $app
+	 *
+	 * @return mixed
+	 */
+	public function events($app = NULL)
+	{
+		try {
 
+			if (is_null($app))
+				throw new Exception("App name is not provided or is null", 503);
 
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
-    }
+			$uri = "/events";
+			$getObj = array('app' => $app);
 
-    /**
-     *
-     * POST /events/user/{eventName}
-     *
-     *   Generate a user event.
-     *
-     * @param string $eventName - Event name
-     * @param string $application - (required) The name of the application that will receive this event
-     * @param string $channelID - Name of the Channel     - source part
-     * @param string $bridge - Name of the  bridge     - source part
-     * @param string $endpoint - Name of the endpoints   - source part
-     * @param string $deviceName - The name of the device  - source part
-     * @param array $variables - Ex. array("key1" => "value1" ,  "key2" => "value2")
-     * @return bool
-     */
-    public function event_generate($eventName = NULL,
-                                   $application = NULL,
-                                   $channelID = NULL,
-                                   $bridge = NULL,
-                                   $endpoint = NULL,
-                                   $deviceName = NULL,
-                                   $variables = array())
-    {
-
-        try {
-
-            if (is_null($application))
-                throw new Exception("Application name is  not provided or is null", 503);
-            if (is_null($eventName))
-                throw new Exception("Event name is  not provided or is null", 503);
+			$result = $this->pestObject->get($uri, $getObj);
+			return $result;
 
 
-            $uri = "/events/user/" . $eventName;
-            $postObj = array(
-                'application' => $application,
-                'source' => array(
-                    'channel' => $channelID,
-                    'bridge' => $bridge,
-                    'endpoint' => $endpoint,
-                    'deviceState' => $deviceName
-                ),
-                'variables' => $variables
-            );
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
+	}
 
-            $result = $this->pestObject->post($uri, $postObj);
-            return $result;
+	/**
+	 *
+	 * POST /events/user/{eventName}
+	 *
+	 *   Generate a user event.
+	 *
+	 * @param string $eventName - Event name
+	 * @param string $application - (required) The name of the application that will receive this event
+	 * @param string $channelID - Name of the Channel     - source part
+	 * @param string $bridge - Name of the  bridge     - source part
+	 * @param string $endpoint - Name of the endpoints   - source part
+	 * @param string $deviceName - The name of the device  - source part
+	 * @param array $variables - Ex. array("key1" => "value1" ,  "key2" => "value2")
+	 * @return bool
+	 */
+	public function event_generate($eventName = NULL,
+								   $application = NULL,
+								   $channelID = NULL,
+								   $bridge = NULL,
+								   $endpoint = NULL,
+								   $deviceName = NULL,
+								   $variables = array())
+	{
 
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
-    }
+		try {
+
+			if (is_null($application))
+				throw new Exception("Application name is  not provided or is null", 503);
+			if (is_null($eventName))
+				throw new Exception("Event name is  not provided or is null", 503);
+
+
+			$uri = "/events/user/" . $eventName;
+			$postObj = array(
+				'application' => $application,
+				'source' => array(
+					'channel' => $channelID,
+					'bridge' => $bridge,
+					'endpoint' => $endpoint,
+					'deviceState' => $deviceName
+				),
+				'variables' => $variables
+			);
+
+			$result = $this->pestObject->post($uri, $postObj);
+			return $result;
+
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
+	}
 }

@@ -23,6 +23,9 @@
  * the library `phpari' (a library for creating smart telephony applications)
  * written by Nir Simionovich and its respective list of contributors.
  */
+
+use GuzzleHttp\Client;
+
 class playbacks //extends phpari
 {
     private $phpariObject;
@@ -37,9 +40,38 @@ class playbacks //extends phpari
             $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
-            die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
-        }
+			$this->ariEndpointURL = $connObject->ariEndpointURL;
+
+			$this->ariEndpointClient = new Client([
+				'base_uri' => $this->ariEndpointURL,
+				'timeout' => 2.0
+			]);
+
+			$this->ariEndpointOptions = [
+				'debug' => false,
+				'auth' => [
+					$connObject->ariUsername,
+					$connObject->ariPassword
+				]
+			];
+
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
     }
 
     /**
@@ -65,11 +97,23 @@ class playbacks //extends phpari
             $result = $this->pestObject->get($uri);
 
             return $result;
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return FALSE;
-        }
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
     }
 
     /**
@@ -101,11 +145,23 @@ class playbacks //extends phpari
             $result = $this->pestObject->delete($uri);
 
             return $result;
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return FALSE;
-        }
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
     }
 
     /**
@@ -153,11 +209,24 @@ class playbacks //extends phpari
             $result = $this->pestObject->post($uri, array('operation' => $control));
 
             return $result;
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return FALSE;
-        }
+
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
     }
 
     /**

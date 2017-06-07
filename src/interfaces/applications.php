@@ -104,10 +104,6 @@ class applications // extends phpari
 
 			return json_decode($response);
 
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
-			$this->phpariObject->lasterror = $e->getMessage();
-			$this->phpariObject->lasttrace = $e->getTraceAsString();
-			return (int)$e->getCode();
 		} catch (\GuzzleHttp\Exception\ClientException $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -116,11 +112,13 @@ class applications // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
-
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
-
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return FALSE;
 		}
 	}
@@ -175,10 +173,6 @@ class applications // extends phpari
 
 			return $result;
 
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
-			$this->phpariObject->lasterror = $e->getMessage();
-			$this->phpariObject->lasttrace = $e->getTraceAsString();
-			return (int)$e->getCode();
 		} catch (\GuzzleHttp\Exception\ClientException $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -187,12 +181,15 @@ class applications // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
 		} catch (Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return FALSE;
 		}
-
 	}
 
 	/**
@@ -239,10 +236,6 @@ class applications // extends phpari
 
 			return $result;
 
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
-			$this->phpariObject->lasterror = $e->getMessage();
-			$this->phpariObject->lasttrace = $e->getTraceAsString();
-			return (int)$e->getCode();
 		} catch (\GuzzleHttp\Exception\ClientException $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -251,13 +244,15 @@ class applications // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
 		} catch (Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
-
 			return FALSE;
 		}
-
 	}
 
 	/**

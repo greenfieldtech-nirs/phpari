@@ -23,6 +23,9 @@
  * the library `phpari' (a library for creating smart telephony applications)
  * written by Nir Simionovich and its respective list of contributors.
  */
+
+use GuzzleHttp\Client;
+
 class sounds //extends phpari
 {
     private $phpariObject;
@@ -37,7 +40,22 @@ class sounds //extends phpari
             $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
+			$this->ariEndpointURL = $connObject->ariEndpointURL;
+
+			$this->ariEndpointClient = new Client([
+				'base_uri' => $this->ariEndpointURL,
+				'timeout' => 2.0
+			]);
+
+			$this->ariEndpointOptions = [
+				'debug' => false,
+				'auth' => [
+					$connObject->ariUsername,
+					$connObject->ariPassword
+				]
+			];
+
+		} catch (Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
@@ -69,11 +87,23 @@ class sounds //extends phpari
             $result = $this->pestObject->get($uri, $getOBJ);
             return $result;
 
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
     }
 
     /**
@@ -103,11 +133,23 @@ class sounds //extends phpari
 
             return $this->show(NULL, NULL, $soundID);
 
-        } catch (Exception $e) {
-            $this->phpariObject->lasterror = $e->getMessage();
-            $this->phpariObject->lasttrace = $e->getTraceAsString();
-            return false;
-        }
+		} catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\ServerException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return (int)$e->getCode();
+		} catch (Exception $e) {
+			$this->phpariObject->lasterror = $e->getMessage();
+			$this->phpariObject->lasttrace = $e->getTraceAsString();
+			return FALSE;
+		}
     }
 
 
