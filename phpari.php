@@ -23,7 +23,6 @@
  * the library `phpari' (a library for creating smart telephony applications)
  * written by Nir Simionovich and its respective list of contributors.
  */
-
 class phpari
 {
 	/** @var applications */
@@ -63,6 +62,9 @@ class phpari
 	public $lasterror;
 	public $lasttrace;
 	public $lasterrorinfo;
+
+	/** @var  PEST */
+	public $ariEndpoint;
 
 	/** @var  React-Guzzle */
 	public $ariEndpointFactory;
@@ -129,10 +131,8 @@ class phpari
 
 		try {
 
-			/*
 			$this->ariEndpoint = new PestJSON("http://" . $ariServer . ":" . $ariPort . $ariEndpoint);
 			$this->ariEndpoint->setupAuth($ariUsername, $ariPassword, "basic");
-			*/
 
 			/* Create eventloop */
 			$this->ariEndpointURL = $ariProtocol . "://" . $ariServer . ":" . $ariPort . $ariEndpoint;

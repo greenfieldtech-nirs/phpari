@@ -2,3 +2,4 @@ vendor/
 .idea/
 composer.lock
 phpari.ini
+examples.dev
