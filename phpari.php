@@ -75,18 +75,53 @@ class phpari
 
 	/**
 	 * @param null $stasisApplication
-	 * @param string $configFile
+	 * @param <mixed> $config
 	 *
 	 * Returns an array containing 5 objects: WebSocket, Pest, EventLoopFactory, Logger, StasisEventHandler
 	 *
 	 */
-	public function __construct($stasisApplication = NULL, $configFile = "phpari.ini")
+	public function __construct($stasisApplication = NULL, $config = "phpari.ini")
 	{
 		try {
-
-			/* Get our configuration */
-			$this->configuration = (object)parse_ini_file($configFile, TRUE);
-
+			/* if config is an array pull configuration from the array */
+			if(is_array($config)) {
+				$asteriskAriConfig = array_merge(
+					array(
+						'username' => 'asterisk',
+						'password' => 'asterisk',
+						'host'     => '127.0.0.1',
+						'port'     => '8088',
+						'endpoint' => '/ari',
+						'transport' => 'ws',
+					),
+					isset($config['asterisk_ari']) ? $config['asterisk_ari'] : array()
+				);
+				$generalConfig = array_merge(
+					[
+					'logfile' => 'console',
+					'debug'   => 0,
+					],
+					isset($config['general']) ? $config['general'] : array()
+				);
+				$asteriskManagerConfig = array_merge(
+					[
+					'username' => 'amiuser',
+					'password' => 'amipassword',
+					'host'     => '127.0.0.1',
+					'port'     => '5038'
+					],
+					isset($config['asterisk_manager']) ? $config['asterisk_manager'] : array()
+				);
+				/* Get our configuration */
+				$this->configuration = (object) array(
+					'asterisk_ari' => $asteriskAriConfig,
+					'general' => $generalConfig,
+					'asterisk_manager'=>$asteriskManagerConfig
+				);
+			} else {
+				/* Get our configuration from phpari.ini file */
+				$this->configuration = (object)parse_ini_file($config, TRUE);
+			}
 			/* Some general information */
 			$this->debug = $this->configuration->general['debug'];
 			$this->logfile = $this->configuration->general['logfile'];
