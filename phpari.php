@@ -80,12 +80,12 @@ class phpari
 	 * Returns an array containing 5 objects: WebSocket, Pest, EventLoopFactory, Logger, StasisEventHandler
 	 *
 	 */
-	public function __construct($stasisApplication = NULL, $configFile = "phpari.ini")
+	public function __construct($stasisApplication = NULL, $config = "phpari.ini")
 	{
 		try {
 
 			/* Get our configuration */
-			$this->configuration = (object)parse_ini_file($configFile, TRUE);
+			$this->configuration = new phpari_config($config);
 
 			/* Some general information */
 			$this->debug = $this->configuration->general['debug'];
