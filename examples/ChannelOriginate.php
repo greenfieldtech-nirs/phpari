@@ -37,7 +37,7 @@
             "priority"       => 1,
             "app"            => "",
             "appArgs"        => "",
-            "callerid"       => "111",
+            "callerId"       => "111",
             "timeout"        => -1,
             "channelId"      => '324234',
             "otherChannelId" => ""
