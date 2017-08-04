@@ -108,7 +108,7 @@
          *      "app": (String) "The application that is subscribed to the originated channel, and passed to the Stasis
          *      application",
          *      "appArgs": (String) "The application arguments to pass to the Stasis application",
-         *      "callerid": (String) "CallerID to use when dialing the endpoint or extension",
+         *      "callerId": (String) "CallerID to use when dialing the endpoint or extension",
          *      "timeout": (Integer) "Timeout (in seconds) before giving up dialing, or -1 for no timeout",
          *      "channelId": (String) "The unique id to assign the channel on creation",
          *      "otherChannelId": (String) "The unique id to assign the second channel when using local channels"
