@@ -129,7 +129,7 @@ Trace: #0 C:\Users\nirsi_000\Documents\phpari\vendor\educoder\pest\Pest.php(128)
 
 Basic Stasis application programming
 ------------------------------------
-Stasis is an event driven environment, which isn't really the native environment for PHP. However, thanks to PHP 5.3 and the React library, it is possible to write a "callback" based web socket clinet.
+Stasis is an event driven environment, which isn't really the native environment for PHP. However, thanks to PHP 5.3 and the React library, it is possible to write a "callback" based web socket client.
 The following example shows how this can be done - the complete example is under examples/BasicStasisApplication.php.
 
 First, we need to setup our basic Stasis connection to Asterisk:
