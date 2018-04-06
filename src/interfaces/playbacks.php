@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -26,18 +28,19 @@
 class playbacks //extends phpari
 {
     private $phpariObject;
+    private $pestObject;
 
     function __construct($connObject = NULL)
     {
         try {
 
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                throw new Exception("Missing PestObject or empty string", 503);
+                throw new \Exception("Missing PestObject or empty string", 503);
 
             $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
@@ -56,16 +59,16 @@ class playbacks //extends phpari
             $result = FALSE;
 
             if (is_null($this->pestObject))
-                throw new Exception("PEST Object not provided or is null", 503);
+                throw new \Exception("PEST Object not provided or is null", 503);
 
             if (is_null($playbackid))
-                throw new Exception("playbackid is required for this operation", 503);
+                throw new \Exception("playbackid is required for this operation", 503);
 
             $uri = "/playbacks/" . $playbackid;
             $result = $this->pestObject->get($uri);
 
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
@@ -92,16 +95,16 @@ class playbacks //extends phpari
             $result = FALSE;
 
             if (is_null($this->pestObject))
-                throw new Exception("PEST Object not provided or is null", 503);
+                throw new \Exception("PEST Object not provided or is null", 503);
 
             if (is_null($playbackid))
-                throw new Exception("playbackid is required for this operation", 503);
+                throw new \Exception("playbackid is required for this operation", 503);
 
             $uri = "/playbacks/" . $playbackid;
             $result = $this->pestObject->delete($uri);
 
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;
@@ -129,13 +132,13 @@ class playbacks //extends phpari
             $result = FALSE;
 
             if (is_null($this->pestObject))
-                throw new Exception("PEST Object not provided or is null", 503);
+                throw new \Exception("PEST Object not provided or is null", 503);
 
             if (is_null($playbackid))
-                throw new Exception("playbackid is required for this operation", 503);
+                throw new \Exception("playbackid is required for this operation", 503);
 
             if (is_null($control))
-                throw new Exception("control is required for this operation", 503);
+                throw new \Exception("control is required for this operation", 503);
 
             switch (strtoupper($control)) {
                 case "RESTART":
@@ -145,7 +148,7 @@ class playbacks //extends phpari
                 case "FORWARD":
                     break;
                 default:
-                    throw new Exception("control property is unknown", 503);
+                    throw new \Exception("control property is unknown", 503);
                     break;
             }
 
@@ -153,7 +156,7 @@ class playbacks //extends phpari
             $result = $this->pestObject->post($uri, array('operation' => $control));
 
             return $result;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return FALSE;

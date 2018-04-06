@@ -26,8 +26,8 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn     = new phpari("hello-world"); //create new object
-    $channels = new channels($conn);
+    $conn     = new \phpari\phpari("hello-world"); //create new object
+    $channels = new \phpari\interfaces\channels($conn);
     $response = $channels->channel_originate(
         'SIP/7001',
         NULL,
@@ -47,5 +47,3 @@
 
     echo json_encode($response);
     exit(0);
-
-?>

@@ -26,9 +26,8 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn = new phpari("hello-world"); //create new object
-    $efa  = new events($conn);
+    $conn = new \phpari\phpari("hello-world"); //create new object
+    $efa  = new \phpari\interfaces\events($conn);
 
     echo json_encode($efa->events('hello-world'));
     exit(0);
-?>

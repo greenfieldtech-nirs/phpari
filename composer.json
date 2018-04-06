@@ -19,22 +19,12 @@
         "devristo/phpws": "dev-master",
         "wyrihaximus/react-guzzle": "1.0.0"
     },
-    "autoload": {
-        "files": [
-            "phpari.php",
-            "src/interfaces/asterisk.php",
-            "src/interfaces/channels.php",
-            "src/interfaces/bridges.php",
-            "src/interfaces/endpoints.php",
-            "src/interfaces/recordings.php",
-            "src/interfaces/applications.php",
-            "src/interfaces/devicestates.php",
-            "src/interfaces/events.php",
-            "src/interfaces/mailboxes.php",
-            "src/interfaces/sounds.php",
-            "src/interfaces/playbacks.php",
-            "src/helpers/parsing_helper.php",
-            "src/helpers/config_helper.php"
-        ]
+    "autoload" : {
+        "psr-4" : {
+            "phpari\\" : "src"
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.9.2"
     }
 }

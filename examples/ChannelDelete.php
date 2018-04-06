@@ -28,8 +28,8 @@
 
     try {
 
-        $conn     = new phpari("hello-world"); //create new object
-        $channels = new channels($conn);
+        $conn     = new \phpari\phpari("hello-world"); //create new object
+        $channels = new \phpari\interfaces\channels($conn);
         $postData = file_get_contents("php://input");
 
         if (!($postData) || empty($postData))
@@ -46,5 +46,3 @@
     } catch (Exception $e) {
         echo json_encode(array('status' => $e->getCode(), 'message' => $e->getMessage()));
     }
-
-?>

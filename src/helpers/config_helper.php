@@ -1,4 +1,7 @@
 <?php
+
+namespace phpari\helpers;
+
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -33,7 +36,7 @@
         {
             try {
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
             }
         }
@@ -42,10 +45,10 @@
         {
             try {
                 if ($stasisObject == NULL)
-                    throw new Exception("stasisObject not provided", 503);
+                    throw new \Exception("stasisObject not provided", 503);
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 return false;
             }
         }

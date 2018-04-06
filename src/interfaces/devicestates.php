@@ -1,4 +1,7 @@
 <?php
+
+namespace phpari\interfaces;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -25,18 +28,19 @@
 class devicestates //extends phpari
 {
     private $phpariObject;
+    private $pestObject;
 
     function __construct($connObject = NULL)
     {
         try {
 
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                throw new Exception("Missing PestObject or empty string", 503);
+                throw new \Exception("Missing PestObject or empty string", 503);
 
             $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
@@ -53,13 +57,13 @@ class devicestates //extends phpari
         try {
 
             if (is_null($this->pestObject))
-                throw new Exception("PEST Object not provided or is null", 503);
+                throw new \Exception("PEST Object not provided or is null", 503);
 
             $uri = (is_null($deviceName))?"/deviceStates":"/deviceStates/" . $deviceName;
             $result = $this->pestObject->get($uri);
             return $result;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
@@ -102,9 +106,9 @@ class devicestates //extends phpari
         try {
 
             if (is_null($deviceName))
-                throw new Exception("Device name is not provided or is null", 503);
+                throw new \Exception("Device name is not provided or is null", 503);
             if (is_null($deviceState))
-                throw new Exception("Device state name is  not provided or is null", 503);
+                throw new \Exception("Device state name is  not provided or is null", 503);
 
             $putObj = array(
                 'deviceState' =>$deviceState
@@ -115,7 +119,7 @@ class devicestates //extends phpari
 
             return $result;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
@@ -145,14 +149,14 @@ class devicestates //extends phpari
         try {
 
             if (is_null($deviceName))
-                throw new Exception("Device name is not provided or is null", 503);
+                throw new \Exception("Device name is not provided or is null", 503);
 
             $uri    = "/deviceStates/".$deviceName;
             $result = $this->pestObject->delete($uri);
 
             return $result;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;

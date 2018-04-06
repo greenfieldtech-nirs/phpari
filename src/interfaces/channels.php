@@ -1,6 +1,9 @@
 <?php
 
-    /**
+namespace phpari\interfaces;
+use phpari\helpers\parsing_helper;
+
+/**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
      *
@@ -25,21 +28,21 @@
      */
     class channels //extends phpari
     {
-
         private $phpariObject;
+        private $pestObject;
 
         function __construct($connObject = NULL)
         {
             try {
 
                 if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                    throw new Exception("Missing PestObject or empty string", 503);
+                    throw new \Exception("Missing PestObject or empty string", 503);
 
                 $this->phpariObject = $connObject;
                 $this->pestObject = $connObject->ariEndpoint;
 
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
             }
         }
@@ -56,7 +59,7 @@
                 $result = FALSE;
 
                 if (is_null($this->pestObject))
-                    throw new Exception("PEST Object not provided or is null", 503);
+                    throw new \Exception("PEST Object not provided or is null", 503);
 
                 $uri = "/channels";
                 $result = $this->pestObject->get($uri);
@@ -64,17 +67,17 @@
                 return $result;
 
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -136,7 +139,7 @@
 
 
                 if (is_null($endpoint))
-                    throw new Exception("End point not provided or is null", 503);
+                    throw new \Exception("End point not provided or is null", 503);
 
                 $originateData = array();
                 $originateData['endpoint'] = $endpoint;
@@ -152,17 +155,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -189,23 +192,23 @@
             try {
 
                 if (is_null($channel_id))
-                    throw new Exception("PEST Object not provided or is null", 503);
+                    throw new \Exception("PEST Object not provided or is null", 503);
 
                 $result = $this->pestObject->get("/channels/" . $channel_id);
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -232,23 +235,23 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $result = $this->pestObject->delete("/channels/" . $channel_id);
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -276,13 +279,13 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
                 if (is_null($context))
-                    throw new Exception("Content not provided or is null", 503);
+                    throw new \Exception("Content not provided or is null", 503);
                 if (is_null($extension))
-                    throw new Exception("Extension not provided or is null", 503);
+                    throw new \Exception("Extension not provided or is null", 503);
                 if (is_null($priority))
-                    throw new Exception("Priority not provided or is null", 503);
+                    throw new \Exception("Priority not provided or is null", 503);
 
                 $postArray = array('context' => $context, 'extension' => $extension, 'priority' => (int)$priority);
 
@@ -291,17 +294,17 @@
                 return $result;
 
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -328,24 +331,24 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $result = $this->pestObject->post("/channels/" . $channel_id . "/answer", array());
 
                 return $result;
 
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -373,24 +376,24 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $result = $this->pestObject->post("/channels/" . $channel_id . "/ring", array());
 
                 return $result;
 
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -410,24 +413,24 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $result = $this->pestObject->delete("/channels/" . $channel_id . "/ring");
 
                 return $result;
 
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -467,10 +470,10 @@
                 $result = FALSE;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 if (is_null($dtmf))
-                    throw new Exception("The dtmfObject not provided or is null", 503);
+                    throw new \Exception("The dtmfObject not provided or is null", 503);
 
                 $dtmfObject = array(
                     'dtmf'     => $dtmf,
@@ -486,17 +489,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -525,7 +528,7 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $cDirection = array('direction' => $direction);
 
@@ -534,17 +537,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -573,7 +576,7 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $cDirection = array('direction' => $direction);
 
@@ -583,17 +586,17 @@
                 return $result;
 
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -620,7 +623,7 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 switch ($action) {
                     case "stop":
@@ -634,17 +637,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -679,9 +682,9 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
                 if (is_null($mohClass))
-                    throw new Exception("mohClass not provided or is null", 503);
+                    throw new \Exception("mohClass not provided or is null", 503);
 
 
                 $postMoh = array('mohClass' => $mohClass);
@@ -689,17 +692,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -726,23 +729,23 @@
                 // $result = false;
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 $result = $this->pestObject->delete("/channels/" . $channel_id . "/moh");
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -769,7 +772,7 @@
             try {
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
 
                 switch ($action) {
                     case "stop":
@@ -783,17 +786,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -819,10 +822,10 @@
                 $result = FALSE;
 
                 if (is_null($media))
-                    throw new Exception("media URI not provided or is null", 503);
+                    throw new \Exception("media URI not provided or is null", 503);
 
                 if (is_null($channel_id))
-                    throw new Exception("channel ID not provided or is null", 503);
+                    throw new \Exception("channel ID not provided or is null", 503);
 
                 //TODO: Fill in the gaps!
 
@@ -837,17 +840,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -881,11 +884,11 @@
             try {
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
                 if (is_null($name))
-                    throw new Exception("Recording's filename is not provided or is null", 503);
+                    throw new \Exception("Recording's filename is not provided or is null", 503);
                 if (is_null($format))
-                    throw new Exception("Format to encode audio is not provided or is null", 503);
+                    throw new \Exception("Format to encode audio is not provided or is null", 503);
 
                 $postData = array(
                     "name"               => $name,
@@ -902,17 +905,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -939,9 +942,9 @@
             try {
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
                 if (is_null($variable))
-                    throw new Exception("The variable  is not provided or is null", 503);
+                    throw new \Exception("The variable  is not provided or is null", 503);
 
 
                 $getObject = array('variable' => $variable);
@@ -949,17 +952,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -988,26 +991,26 @@
             try {
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
                 if (is_null($variable))
-                    throw new Exception("The variable  is not provided or is null", 503);
+                    throw new \Exception("The variable  is not provided or is null", 503);
 
                 $postObject = array('variable' => $variable, 'value' => $value);
                 $result = $this->pestObject->post("/channels/" . $channel_id . "/variable", $postObject);
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -1038,9 +1041,9 @@
             try {
 
                 if (is_null($channel_id))
-                    throw new Exception("Channel ID not provided or is null", 503);
+                    throw new \Exception("Channel ID not provided or is null", 503);
                 if (is_null($app))
-                    throw new Exception("The application the snooping channel is placed into is not provided or is null", 503);
+                    throw new \Exception("The application the snooping channel is placed into is not provided or is null", 503);
 
                 $postObject = array(
                     'spy'     => $spy,
@@ -1054,17 +1057,17 @@
 
                 return $result;
 
-            } catch (Pest_NotFound $e) {
+            } catch (\Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Pest_BadRequest $e) {
+            } catch (\Pest_BadRequest $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
                 return FALSE;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 

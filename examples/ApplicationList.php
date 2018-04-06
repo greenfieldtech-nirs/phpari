@@ -28,9 +28,9 @@
 
     try {
 
-        $conn = new phpari("hello-world"); //create new object
+        $conn = new \phpari\phpari("hello-world"); //create new object
 
-        $app  = new applications($conn);
+        $app  = new \phpari\interfaces\applications($conn);
 
         $result=$app->applications_list();
 

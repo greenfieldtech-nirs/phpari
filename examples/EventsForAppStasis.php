@@ -34,8 +34,8 @@
 
         public function __construct()
         {
-            $this->conn   = new phpari("hello-world"); //create new object
-            $this->events = new events($this->conn);
+            $this->conn   = new \phpari\phpari("hello-world"); //create new object
+            $this->events = new \phpari\interfaces\events($this->conn);
 
 
         }

@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -26,18 +28,19 @@
 class events // extends phpari
 {
     private $phpariObject;
+    private $pestObject;
 
     function __construct($connObject = NULL)
     {
         try {
 
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                throw new Exception("Missing PestObject or empty string", 503);
+                throw new \Exception("Missing PestObject or empty string", 503);
 
             $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
@@ -55,7 +58,7 @@ class events // extends phpari
         try {
 
             if (is_null($app))
-                throw new Exception("App name is not provided or is null", 503);
+                throw new \Exception("App name is not provided or is null", 503);
 
             $uri = "/events";
             $getObj = array('app' => $app);
@@ -64,7 +67,7 @@ class events // extends phpari
             return $result;
 
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
@@ -98,9 +101,9 @@ class events // extends phpari
         try {
 
             if (is_null($application))
-                throw new Exception("Application name is  not provided or is null", 503);
+                throw new \Exception("Application name is  not provided or is null", 503);
             if (is_null($eventName))
-                throw new Exception("Event name is  not provided or is null", 503);
+                throw new \Exception("Event name is  not provided or is null", 503);
 
 
             $uri = "/events/user/" . $eventName;
@@ -118,7 +121,7 @@ class events // extends phpari
             $result = $this->pestObject->post($uri, $postObj);
             return $result;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;

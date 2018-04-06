@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -25,20 +27,20 @@
      */
     class recordings //extends phpari
     {
-
         private $phpariObject;
+        private $pestObject;
 
         function __construct($connObject = NULL)
         {
             try {
 
                 if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                    throw new Exception("Missing PestObject or empty string", 503);
+                    throw new \Exception("Missing PestObject or empty string", 503);
 
                 $this->phpariObject = $connObject;
                 $this->pestObject   = $connObject->ariEndpoint;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
             }
         }
@@ -59,7 +61,7 @@
                 $uri = "/recordings/stored";
 
                 if (is_null($action))
-                    throw new Exception("action not specified or is null", 503);
+                    throw new \Exception("action not specified or is null", 503);
 
                 switch ($action) {
                     case "show":
@@ -69,7 +71,7 @@
                         break;
                     default:
                         if (is_null($recordingName))
-                            throw new Exception("recording name not specified or is null", 503);
+                            throw new \Exception("recording name not specified or is null", 503);
 
                         $uri .= "/" . $recordingName;
 
@@ -79,7 +81,7 @@
                                 break;
                             case "copy":
                                 if (is_null($destinationRecording))
-                                    throw new Exception("destination recording name not specified or is null", 503);
+                                    throw new \Exception("destination recording name not specified or is null", 503);
                                 $uri .= "/copy";
                                 $postOBJ = array(
                                     'destinationRecordingName' => $destinationRecording
@@ -87,7 +89,7 @@
                                 $result = $this->pestObject->post($uri, $postOBJ);
                                 break;
                             default:
-                                throw new Exception("unknown action specified", 503);
+                                throw new \Exception("unknown action specified", 503);
                                 break;
                         }
                         break;
@@ -95,7 +97,7 @@
 
                 return $result;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -158,7 +160,7 @@
                 $uri = "/recordings/live";
 
                 if (is_null($action))
-                    throw new Exception("action not specified or is null", 503);
+                    throw new \Exception("action not specified or is null", 503);
 
                 switch ($action) {
                     case "show":
@@ -167,14 +169,14 @@
                         break;
                     default:
                         if (is_null($recordingName))
-                            throw new Exception("recording name not specified or is null", 503);
+                            throw new \Exception("recording name not specified or is null", 503);
 
                         $uri = "/recordings/live/" . $recordingName;
 						$postData = array();
 
                         switch ($action) {
                             case "start":
-                                throw new Exception("Starting a recording is done via channels interface - have you forgotten?", 503);
+                                throw new \Exception("Starting a recording is done via channels interface - have you forgotten?", 503);
                                 break;
                             case "stop":
                                 $uri .= "/stop";
@@ -200,7 +202,7 @@
                                 $result = $this->pestObject->delete($uri);
                                 break;
                             default:
-                                throw new Exception("unknown action specified", 503);
+                                throw new \Exception("unknown action specified", 503);
                                 break;
                         }
                         break;
@@ -208,7 +210,7 @@
 
                 return $result;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 

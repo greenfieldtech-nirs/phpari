@@ -49,7 +49,7 @@
                 if (is_null($appname))
                     throw new Exception("[" . __FILE__ . ":" . __LINE__ . "] Stasis application name must be defined!", 500);
 
-                $this->phpariObject = new phpari($appname);
+                $this->phpariObject = new \phpari\phpari($appname);
 
                 $this->ariEndpoint  = $this->phpariObject->ariEndpoint;
                 $this->stasisClient = $this->phpariObject->stasisClient;

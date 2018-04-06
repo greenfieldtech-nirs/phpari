@@ -1,4 +1,7 @@
 <?php
+
+namespace phpari\helpers;
+
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -32,7 +35,7 @@ class parsing_helper {
     {
         try {
             return false;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
@@ -50,7 +53,7 @@ class parsing_helper {
         try {
 
             if ($rawInput == NULL)
-                throw new Exception ("Input must be defined", 503);
+                throw new \Exception ("Input must be defined", 503);
 
             $result = array();
 
@@ -65,7 +68,7 @@ class parsing_helper {
 
             return $result;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }

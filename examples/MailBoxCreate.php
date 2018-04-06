@@ -26,9 +26,8 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn      = new phpari("hello-world"); //create new object
-    $mailboxes = new mailboxes($conn);
+    $conn      = new \phpari\phpari("hello-world"); //create new object
+    $mailboxes = new \phpari\interfaces\mailboxes($conn);
 
     echo json_encode($mailboxes->mailbox_change_state('testMailBox', 0, 0));
     exit(0);
-?>

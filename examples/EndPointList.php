@@ -26,12 +26,9 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn         = new phpari("hello-world"); //create new object
-    $cEndPoints = new endpoints($conn);
+    $conn         = new \phpari\phpari("hello-world"); //create new object
+    $cEndPoints = new \phpari\interfaces\endpoints($conn);
     $response   = $cEndPoints->endpoints_list();
 
     echo json_encode($response);
     exit(0);
-
-
-?>

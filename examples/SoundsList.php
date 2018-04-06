@@ -26,9 +26,8 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn   = new phpari("hello-world"); //create new object
-    $sounds = new sounds($conn);
+    $conn   = new \phpari\phpari("hello-world"); //create new object
+    $sounds = new \phpari\interfaces\sounds($conn);
 
     echo json_encode($sounds->sounds_list('en', 'gsm'));
     exit(0);
-?>

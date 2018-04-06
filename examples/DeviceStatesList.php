@@ -26,10 +26,9 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn         = new phpari("hello-world"); //create new object
-    $devicesState = new devicestates($conn);
+    $conn         = new \phpari\phpari("hello-world"); //create new object
+    $devicesState = new \phpari\interfaces\devicestates($conn);
 
     echo json_encode($devicesState->devicestates_list());
-
 
     exit(0);

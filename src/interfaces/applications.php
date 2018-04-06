@@ -24,6 +24,8 @@
  * written by Nir Simionovich and its respective list of contributors.
  */
 
+namespace phpari\interfaces;
+
 use GuzzleHttp\Client;
 
 class applications // extends phpari
@@ -32,13 +34,14 @@ class applications // extends phpari
 	private $phpariObject;
 	public $ariEndpointClient;
 	public $ariEndpointOptions;
+    private $ariEndpointURL;
 
 	function __construct($connObject = NULL)
 	{
 		try {
 
 			if (is_null($connObject) || is_null($connObject->ariEndpointURL))
-				throw new Exception("Missing endpoint or empty string", 503);
+				throw new \Exception("Missing endpoint or empty string", 503);
 
 			$this->phpariObject = $connObject;
 
@@ -57,7 +60,7 @@ class applications // extends phpari
 				]
 			];
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
 		}
 	}
@@ -77,7 +80,7 @@ class applications // extends phpari
 				case "deviceState":
 					break;
 				default:
-					throw new Exception("Unknown event type for URI " . $eventURI, 503);
+					throw new \Exception("Unknown event type for URI " . $eventURI, 503);
 					break;
 			}
 		}
@@ -116,7 +119,7 @@ class applications // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
@@ -158,9 +161,9 @@ class applications // extends phpari
 		try {
 
 			if (is_null($applicationName))
-				throw new Exception("Application name not provided or is null", 503);
+				throw new \Exception("Application name not provided or is null", 503);
 			if (is_null($eventSources))
-				throw new Exception("eventSources not provided or is null", 503);
+				throw new \Exception("eventSources not provided or is null", 503);
 
 			$this->validate_event_sources($eventSources);
 
@@ -187,7 +190,7 @@ class applications // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return FALSE;
@@ -220,9 +223,9 @@ class applications // extends phpari
 		try {
 
 			if (is_null($applicationName))
-				throw new Exception("Application name not provided or is null", 503);
+				throw new \Exception("Application name not provided or is null", 503);
 			if (is_null($eventSources))
-				throw new Exception("eventSources not provided or is null", 503);
+				throw new \Exception("eventSources not provided or is null", 503);
 
 			$this->validate_event_sources($eventSources);
 
@@ -251,7 +254,7 @@ class applications // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -27,17 +29,21 @@ class asterisk // extends phpari
 {
 
 	private $phpariObject;
+	private $ariEndpointURL;
+	private $ariEndpointOptions;
+	private $ariEndpointClient;
+	private $pestObject;
 
 	function __construct($connObject = NULL)
 	{
 		try {
 
 			if (is_null($connObject) || is_null($connObject->ariEndpoint))
-				throw new Exception("Missing PestObject or empty string", 503);
+				throw new \Exception("Missing PestObject or empty string", 503);
 
 			$this->phpariObject = $connObject;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
 		}
 	}
@@ -51,7 +57,7 @@ class asterisk // extends phpari
 	 */
 	public function get_asterisk_info($filter = NULL)
 	{
-		return info($filter);
+		return $this->info($filter);
 	}
 
 	/**
@@ -96,7 +102,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -117,7 +123,7 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($variable))
-				throw new Exception("Global variable name not provided or is null", 503);
+				throw new \Exception("Global variable name not provided or is null", 503);
 
 			$uri = "/asterisk/variable?variable=" . $variable;
 
@@ -139,7 +145,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -168,10 +174,10 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($variable))
-				throw new Exception("Global variable name not provided or is null", 503);
+				throw new \Exception("Global variable name not provided or is null", 503);
 
 			if (is_null($value))
-				throw new Exception("Global variable value not provided or is null", 503);
+				throw new \Exception("Global variable value not provided or is null", 503);
 
 			$uri = "/asterisk/variable";
 			$postData = array("variable" => $variable, "value" => $value);
@@ -193,7 +199,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -222,13 +228,13 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($configClass))
-				throw new Exception("configClass variable name not provided or is null", 503);
+				throw new \Exception("configClass variable name not provided or is null", 503);
 
 			if (is_null($objectType))
-				throw new Exception("objectType variable value not provided or is null", 503);
+				throw new \Exception("objectType variable value not provided or is null", 503);
 
 			if (is_null($id))
-				throw new Exception("id variable value not provided or is null", 503);
+				throw new \Exception("id variable value not provided or is null", 503);
 
 			$uri = "/asterisk/config/dynamic/" . $configClass . "/" . $objectType . "/" . $id;
 			$result = json_decode($this->ariEndpointClient->get($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents());
@@ -247,7 +253,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -280,16 +286,16 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($configClass))
-				throw new Exception("configClass variable name not provided or is null", 503);
+				throw new \Exception("configClass variable name not provided or is null", 503);
 
 			if (is_null($objectType))
-				throw new Exception("objectType variable value not provided or is null", 503);
+				throw new \Exception("objectType variable value not provided or is null", 503);
 
 			if (is_null($id))
-				throw new Exception("id variable value not provided or is null", 503);
+				throw new \Exception("id variable value not provided or is null", 503);
 
 			if (is_null($fields))
-				throw new Exception("id variable value not provided or is null", 503);
+				throw new \Exception("id variable value not provided or is null", 503);
 
 			$uri = "/asterisk/config/dynamic/" . $configClass . "/" . $objectType . "/" . $id;
 
@@ -310,7 +316,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -343,13 +349,13 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($configClass))
-				throw new Exception("configClass variable name not provided or is null", 503);
+				throw new \Exception("configClass variable name not provided or is null", 503);
 
 			if (is_null($objectType))
-				throw new Exception("objectType variable value not provided or is null", 503);
+				throw new \Exception("objectType variable value not provided or is null", 503);
 
 			if (is_null($id))
-				throw new Exception("id variable value not provided or is null", 503);
+				throw new \Exception("id variable value not provided or is null", 503);
 
 
 			$uri = "/asterisk/config/dynamic/" . $configClass . "/" . $objectType . "/" . $id;
@@ -370,7 +376,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -409,21 +415,21 @@ class asterisk // extends phpari
 				case "load":
 
 					if (is_null($module_name))
-						throw new Exception("module_name variable name not provided or is null", 503);
+						throw new \Exception("module_name variable name not provided or is null", 503);
 
 					$result = json_decode($this->ariEndpointClient->post($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents());
 					break;
 				case "unload":
 
 					if (is_null($module_name))
-						throw new Exception("module_name variable name not provided or is null", 503);
+						throw new \Exception("module_name variable name not provided or is null", 503);
 
 					$result = json_decode($this->ariEndpointClient->delete($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents());
 					break;
 				case "reload":
 
 					if (is_null($module_name))
-						throw new Exception("module_name variable name not provided or is null", 503);
+						throw new \Exception("module_name variable name not provided or is null", 503);
 
 					$result = json_decode($this->ariEndpointClient->put($this->ariEndpointURL . $uri, $this->ariEndpointOptions)->getBody()->getContents());
 					break;
@@ -443,7 +449,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -547,7 +553,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -568,10 +574,10 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($log_channel_name))
-				throw new Exception("log_channel_name variable name not provided or is null", 503);
+				throw new \Exception("log_channel_name variable name not provided or is null", 503);
 
 			if (is_null($configuration))
-				throw new Exception("configuration variable name not provided or is null", 503);
+				throw new \Exception("configuration variable name not provided or is null", 503);
 
 			$uri = "/asterisk/logging/" . $log_channel_name;
 
@@ -592,7 +598,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -612,7 +618,7 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($log_channel_name))
-				throw new Exception("log_channel_name variable name not provided or is null", 503);
+				throw new \Exception("log_channel_name variable name not provided or is null", 503);
 
 
 			$uri = "/asterisk/logging/" . $log_channel_name . "/rotate";
@@ -633,7 +639,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -654,7 +660,7 @@ class asterisk // extends phpari
 			$result = FALSE;
 
 			if (is_null($log_channel_name))
-				throw new Exception("log_channel_name variable name not provided or is null", 503);
+				throw new \Exception("log_channel_name variable name not provided or is null", 503);
 
 			$uri = "/asterisk/logging/" . $log_channel_name;
 
@@ -674,7 +680,7 @@ class asterisk // extends phpari
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 			return (int)$e->getCode();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 

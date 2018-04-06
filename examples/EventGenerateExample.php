@@ -28,8 +28,8 @@
 
     try {
 
-        $conn      = new phpari("hello-world"); //create new object
-        $event     = new events($conn);
+        $conn      = new \phpari\phpari("hello-world"); //create new object
+        $event     = new \phpari\interfaces\events($conn);
         $valiables = array("var1" => "cool");
         $response  = $event->event_generate('justName', "hello-world", "141", NULL, 'SIP/7008', "leosip", $valiables);
 
@@ -38,6 +38,3 @@
     } catch (Exception $e) {
         echo json_encode(array('status' => $e->getCode(), 'message' => $e->getMessage()));
     }
-
-
-?>

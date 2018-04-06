@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -26,18 +28,19 @@
 class sounds //extends phpari
 {
     private $phpariObject;
+    private $pestObject;
 
     function __construct($connObject = NULL)
     {
         try {
 
             if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                throw new Exception("Missing PestObject or empty string", 503);
+                throw new \Exception("Missing PestObject or empty string", 503);
 
             $this->phpariObject = $connObject;
             $this->pestObject = $connObject->ariEndpoint;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
         }
     }
@@ -69,7 +72,7 @@ class sounds //extends phpari
             $result = $this->pestObject->get($uri, $getOBJ);
             return $result;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;
@@ -99,11 +102,11 @@ class sounds //extends phpari
         try {
 
             if (is_null($soundID))
-                throw new Exception("Sound ID not provided or is null", 503);
+                throw new \Exception("Sound ID not provided or is null", 503);
 
             return $this->show(NULL, NULL, $soundID);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->phpariObject->lasterror = $e->getMessage();
             $this->phpariObject->lasttrace = $e->getTraceAsString();
             return false;

@@ -1,6 +1,9 @@
 <?php
 
-    /**
+namespace phpari\interfaces;
+use phpari\helpers\parsing_helper;
+
+/**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
      *
@@ -26,18 +29,19 @@
     class endpoints //extends phpari
     {
         private $phpariObject;
+        private $pestObject;
 
         function __construct($connObject = NULL)
         {
             try {
 
                 if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                    throw new Exception("Missing PestObject or empty string", 503);
+                    throw new \Exception("Missing PestObject or empty string", 503);
 
                 $this->phpariObject = $connObject;
                 $this->pestObject   = $connObject->ariEndpoint;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
             }
         }
@@ -56,7 +60,7 @@
             try {
 
                 if (is_null($this->pestObject))
-                    throw new Exception("PEST Object not provided or is null", 503);
+                    throw new \Exception("PEST Object not provided or is null", 503);
 
                 $uri = "/endpoints";
                 if (!is_null($tech)) {
@@ -70,7 +74,7 @@
                 return $result;
 
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -126,10 +130,10 @@
             try {
 
                 if (is_null($to))
-                    throw new Exception("endpoint name not provided or is null", 503);
+                    throw new \Exception("endpoint name not provided or is null", 503);
 
                 if (is_null($from))
-                    throw new Exception("endpoint name not provided or is null", 503);
+                    throw new \Exception("endpoint name not provided or is null", 503);
 
                 $uri = "/endpoints/sendMessage";
 
@@ -141,7 +145,7 @@
                     case "XMPP":
                         break;
                     default:
-                        throw new Exception("To resource is of invalid resource type");
+                        throw new \Exception("To resource is of invalid resource type");
                         break;
                 }
 
@@ -152,7 +156,7 @@
                     case "XMPP":
                         break;
                     default:
-                        throw new Exception("From resource is of invalid resource type");
+                        throw new \Exception("From resource is of invalid resource type");
                         break;
                 }
 
@@ -162,13 +166,14 @@
                     'body' => $body
                 );
 
-                $message = (isAssoc($variables))?array_merge($message, $variables):$message;
+                $parsing_helper = new parsing_helper();
+                $message = ($parsing_helper->isAssoc($variables))?array_merge($message, $variables):$message;
 
                 $result = $this->pestObject->put($uri, $message);
 
                 return $result;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -203,13 +208,13 @@
             try {
 
                 if (is_null($tech))
-                    throw new Exception("Technology is not provided or is null", 503);
+                    throw new \Exception("Technology is not provided or is null", 503);
 
                 if (is_null($resource))
-                    throw new Exception("Technology is not provided or is null", 503);
+                    throw new \Exception("Technology is not provided or is null", 503);
 
                 if (is_null($from))
-                    throw new Exception("Sender tech/endpoint uri is not provided or is null", 503);
+                    throw new \Exception("Sender tech/endpoint uri is not provided or is null", 503);
 
                 /* Validate technologies */
                 list($res_from, $address_from) = explode(":", $from);
@@ -219,7 +224,7 @@
                     case "XMPP":
                         break;
                     default:
-                        throw new Exception("From resource is of invalid resource type");
+                        throw new \Exception("From resource is of invalid resource type");
                         break;
                 }
 
@@ -234,7 +239,7 @@
 
                 return $result;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 

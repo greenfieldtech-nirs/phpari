@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
     /**
      * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
      * Copyright (C) 2014  Nir Simionovich
@@ -26,18 +28,19 @@
     class mailboxes //extends phpari
     {
         private $phpariObject;
+        private $pestObject;
 
         function __construct($connObject = NULL)
         {
             try {
 
                 if (is_null($connObject) || is_null($connObject->ariEndpoint))
-                    throw new Exception("Missing PestObject or empty string", 503);
+                    throw new \Exception("Missing PestObject or empty string", 503);
 
                 $this->phpariObject = $connObject;
                 $this->pestObject   = $connObject->ariEndpoint;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
             }
         }
@@ -60,7 +63,7 @@
                 return $result;
 
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -105,13 +108,13 @@
             try {
 
                 if (is_null($mailBoxName))
-                    throw new Exception("Mail box name is  not provided or is null", 503);
+                    throw new \Exception("Mail box name is  not provided or is null", 503);
 
                 if (is_null($oldMessages))
-                    throw new Exception("Old messages is  not provided or is null", 503);
+                    throw new \Exception("Old messages is  not provided or is null", 503);
 
                 if (is_null($newMessages))
-                    throw new Exception("New messages is  not provided or is null", 503);
+                    throw new \Exception("New messages is  not provided or is null", 503);
 
                 $uri = "/mailboxes/" . $mailBoxName;
 
@@ -125,7 +128,7 @@
                 return $result;
 
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -152,14 +155,14 @@
             try {
 
                 if (is_null($mailbox))
-                    throw new Exception("Mail box name is  not provided or is null", 503);
+                    throw new \Exception("Mail box name is  not provided or is null", 503);
 
                 $uri    = "/mailboxes/" . $mailbox;
                 $result = $this->pestObject->delete($uri);
 
                 return $result;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
 

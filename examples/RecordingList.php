@@ -26,9 +26,8 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn        = new phpari("hello-world"); //create new object
-    $cRecordings = new recordings($conn);
+    $conn        = new \phpari\phpari("hello-world"); //create new object
+    $cRecordings = new \phpari\interfaces\recordings($conn);
 
     echo json_encode($cRecordings->recording_list());
     exit(0);
-?>

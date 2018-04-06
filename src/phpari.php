@@ -1,5 +1,19 @@
 <?php
 
+namespace phpari;
+
+use phpari\interfaces\applications;
+use phpari\interfaces\asterisk;
+use phpari\interfaces\bridges;
+use phpari\interfaces\channels;
+use phpari\interfaces\devicestates;
+use phpari\interfaces\endpoints;
+use phpari\interfaces\events;
+use phpari\interfaces\mailboxes;
+use phpari\interfaces\playbacks;
+use phpari\interfaces\recordings;
+use phpari\interfaces\sounds;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -51,11 +65,11 @@ class phpari
 
 	/** @var \Evenement\EventEmitter */
 	public $stasisEvents;
-	/** @var Zend\Log\Logger */
+	/** @var \Zend\Log\Logger */
 	public $stasisLogger;
-	/** @var React\EventLoop\LoopInterface */
+	/** @var \React\EventLoop\LoopInterface */
 	public $stasisLoop;
-	/** @var Devristo\Phpws\Client\WebSocket */
+	/** @var \Devristo\Phpws\Client\WebSocket */
 	public $stasisClient;
 	public $debug;
 	public $logfile;
@@ -63,10 +77,10 @@ class phpari
 	public $lasttrace;
 	public $lasterrorinfo;
 
-	/** @var  PEST */
+	/** @var \PEST */
 	public $ariEndpoint;
 
-	/** @var  React-Guzzle */
+	/** @var \React-Guzzle */
 	public $ariEndpointFactory;
 	public $ariEndpointClient;
 	public $ariEndpointURL;
@@ -104,7 +118,7 @@ class phpari
 			return $result;
 
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
 		}
 
@@ -131,7 +145,7 @@ class phpari
 
 		try {
 
-			$this->ariEndpoint = new PestJSON("http://" . $ariServer . ":" . $ariPort . $ariEndpoint);
+			$this->ariEndpoint = new \PestJSON("http://" . $ariServer . ":" . $ariPort . $ariEndpoint);
 			$this->ariEndpoint->setupAuth($ariUsername, $ariPassword, "basic");
 
 			/* Create eventloop */
@@ -144,9 +158,9 @@ class phpari
 			$this->stasisLogger = new \Zend\Log\Logger();
 
 			if ($this->configuration->general['logfile'] == "console") {
-				$logWriter = new Zend\Log\Writer\Stream("php://output");
+				$logWriter = new \Zend\Log\Writer\Stream("php://output");
 			} else {
-				$logWriter = new Zend\Log\Writer\Stream($this->configuration->general['logfile']);
+				$logWriter = new \Zend\Log\Writer\Stream($this->configuration->general['logfile']);
 			}
 
 			$this->stasisLogger->addWriter($logWriter);
@@ -157,13 +171,13 @@ class phpari
 
 			if ($this->debug) $this->stasisLogger->debug("Initializing Stasis Event Emitter");
 
-			$this->stasisEvents = new Evenement\EventEmitter();
+			$this->stasisEvents = new \Evenement\EventEmitter();
 
 
 			return TRUE;
 			//return array("stasisClient" => $this->stasisClient, "stasisLoop" => $this->stasisLoop, "stasisLogger" => $this->stasisLogger, "ariEndpoint" => $this->ariEndpoint);
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
 		}
 	}
@@ -180,7 +194,7 @@ class phpari
 			}
 
 			return $this->applications;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("applications has failed initialization");
 			$this->lasterror = "applications class failed to initialize properly";
 
@@ -200,7 +214,7 @@ class phpari
 			}
 
 			return $this->asterisk;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("asterisk has failed initialization");
 			$this->lasterror = "asterisk class failed to initialize properly";
 
@@ -220,7 +234,7 @@ class phpari
 			}
 
 			return $this->bridges;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("bridges has failed initialization");
 			$this->lasterror = "bridges class failed to initialize properly";
 
@@ -240,7 +254,7 @@ class phpari
 			}
 
 			return $this->channels;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("channels has failed initialization");
 			$this->lasterror = "channels class failed to initialize properly";
 
@@ -260,7 +274,7 @@ class phpari
 			}
 
 			return $this->devicestates;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("devicestates has failed initialization");
 			$this->lasterror = "devicestates class failed to initialize properly";
 
@@ -280,7 +294,7 @@ class phpari
 			}
 
 			return $this->endpoints;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("endpoints has failed initialization");
 			$this->lasterror = "endpoints class failed to initialize properly";
 
@@ -300,7 +314,7 @@ class phpari
 			}
 
 			return $this->events;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("events has failed initialization");
 			$this->lasterror = "events class failed to initialize properly";
 
@@ -320,7 +334,7 @@ class phpari
 			}
 
 			return $this->mailboxes;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("mailboxes has failed initialization");
 			$this->lasterror = "mailboxes class failed to initialize properly";
 
@@ -340,7 +354,7 @@ class phpari
 			}
 
 			return $this->recordings;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("recordings has failed initialization");
 			$this->lasterror = "recordings class failed to initialize properly";
 
@@ -360,7 +374,7 @@ class phpari
 			}
 
 			return $this->sounds;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("sounds has failed initialization");
 			$this->lasterror = "sounds class failed to initialize properly";
 
@@ -380,7 +394,7 @@ class phpari
 			}
 
 			return $this->playbacks;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			if ($this->debug) $this->stasisLogger->debug("playbacks has failed initialization");
 			$this->lasterror = "playbacks class failed to initialize properly";
 

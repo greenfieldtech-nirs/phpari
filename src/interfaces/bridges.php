@@ -1,5 +1,7 @@
 <?php
 
+namespace phpari\interfaces;
+
 /**
  * phpari - A PHP Class Library for interfacing with Asterisk(R) ARI
  * Copyright (C) 2014  Nir Simionovich
@@ -27,20 +29,20 @@ use GuzzleHttp\Client;
 
 class bridges // extends phpari
 {
-
 	private $phpariObject;
+    private $pestObject;
 
 	function __construct($connObject = NULL)
 	{
 		try {
 
 			if (is_null($connObject) || is_null($connObject->ariEndpoint))
-				throw new Exception("Missing PestObject or empty string", 503);
+				throw new \Exception("Missing PestObject or empty string", 503);
 
 			$this->phpariObject = $connObject;
 			$this->pestObject = $connObject->ariEndpoint;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			die("Exception raised: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine());
 		}
 	}
@@ -56,7 +58,7 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($this->pestObject))
-				throw new Exception("PEST Object not provided or is null", 503);
+				throw new \Exception("PEST Object not provided or is null", 503);
 
 			$uri = "/bridges";
 			$result = $this->pestObject->get($uri);
@@ -64,7 +66,7 @@ class bridges // extends phpari
 			return $result;
 
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -113,7 +115,7 @@ class bridges // extends phpari
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -156,14 +158,14 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID not provided or is null", 503);
+				throw new \Exception("BridgeID not provided or is null", 503);
 
 			$uri = "/bridges/" . $bridgeId;
 			$result = $this->pestObject->get($uri);
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			return FALSE;
 		}
 
@@ -194,14 +196,14 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID not provided or is null", 503);
+				throw new \Exception("BridgeID not provided or is null", 503);
 
 			$uri = "/bridges/" . $bridgeId;
 			$result = $this->pestObject->delete($uri);
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -237,10 +239,10 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID is not provided or is null", 503);
+				throw new \Exception("BridgeID is not provided or is null", 503);
 
 			if (is_null($channel))
-				throw new Exception("Channel is not provided or is null", 503);
+				throw new \Exception("Channel is not provided or is null", 503);
 
 			$postObj = array();
 			$postObj['channel'] = $channel;
@@ -253,7 +255,7 @@ class bridges // extends phpari
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -286,10 +288,10 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID is not provided or is null", 503);
+				throw new \Exception("BridgeID is not provided or is null", 503);
 
 			if (is_null($channel))
-				throw new Exception("Channel is not provided or is null", 503);
+				throw new \Exception("Channel is not provided or is null", 503);
 
 			$delObj = array(
 				'channel' => $channel,
@@ -300,7 +302,7 @@ class bridges // extends phpari
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -343,7 +345,7 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID is not provided or is null", 503);
+				throw new \Exception("BridgeID is not provided or is null", 503);
 
 			$postObj = array();
 			if (!is_null($mohClass))
@@ -354,7 +356,7 @@ class bridges // extends phpari
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -366,6 +368,8 @@ class bridges // extends phpari
 	 * This function is an alias to 'moh_start' - will be deprecated in phpari 2.0
 	 *
 	 * @return mixed
+     *
+     * @deprecated since phpari 2.0
 	 */
 	public function bridge_play_moh($bridgeId = NULL, $mohClass = NULL)
 	{
@@ -387,14 +391,14 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID is not provided or is null", 503);
+				throw new \Exception("BridgeID is not provided or is null", 503);
 
 			$uri = '/bridges/' . $bridgeId . '/moh';
 			$result = $this->pestObject->delete($uri);
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -406,6 +410,8 @@ class bridges // extends phpari
 	 * This function is an alias to 'moh_stop' - will be deprecated in phpari 2.0
 	 *
 	 * @return mixed
+     *
+     * @deprecated since phpari 2.0
 	 */
 	public function bridge_stop_moh($bridgeId = NULL)
 	{
@@ -433,9 +439,9 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID is not provided or is null", 503);
+				throw new \Exception("BridgeID is not provided or is null", 503);
 			if (is_null($media))
-				throw new Exception("Media representation is not provided or is null", 503);
+				throw new \Exception("Media representation is not provided or is null", 503);
 
 			$postObj = array();
 			$postObj['media'] = $media;
@@ -457,7 +463,7 @@ class bridges // extends phpari
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 
@@ -469,6 +475,8 @@ class bridges // extends phpari
 	 * This function is an alias to 'playback_start' - will be deprecated in phpari 2.0
 	 *
 	 * @return mixed
+     *
+     * @deprecated since phpari 2.0
 	 */
 	public function bridge_start_playback($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
 	{
@@ -480,6 +488,8 @@ class bridges // extends phpari
 	 * This function is an alias to 'playback_start' - will be deprecated in phpari 2.0
 	 *
 	 * @return mixed
+     *
+     * @deprecated since phpari 2.0
 	 */
 	public function bridge_start_playback_id($bridgeId = NULL, $media = NULL, $lang = NULL, $offsetms = NULL, $skipms = NULL, $playbackId = NULL)
 	{
@@ -517,11 +527,11 @@ class bridges // extends phpari
 		try {
 
 			if (is_null($bridgeId))
-				throw new Exception("BridgeID is not provided or is null", 503);
+				throw new \Exception("BridgeID is not provided or is null", 503);
 			if (is_null($name))
-				throw new Exception("Recording filename is not provided or is null", 503);
+				throw new \Exception("Recording filename is not provided or is null", 503);
 			if (is_null($format))
-				throw new Exception("Format to encode audio in is not provided or is null", 503);
+				throw new \Exception("Format to encode audio in is not provided or is null", 503);
 
 
 			$postObj = array(
@@ -539,7 +549,7 @@ class bridges // extends phpari
 
 			return $result;
 
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->phpariObject->lasterror = $e->getMessage();
 			$this->phpariObject->lasttrace = $e->getTraceAsString();
 

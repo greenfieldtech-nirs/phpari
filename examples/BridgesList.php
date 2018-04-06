@@ -26,7 +26,7 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn    = new phpari("hello-world"); //create new object
-    $bridges = new bridges($conn);
+    $conn    = new \phpari\phpari("hello-world"); //create new object
+    $bridges = new \phpari\interfaces\bridges($conn);
 
     echo json_encode($bridges->channel_list());

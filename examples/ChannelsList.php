@@ -26,9 +26,7 @@
 
     require_once "../vendor/autoload.php";
 
-    $conn     = new phpari("hello-world");
-    $channels = new channels($conn);
+    $conn     = new \phpari\phpari("hello-world");
+    $channels = new \phpari\interfaces\channels($conn);
 
     echo json_encode($channels->channel_list());
-
-?>
