@@ -43,7 +43,7 @@ class parsing_helper {
      *
      * @param null $rawInput
      *
-     * return mixed
+     * @return mixed
      */
     function parseRequestData($rawInput = NULL)
     {
