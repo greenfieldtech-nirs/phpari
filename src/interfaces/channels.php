@@ -190,6 +190,8 @@
         {
             $response = false;
             $defaults = [
+                'endpoint' => $endpoint,
+                'app' => $app,
                 'appArgs' => '',
                 'otherChannelId' => '',
                 'originator' => '',
@@ -202,17 +204,29 @@
                     throw new Exception("End point not provided or is null", 503);
                 }
 
-                $uri = '/channels';
-                $response = $this->pestObject->post($uri, $originateData);
+                $uri = '/channels/create';
+                return $this->pestObject->post($uri, $originateData);
             } catch (Pest_Conflict $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
+
+
             } catch (Exception $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
                 $this->phpariObject->lasttrace = $e->getTraceAsString();
             }
 
-            return $response;
+            return false;
+        }
+
+        public function getLastError()
+        {
+            return $this->phpariObject->lasterror;
+        }
+
+        public function getLastTrace()
+        {
+            return $this->phpariObject->lasttrace;
         }
 
         public function dial(string $channelId, string $callerId = '', int $timeout = 30)
@@ -231,7 +245,7 @@
                     $data['caller'] = $callerId;
                 }
 
-                $uri = '/channels' . $channelId . '/dial';
+                $uri = '/channels/' . $channelId . '/dial';
                 $response = $this->pestObject->post($uri, $data);
             } catch (Pest_NotFound $e) {
                 $this->phpariObject->lasterror = $e->getMessage();
