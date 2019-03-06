@@ -53,7 +53,7 @@ class phpari_config {
 		}
 		
 		// in case we read a fle for initialization, its easy
-		if (($ini = parse_ini_file($configFile, TRUE)) === false)
+		if (($ini = parse_ini_file($config, TRUE)) === false)
 			throw new Exception("Invald INI file provided: '$config'");
 		$this->config_merge($ini);
 	}
