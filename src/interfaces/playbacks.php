@@ -79,7 +79,7 @@ class playbacks //extends phpari
      */
     public function get_playback($playbackid = NULL)
     {
-        $this->show($playbackid);
+        return $this->show($playbackid);
     }
 
     /**
@@ -137,12 +137,12 @@ class playbacks //extends phpari
             if (is_null($control))
                 throw new Exception("control is required for this operation", 503);
 
-            switch (strtoupper($control)) {
-                case "RESTART":
-                case "PAUSE":
-                case "UNPAUSE":
-                case "REVERSE":
-                case "FORWARD":
+            switch (strtolower($control)) {
+                case "restart":
+                case "pause":
+                case "unpause":
+                case "reverse":
+                case "forward":
                     break;
                 default:
                     throw new Exception("control property is unknown", 503);
