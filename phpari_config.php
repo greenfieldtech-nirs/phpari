@@ -37,6 +37,7 @@ class phpari_config {
 			'port'     => '8088',
 			'endpoint' => '/ari',
 			'transport' => 'ws',
+            'protocol' => 'http'
 		),
 		'asterisk_manager' => array(
 			'username' => 'amiuser',

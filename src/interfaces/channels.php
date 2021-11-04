@@ -178,6 +178,90 @@
         }
 
         /**
+         * Creates a channel without dialing (no origination).
+         *
+         * @param string $endpoint
+         * @param string $app
+         * @param array $options
+         *
+         * @return array|bool
+         */
+        public function channel_create(string $endpoint, string $app, array $options = [])
+        {
+            $response = false;
+            $defaults = [
+                'endpoint' => $endpoint,
+                'app' => $app,
+                'appArgs' => '',
+                'otherChannelId' => '',
+                'originator' => '',
+                'formats' => ''
+            ];
+            $originateData = array_merge($defaults, $options);
+
+            try {
+                if (is_null($endpoint)) {
+                    throw new Exception("End point not provided or is null", 503);
+                }
+
+                $uri = '/channels/create';
+                return $this->pestObject->post($uri, $originateData);
+            } catch (Pest_Conflict $e) {
+                $this->phpariObject->lasterror = $e->getMessage();
+                $this->phpariObject->lasttrace = $e->getTraceAsString();
+
+
+            } catch (Exception $e) {
+                $this->phpariObject->lasterror = $e->getMessage();
+                $this->phpariObject->lasttrace = $e->getTraceAsString();
+            }
+
+            return false;
+        }
+
+        public function getLastError()
+        {
+            return $this->phpariObject->lasterror;
+        }
+
+        public function getLastTrace()
+        {
+            return $this->phpariObject->lasttrace;
+        }
+
+        public function dial(string $channelId, string $callerId = '', int $timeout = 30)
+        {
+            $response = false;
+
+            try {
+                if (is_null($channelId)) {
+                    throw new Exception("Channel ID not provided to dial().", 503);
+                }
+
+                $data = [
+                    'timeout' => $timeout
+                ];
+                if (!empty($callerId)) {
+                    $data['caller'] = $callerId;
+                }
+
+                $uri = '/channels/' . $channelId . '/dial';
+                $response = $this->pestObject->post($uri, $data);
+            } catch (Pest_NotFound $e) {
+                $this->phpariObject->lasterror = $e->getMessage();
+                $this->phpariObject->lasttrace = $e->getTraceAsString();
+            } catch (Pest_Conflict $e) {
+                $this->phpariObject->lasterror = $e->getMessage();
+                $this->phpariObject->lasttrace = $e->getTraceAsString();
+            } catch (Exception $e) {
+                $this->phpariObject->lasterror = $e->getMessage();
+                $this->phpariObject->lasttrace = $e->getTraceAsString();
+            }
+
+            return $response;
+        }
+
+        /**
          * Get active channel details for an existing channel
          *
          * @param null (string) $channel_id - channel identifier to query
